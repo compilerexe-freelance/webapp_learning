@@ -1,6 +1,6 @@
 <body>
 
-	<?php $this->load->view('navbar'); ?>
+	<?php $this->load->view('navbar_index'); ?>
 
 	<div class="container">
 
@@ -58,7 +58,7 @@
 		      
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">ปิดหน้าต่าง</button>
+		        <button type="button" id="close_login" class="btn btn-default" data-dismiss="modal">ปิดหน้าต่าง</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
@@ -180,28 +180,28 @@
 
 		<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 25px;">
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาตอนต้น</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาตอนต้น</button>
 			</div>
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาปีที่ 4</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาปีที่ 4</button>
 			</div>
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาปีที่ 5</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาปีที่ 5</button>
 			</div>
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาปีที่ 6</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มัธยมศึกษาปีที่ 6</button>
 			</div>
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มหาวิทยาลัย</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ มหาวิทยาลัย</button>
 			</div>
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ สามัญ 7 วิชา</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ สามัญ 7 วิชา</button>
 			</div>
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ เตรียมทหาร</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">ฟิสิกส์ เตรียมทหาร</button>
 			</div>
 			<div class="form-group col-md-3">
-				<button class="btn btn-info btn-flat" style="width: 100%; height: 50px; font-size: 18px;">พื้นฐานวิศวะ</button>
+				<button class="btn btn-success btn-flat" style="width: 100%; height: 50px; font-size: 18px;">พื้นฐานวิศวะ</button>
 			</div>
 
 			
@@ -210,7 +210,11 @@
 		</div>
 	</div>
 
-	<nav class="navbar navbar-default">
+	<br>
+	<br>
+	<br>
+
+	<nav class="navbar navbar-default navbar-fixed-bottom">
 	  <div class="container text-center" style="padding-top: 10px;">
 	  	Course Online &copy; 2016
 	  </div>
@@ -218,12 +222,7 @@
 
 
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
-	<script src="<?php echo base_url(); ?>template/js/vendor/jquery.ui.widget.js"></script>
-	<script src="<?php echo base_url(); ?>template/js/jquery.iframe-transport.js"></script>
-	<script src="<?php echo base_url(); ?>template/js/jquery.fileupload.js"></script>
-
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
-	<script src="<?php echo base_url(); ?>template/js/fileinput.min.js"></script>
 	<script type="text/javascript">
 
 		$(document).ready(function(){
@@ -327,7 +326,12 @@
 						cache: false,
 						success: function (data) {
 							// alert(data);
-							if (data == "Success") {
+
+							if (data == "i_username_used") {
+								$('#alert_user').html("<span style='color:red;'>ชื่อใช้งานนี้มีในระบบแล้ว</span>");
+							}
+							
+							if (data == "i_success") {
 								$('#regis_firstname').text("");
 								$('#regis_lastname').text("");
 								$('#regis_address').text("");
@@ -343,6 +347,7 @@
 								$('#modal_msg').html("<span style='color:green;'>สมัครสมาชิกเรียบร้อยแล้วจ้า เข้าสู่ระบบได้เลย</span>");
 								$('#modal_alert').modal();
 							}
+							
 						}
 					});
 
@@ -368,7 +373,7 @@
 				if (state == 2) {
 					$.ajax({
 						type: "post",
-						url: "<?php echo base_url(); ?>index.php/main/process_login",
+						url: "<?php echo base_url(); ?>main/process_login",
 						data: {
 							login_user: $('#login_user').val(),
 							login_pass: $('#login_pass').val()
@@ -378,7 +383,17 @@
 						success: function (data) {
 							// alert(data);
 
-							if (data == "Error") {
+							if (data == "i_success") {
+								window.location.href = "<?php echo base_url(); ?>main/home";
+							}
+
+							if (data == "i_session_active") {
+								$('#close_login').click();
+								$('#modal_msg').html("<span style='color:red;'>ชื่อผู้ใช้งานนี้ กำลังใช้งาน</span>");
+								$('#modal_alert').modal();
+							}
+
+							if (data == "i_error") {
 								$('#alertlogin_user').html("<span style='color:red;'>กรุณาตรวจสอบชื่อผู้ใช้งาน</span>");
 								$('#alertlogin_pass').html("<span style='color:red;'>กรุณาตรวจสอบรหัสผ่าน</span>");
 							}
