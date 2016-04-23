@@ -102,4 +102,29 @@ class Main extends CI_Controller {
 		$this->load->view('close_html');
 	}
 
+	public function profile_save()
+	{	
+
+		if ($_FILES["pic"]["name"] != "") {
+			$url = $this->do_upload();
+			$this->model_user->profile_image($url);
+		}
+
+		$this->model_user->profile_info();
+		$this->profile();
+		
+	}
+
+	private function do_upload()
+	{
+		$type = explode('.', $_FILES["pic"]["name"]);
+		$type = strtolower($type[count($type)-1]);
+		$url = "uploads/image_users/".uniqid(rand()).'.'.$type;
+		if(in_array($type, array("jpg", "jpeg", "gif", "png")))
+			if(is_uploaded_file($_FILES["pic"]["tmp_name"]))
+				if(move_uploaded_file($_FILES["pic"]["tmp_name"],$url))
+					return $url;
+		return "";
+	}
+
 }

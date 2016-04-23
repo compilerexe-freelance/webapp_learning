@@ -46,11 +46,11 @@
 
 		      	<div class="form-group">
 		      		<span id="alertlogin_user"></span>
-					<input type="text" id="login_user" name="txt_user" class="form-control input-lg" placeholder="ชื่อผู้ใช้งาน" autofocus />
+					<input type="text" id="login_user" name="txt_user" class="form-control input-lg" placeholder="ชื่อผู้ใช้งาน" maxlength="30" autofocus />
 				</div>
 				<div class="form-group">
 					<span id="alertlogin_pass"></span>
-					<input type="password" id="login_pass" name="txt_pass" class="form-control input-lg" placeholder="รหัสผ่าน" />
+					<input type="password" id="login_pass" name="txt_pass" class="form-control input-lg" placeholder="รหัสผ่าน" maxlength="30" />
 				</div>
 				<div class="form-group">
 					<button id="submit_login" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 16px;">เข้าสู่ระบบ</button>
@@ -79,15 +79,15 @@
 
 		      	<div class="form-group">
 		      		<span id="alert_firstname"></span>
-					<input type="text" id="regis_firstname" name="regis_firstname" class="form-control input-lg" placeholder="ชื่อ ตัวอย่าง นายสมชาย" autofocus />
+					<input type="text" id="regis_firstname" name="regis_firstname" class="form-control input-lg" placeholder="ชื่อ ตัวอย่าง นายสมชาย" maxlength="30" autofocus />
 				</div>
 				<div class="form-group">
 					<span id="alert_lastname"></span>
-					<input type="text" id="regis_lastname" name="regis_lastname" class="form-control input-lg" placeholder="นามสกุล" />
+					<input type="text" id="regis_lastname" name="regis_lastname" class="form-control input-lg" placeholder="นามสกุล" maxlength="30" />
 				</div>
 				<div class="form-group">
 					<span id="alert_address"></span>
-					<textarea type="text" id="regis_address" name="regis_address" class="form-control input-lg" rows="5" placeholder="ที่อยู่"></textarea>
+					<textarea type="text" id="regis_address" name="regis_address" class="form-control input-lg" rows="5" placeholder="ที่อยู่" maxlength="255"></textarea>
 				</div>
 
 				<!-- <div class="form-group" style="//border: 1px solid #abc; //border-radius: 5px;">
@@ -102,24 +102,24 @@
 
 				<div class="form-group">
 					<span id="alert_tel"></span>
-					<input type="text" id="regis_tel" name="regis_tel" class="form-control input-lg" placeholder="เบอร์ติดต่อ" />
+					<input type="text" id="regis_tel" name="regis_tel" class="form-control input-lg" placeholder="เบอร์ติดต่อ" maxlength="10" />
 				</div>
 				<div class="form-group">
 					<span id="alert_email"></span>
-					<input type="text" id="regis_email" name="regis_email" class="form-control input-lg" placeholder="อีเมล" />
+					<input type="text" id="regis_email" name="regis_email" class="form-control input-lg" placeholder="อีเมล" maxlength="30" />
 				</div>
 				
 				<div class="form-group">
 					<span id="alert_user"></span>
-					<input type="text" id="regis_user" name="regis_user" class="form-control input-lg" placeholder="ชื่อผู้ใช้งาน" />
+					<input type="text" id="regis_user" name="regis_user" class="form-control input-lg" placeholder="ชื่อผู้ใช้งาน" maxlength="30" />
 				</div>
 				<div class="form-group">
 					<span id="alert_pass"></span>
-					<input type="password" id="regis_pass" name="regis_pass" class="form-control input-lg" placeholder="รหัสผ่าน" />
+					<input type="password" id="regis_pass" name="regis_pass" class="form-control input-lg" placeholder="รหัสผ่าน" maxlength="30" />
 				</div>
 				<div class="form-group">
 					<span id="alert_cf_pass"></span>
-					<input type="password" id="regis_cf_pass" name="regis_cf_pass" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" />
+					<input type="password" id="regis_cf_pass" name="regis_cf_pass" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" maxlength="30" />
 				</div>
 
 				<div class="form-group">

@@ -2,8 +2,8 @@
 
 	<?php $this->load->view('navbar_home'); ?>
 
-	<div class="container">
-		<div class="row">
+	<div class="container" id="bg_content">
+		<div class="row" >
 
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4">
 				<div class="form-group">
@@ -13,12 +13,25 @@
 
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="//border: 1px solid red;">
 
+				<?php echo form_open_multipart('main/profile_save/'); ?>
+
 				<div class="form-group">
 					<span style="font-size: 20px;">รูปประจำตัว</span>
 				</div>
 
 				<div class="form-group">
-					<img src="<?php echo base_url(); ?>template/images/242x200.svg" class="img-responsive">
+					
+					<img src="
+						<?php $profile_img = $this->session->get_image;
+							if ($profile_img == '') {
+								echo base_url().'template/images/242x200.svg';
+							} else {
+								echo base_url().$this->session->get_image;
+							}
+						?>"
+					class="img-responsive" style="width: 242px; height: 200px;">
+
+					<input type="file" name="pic" style="margin-top: 10px;" />
 				</div>
 
 				<div class="form-group">
@@ -26,7 +39,7 @@
 				</div>
 
 				<div class="form-group">
-					<input class="form-control input-lg" />
+					<input id="profile_firstname" name="profile_firstname" class="form-control input-lg" value="<?php echo $this->session->get_firstname; ?>" maxlength="30" />
 				</div>
 
 				<div class="form-group">
@@ -34,7 +47,7 @@
 				</div>
 
 				<div class="form-group">
-					<input class="form-control input-lg" />
+					<input id="profile_lastname" name="profile_lastname" class="form-control input-lg" value="<?php echo $this->session->get_lastname; ?>" maxlength="30" />
 				</div>
 
 				<div class="form-group">
@@ -42,7 +55,7 @@
 				</div>
 
 				<div class="form-group">
-					<textarea class="form-control input-lg" style="resize: none;" rows="5"></textarea>
+					<textarea id="profile_address" name="profile_address" class="form-control input-lg" style="resize: none;" rows="5" maxlength="255"><?php echo $this->session->get_address; ?></textarea>
 				</div>
 
 				<div class="form-group">
@@ -50,7 +63,7 @@
 				</div>
 
 				<div class="form-group">
-					<input class="form-control input-lg" />
+					<input id="profile_tel" name="profile_tel" class="form-control input-lg" value="<?php echo $this->session->get_tel; ?>" maxlength="10" />
 				</div>
 
 				<div class="form-group">
@@ -58,27 +71,27 @@
 				</div>
 
 				<div class="form-group">
-					<input class="form-control input-lg" />
+					<input id="profile_email" name="profile_email" class="form-control input-lg" value="<?php echo $this->session->get_email; ?>" maxlength="30" />
 				</div>
 
 				<div class="form-group">
-					<span style="font-size: 20px;">รหัสผ่าน</span>
+					<span id="alert_pass" style="font-size: 20px;">ตั้งรหัสผ่านใหม่ (6 ตัวอักษรขึ้นไป)</span>
 				</div>
 
 				<div class="form-group">
-					<input type="password" class="form-control input-lg" />
+					<input type="password" id="profile_pass" name="profile_pass" class="form-control input-lg" maxlength="30" />
 				</div>
 
 				<div class="form-group">
-					<span style="font-size: 20px;">ยืนยันรหัสผ่าน</span>
+					<span id="alert_cfpass" style="font-size: 20px;">ยืนยันรหัสผ่าน</span>
 				</div>
 
 				<div class="form-group">
-					<input type="password" class="form-control input-lg" />
+					<input type="password" id="profile_cfpass" name="profile_cfpass" class="form-control input-lg" maxlength="30" />
 				</div>
 				
 				<div class="form-group">
-					<button class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 20px;">บันทึกข้อมูล</button>
+					<button type="submit" id="btn_save" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 20px;">บันทึกข้อมูล</button>
 				</div>
 
 			</div>
@@ -98,6 +111,85 @@
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
 	
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('#profile_pass').keyup(function() {
+
+				$pass 	= $('#profile_pass').val();
+				$cfpass = $('#profile_cfpass').val();
+
+				if ($pass.length < 6 && $cfpass.length < 6) {
+
+					$('#btn_save').prop('disabled', true);
+					$('#alert_pass').html("<span style='color:red;'>ตั้งรหัสผ่านใหม่ (6 ตัวอักษรขึ้นไป)</span>");
+					if ($pass == "" && $cfpass == "") {
+						$('#alert_pass').html("ตั้งรหัสผ่านใหม่ (6 ตัวอักษรขึ้นไป)");
+						$('#btn_save').prop('disabled', false);
+					}
+
+				} else {
+
+					if ($pass == "" && $cfpass == "") {
+						$('#alert_pass').html("ตั้งรหัสผ่านใหม่ (6 ตัวอักษรขึ้นไป)");
+						$('#btn_save').prop('disabled', false);
+					} else {
+
+						$('#btn_save').prop('disabled', true);
+
+						if ($pass != $cfpass) {
+							$('#alert_pass').html("<span style='color:red;'>รหัสผ่านไม่ตรงกับยืนยัน</span>");
+						} else {
+							$('#alert_pass').html("<span style='color:green;'>รหัสผ่านสามารถใช้ได้</span>");
+							$('#btn_save').prop('disabled', false);
+						}
+
+					}
+
+				}
+				
+			});
+
+			$('#profile_cfpass').keyup(function() {
+
+				$pass 	= $('#profile_pass').val();
+				$cfpass = $('#profile_cfpass').val();
+
+				if ($pass.length < 6 && $cfpass.length < 6) {
+
+					$('#btn_save').prop('disabled', true);
+					$('#alert_pass').html("<span style='color:red;'>ตั้งรหัสผ่านใหม่ (6 ตัวอักษรขึ้นไป)</span>");
+					if ($pass == "" && $cfpass == "") {
+						$('#alert_pass').html("ตั้งรหัสผ่านใหม่ (6 ตัวอักษรขึ้นไป)");
+						$('#btn_save').prop('disabled', false);
+					}
+
+				} else {
+
+					if ($pass == "" && $cfpass == "") {
+						$('#alert_pass').html("ตั้งรหัสผ่านใหม่ (6 ตัวอักษรขึ้นไป)");
+						$('#btn_save').prop('disabled', false);
+					} else {
+
+						$('#btn_save').prop('disabled', true);
+
+						if ($pass != $cfpass) {
+							$('#alert_pass').html("<span style='color:red;'>รหัสผ่านไม่ตรงกับยืนยัน</span>");
+						} else {
+							$('#alert_pass').html("<span style='color:green;'>รหัสผ่านสามารถใช้ได้</span>");
+							$('#btn_save').prop('disabled', false);
+						}
+
+					}
+
+				}
+
+			});
+
+		});
+
+	</script>
+
 	<?php $this->load->view('navbar_script'); ?>
 
 </body>

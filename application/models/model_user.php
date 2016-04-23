@@ -18,12 +18,12 @@ class Model_user extends CI_Model {
 		$user 		= $this->input->post('regis_user');
 		$pass 		= $this->input->post('regis_pass');
 
-		$state = 0;
+		$state 		= 0;
 
 		// find user in database
 
-		$sql = "SELECT username FROM tb_users";
-		$query = $this->db->query($sql);
+		$sql 		= "SELECT username FROM tb_users";
+		$query 		= $this->db->query($sql);
 
 		foreach ($query->result() as $row) {
 			if ($row->username == $user) {
@@ -52,8 +52,8 @@ class Model_user extends CI_Model {
 
 				// create session
 			
-				$sql = "INSERT INTO tb_session (username, state_session) VALUES ('$user','0')";
-				$query = $this->db->query($sql);
+				$sql 	= "INSERT INTO tb_session (username, state_session) VALUES ('$user','0')";
+				$query 	= $this->db->query($sql);
 
 				// end create session
 
@@ -86,7 +86,12 @@ class Model_user extends CI_Model {
 				$state_session = $this->session_check($user);
 
 				if ($state_session) {
-					$this->session->state_login = $user;
+
+					$this->session->state_login = $user; // session $user login
+
+					// session profile
+					$this->session_profile($user);
+
 					return "c_login_success";
 				} else {
 					return "c_session_active";
@@ -110,8 +115,8 @@ class Model_user extends CI_Model {
 			if ($row->username == $data) {
 				if ($row->state_session == "0") {
 					// update session to 1
-					$sql = "UPDATE tb_session SET state_session='1' WHERE username='$data'";
-					$query = $this->db->query($sql);
+					$sql 	= "UPDATE tb_session SET state_session='1' WHERE username='$data'";
+					$query 	= $this->db->query($sql);
 					// end update session
 					return true;
 				} else {
@@ -124,10 +129,64 @@ class Model_user extends CI_Model {
 	}
 
 	function session_logout() {
-		$user = $this->session->state_login;
-		$sql = "UPDATE tb_session SET state_session='0' WHERE username='$user'";
-		$query = $this->db->query($sql);
+		$user 	= $this->session->state_login;
+		$sql 	= "UPDATE tb_session SET state_session='0' WHERE username='$user'";
+		$query 	= $this->db->query($sql);
 		$this->db->close();
+	}
+
+	function session_profile($data) {
+
+		$sql = "SELECT * FROM tb_users WHERE username='$data'";
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			$this->session->get_firstname 	= $row->firstname;
+			$this->session->get_lastname 	= $row->lastname;
+			$this->session->get_address 	= $row->address;
+			$this->session->get_image 		= $row->image;
+			$this->session->get_tel 		= $row->tel;
+			$this->session->get_email 		= $row->email;
+		}
+
+		$this->db->close();
+		
+	}
+
+	public function profile_image($url) {
+		$user = $this->session->state_login;
+		$sql = "UPDATE tb_users SET image='$url' WHERE username='$user'";
+		$query = $this->db->query($sql);
+		$this->session->get_image = $url;	
+	}
+
+
+	public function profile_info() {
+		$firstname 	= $this->input->post('profile_firstname');
+		$lastname 	= $this->input->post('profile_lastname');
+		$address 	= $this->input->post('profile_address');
+		$tel 		= $this->input->post('profile_tel');
+		$email 		= $this->input->post('profile_email');
+		$pass 		= $this->input->post('profile_pass');
+
+		$user 		= $this->session->state_login;
+
+		$sql 			= "UPDATE tb_users SET 
+		firstname 		= '$firstname',
+		lastname 		= '$lastname',
+		address 		= '$address',
+		tel 			= '$tel',
+		email 			= '$email',
+		password 		= '$pass'
+		WHERE username 	='$user'";
+		
+		$query = $this->db->query($sql);
+
+		$this->session->get_firstname 	= $firstname;
+		$this->session->get_lastname 	= $lastname;
+		$this->session->get_address		= $address;
+		$this->session->get_tel 		= $tel;
+		$this->session->get_email 		= $email;
 
 	}
 

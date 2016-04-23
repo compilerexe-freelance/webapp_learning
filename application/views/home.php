@@ -2,7 +2,7 @@
 	
 	<?php $this->load->view('navbar_home'); ?>
 
-	<div class="container">
+	<div class="container" id="bg_content">
 		<div class="row">
 
 			
