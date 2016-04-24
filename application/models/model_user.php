@@ -64,8 +64,6 @@ class Model_user extends CI_Model {
 
 		}
 
-		$this->db->close();
-
 	}
 
 	function login_check() {
@@ -106,9 +104,6 @@ class Model_user extends CI_Model {
 				
 			}
 		}
-
-		
-		$this->db->close();
 
 	}
 
@@ -155,6 +150,7 @@ class Model_user extends CI_Model {
 	}
 
 	public function time_login($user) {
+
 		$sql = "SELECT lastupdate FROM tb_session WHERE username='$user'";
 		$query = $this->db->query($sql);
 
@@ -181,20 +177,34 @@ class Model_user extends CI_Model {
 		$user = $this->session->state_login;
 
 		if ($user != "") {
+
 			$sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
 			$query = $this->db->query($sql);
-			$this->db->close();
+
 		}
 	}
 
-	function session_logout() {
-		$user 	= $this->session->state_login;
+	public function session_logout() {
+
+		$user = $this->session->state_login;
 		$sql 	= "UPDATE tb_session SET state_session='0' WHERE username='$user'";
 		$query 	= $this->db->query($sql);
-		$this->db->close();
+
+		$session_items = array(
+			'state_login'	=>	'',
+			'get_firstname'	=>	'',
+			'get_lastname'	=>	'',
+			'get_address'	=>	'',
+			'get_image' 	=>	'',
+			'get_tel' 		=>	'',
+			'get_email' 	=>	''
+		);
+
+		$this->session->unset_userdata($session_items);
+
 	}
 
-	function session_profile($data) {
+	private function session_profile($data) {
 
 		$sql = "SELECT * FROM tb_users WHERE username='$data'";
 		$query = $this->db->query($sql);
@@ -207,8 +217,6 @@ class Model_user extends CI_Model {
 			$this->session->get_tel 		= $row->tel;
 			$this->session->get_email 		= $row->email;
 		}
-
-		$this->db->close();
 		
 	}
 
@@ -227,17 +235,28 @@ class Model_user extends CI_Model {
 		$tel 		= $this->input->post('profile_tel');
 		$email 		= $this->input->post('profile_email');
 		$pass 		= $this->input->post('profile_pass');
+		$cfpass 	= $this->input->post('profile_cfpass');
 
 		$user 		= $this->session->state_login;
 
-		$sql 			= "UPDATE tb_users SET 
-		firstname 		= '$firstname',
-		lastname 		= '$lastname',
-		address 		= '$address',
-		tel 			= '$tel',
-		email 			= '$email',
-		password 		= '$pass'
-		WHERE username 	='$user'";
+		if (($pass == $cfpass) && (strlen($pass) >= 6)) {
+			$sql 			= "UPDATE tb_users SET 
+			firstname 		= '$firstname',
+			lastname 		= '$lastname',
+			address 		= '$address',
+			tel 			= '$tel',
+			email 			= '$email',
+			password 		= '$pass'
+			WHERE username 	= '$user'";
+		} else {
+			$sql 			= "UPDATE tb_users SET 
+			firstname 		= '$firstname',
+			lastname 		= '$lastname',
+			address 		= '$address',
+			tel 			= '$tel',
+			email 			= '$email'
+			WHERE username 	= '$user'";
+		}
 		
 		$query = $this->db->query($sql);
 

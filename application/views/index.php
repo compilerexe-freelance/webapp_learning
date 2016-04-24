@@ -2,7 +2,7 @@
 
 	<?php $this->load->view('navbar_index'); ?>
 
-	<div class="container">
+	<div class="container" id="bg_content">
 
 		<div class="row">
 		
@@ -39,27 +39,39 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <span class="modal-title" style="font-size: 20px;">ระบบล็อกอิน</span>
+		        <span class="modal-title" style="font-size: 20px;">ระบบล็อกอิน Course Online</span>
 		      </div>
-		      <div class="modal-body">
+		      <div class="col-xs-12 col-sm-12 col-md-12 modal-body">
 
+		      	<div class="col-md-2">
+		      		<div class="form-group">
+		      			<img src="<?php echo base_url(); ?>template/images/icon/login.png" class="img-responsive" />
+		      		</div>
+		      	</div>
+		      	<div class="col-md-10">
 
-		      	<div class="form-group">
-		      		<span id="alertlogin_user"></span>
-					<input type="text" id="login_user" name="txt_user" class="form-control input-lg" placeholder="ชื่อผู้ใช้งาน" maxlength="30" autofocus />
-				</div>
-				<div class="form-group">
-					<span id="alertlogin_pass"></span>
-					<input type="password" id="login_pass" name="txt_pass" class="form-control input-lg" placeholder="รหัสผ่าน" maxlength="30" />
-				</div>
-				<div class="form-group">
-					<button id="submit_login" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 16px;">เข้าสู่ระบบ</button>
-				</div>
+		      		<div class="form-group">
+			      		<span id="alertlogin_user"></span>
+						<input type="text" id="login_user" name="txt_user" class="form-control input-lg" placeholder="ชื่อผู้ใช้งาน" maxlength="30" autofocus />
+					</div>
+					<div class="form-group">
+						<span id="alertlogin_pass"></span>
+						<input type="password" id="login_pass" name="txt_pass" class="form-control input-lg" placeholder="รหัสผ่าน" maxlength="30" />
+					</div>
+					<div class="form-group">
+						<button id="submit_login" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 16px;">เข้าสู่ระบบ</button>
+					</div>
+
+		      	</div>
+
+		      	
 		      
 		      </div>
+
 		      <div class="modal-footer">
 		        <button type="button" id="close_login" class="btn btn-default" data-dismiss="modal">ปิดหน้าต่าง</button>
 		      </div>
+
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
@@ -138,7 +150,7 @@
 
 		<!-- End Modal Regis -->
 
-		<div class="col-xs-12 col-sm-12 col-md-12">
+		<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 15px;">
 
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			  <!-- Indicators -->
@@ -227,14 +239,13 @@
 
 		$(document).ready(function(){
 
+			let enter_form; // form login
 			let tmppath;
 
 			$('#regis_image').change( function(event) {
 			    tmppath = URL.createObjectURL(event.target.files[0]);
 			    $("#example_image").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
-
 			    // alert(tmppath);
-
 			    $("#debug_url").html(tmppath);
 			});
 
@@ -246,6 +257,26 @@
 				$('#modal_login').modal();
 			});
 			
+			// ------- Modal setting show -------
+			$('#modal_login').on('shown.bs.modal', function () {
+		        $('#login_user').focus();
+		    });
+
+		    $('#modal_regis').on('shown.bs.modal', function () {
+		        $('#regis_firstname').focus();
+		    });
+		    // ----------------------------------
+
+		    // ------- Enter form ---------------
+		    $('#login_pass').keypress(function(e) {
+		    	if (($('#login_pass').val() != "") && (e.keyCode == 13)) {
+		    		$('#submit_login').click();
+		    	}
+		    	// console.log(e);
+		    });
+		    // ----------------------------------
+
+
 			$('#submit_regis').click(function() {
 
 				let get_firstname = $('#regis_firstname').val();

@@ -18,6 +18,10 @@ table, th {
  	/*width: 100%;*/
 }
 
+.navbar-nav li:hover {
+    background-color: #cce6ff;
+}
+
 .btn-flat {
     filter:progid:DXImageTransform.Microsoft.Gradient(enabled='false');
     -webkit-box-shadow: none;

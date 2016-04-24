@@ -20,7 +20,7 @@
 		<div class="collapse navbar-collapse" id="navbar-collapse-1">
 			
 			<ul class="nav navbar-nav navbar-left">
-				<li class="active"><a href="<?php echo base_url(); ?>main/index">หน้าแรก</a></li>
+				<li><a href="<?php echo base_url(); ?>main/index">หน้าแรก</a></li>
 				<li><a href="index.php">วิธีการสั่งซื้อ/ชำระเงิน</a></li>
 
 				<li class="dropdown">
