@@ -9,10 +9,6 @@ class Main extends CI_Controller {
 
 	public function index() {
 
-		// navbar active
-		$this->session->unset_userdata('profile_active');
-		$this->session->index_active = "active";
-
 		if ($this->session->state_login == "") {
 			$this->load->view('open_html');
 			$this->load->view('header');
@@ -53,9 +49,9 @@ class Main extends CI_Controller {
 
 			echo "i_success";
 		
-		} else if ($result == "c_session_active") {
+		} else if ($result == "c_detect_active") {
 
-			echo "i_session_active";
+			echo "i_detect_active";
 
 		} else {
 
@@ -91,10 +87,6 @@ class Main extends CI_Controller {
 	}
 
 	public function profile() {
-
-		// navbar active
-		$this->session->unset_userdata('index_active');
-		$this->session->profile_active = "active";
 
 		$this->load->view('open_html');
 		$this->load->view('header');

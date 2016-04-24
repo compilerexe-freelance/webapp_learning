@@ -387,7 +387,7 @@
 								window.location.href = "<?php echo base_url(); ?>main/home";
 							}
 
-							if (data == "i_session_active") {
+							if (data == "i_detect_active") {
 								$('#close_login').click();
 								$('#modal_msg').html("<span style='color:red;'>ชื่อผู้ใช้งานนี้ กำลังใช้งาน</span>");
 								$('#modal_alert').modal();

@@ -1,4 +1,8 @@
+<?php
 
+	$this->model_user->time_update();
+
+?>
 <nav class="navbar navbar-default">
 	<div class="container">
 

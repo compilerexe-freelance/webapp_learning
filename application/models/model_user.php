@@ -87,14 +87,20 @@ class Model_user extends CI_Model {
 
 				if ($state_session) {
 
+					$sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
+					$query = $this->db->query($sql);
+
 					$this->session->state_login = $user; // session $user login
 
 					// session profile
 					$this->session_profile($user);
 
 					return "c_login_success";
+
 				} else {
-					return "c_session_active";
+
+					return "c_detect_active";
+					
 				}
 
 				
@@ -120,12 +126,65 @@ class Model_user extends CI_Model {
 					// end update session
 					return true;
 				} else {
-					return false;
+
+					// if lastupdate over 20 minute access to login
+					$user = $this->input->post('login_user');
+					$lastupdate = $this->time_login($user);
+
+					if ($lastupdate) {
+						
+						$sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
+						$query = $this->db->query($sql);
+
+						$this->session->state_login = $user; // session $user login
+
+						// session profile
+						$this->session_profile($user);
+
+						return true;
+
+					} else {
+						return false; // found user active lastupdate not over 20 minute.
+					}
+					// --------------------------------------------
 				}
 				
 			}
 		}
 
+	}
+
+	public function time_login($user) {
+		$sql = "SELECT lastupdate FROM tb_session WHERE username='$user'";
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+
+			$time_current = date('Y-m-d H:i:s');
+			$exp_session = $row->lastupdate;
+			$result = (strtotime($exp_session) - strtotime($time_current)) / ( 60 * 20 ); // 1 day = 60*60*24 // 1 Hour = 60 * 60
+
+			if ($result < 14) {
+				return true; // over 20 minute
+			} else {
+				return false; // Not over 20 minute
+			}
+
+			// echo $this->DateDiff($time_current, $exp_session);
+			// 2016-04-24 09:29:22
+		}
+
+	}
+
+	public function time_update() {
+
+		$user = $this->session->state_login;
+
+		if ($user != "") {
+			$sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
+			$query = $this->db->query($sql);
+			$this->db->close();
+		}
 	}
 
 	function session_logout() {
