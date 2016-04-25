@@ -94,8 +94,7 @@ class Main extends CI_Controller {
 		$this->load->view('close_html');
 	}
 
-	public function profile_save()
-	{	
+	public function profile_save() {	
 
 		if ($_FILES["pic"]["name"] != "") {
 			$url = $this->do_upload();
@@ -107,8 +106,7 @@ class Main extends CI_Controller {
 		
 	}
 
-	private function do_upload()
-	{
+	private function do_upload() {
 		$type = explode('.', $_FILES["pic"]["name"]);
 		$type = strtolower($type[count($type)-1]);
 		$url = "uploads/image_users/".uniqid(rand()).'.'.$type;
@@ -117,6 +115,10 @@ class Main extends CI_Controller {
 				if(move_uploaded_file($_FILES["pic"]["tmp_name"],$url))
 					return $url;
 		return "";
+	}
+
+	public function confirm_checkout() {
+
 	}
 
 }

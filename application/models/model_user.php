@@ -268,6 +268,101 @@ class Model_user extends CI_Model {
 
 	}
 
+	public function fetch_home() {
+		$sql = "SELECT category FROM tb_category";
+		$query = $this->db->query($sql);
+
+		$count_category = 0;
+		$array_category;
+
+		$i = 0; // counting select items
+
+		foreach ($query->result() as $row) {
+			$array_category[$count_category] = $row->category;
+			$count_category++;
+		}
+
+		// Read array category
+		foreach ($array_category as $buff) { 
+			echo '
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<hr size="1" />
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group">
+						<div class="col-xs-5 col-sm-12 col-md-6">
+							<div class="form-group">
+								<span style="font-size: 30px;">'.$buff.'</span>
+							</div>
+						</div>
+						<div class="col-xs-7 col-sm-12 col-md-6 text-right">
+							<div class="form-group">
+								<a href="#"><span style="font-size: 20px;">'.$buff.'ทั้งหมด >></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			';
+
+			// Read title from category
+			$sql = "SELECT image, code, category, title, detail, price, day FROM tb_course WHERE category='$buff'";
+			$query = $this->db->query($sql);
+
+			foreach ($query->result() as $row) {
+
+				$url = ''.base_url().$row->image;
+
+				echo '
+					<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
+						<div class="form-group">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
+							</div>
+							<div class="col-xs-10 col-sm-12 col-md-12">
+								<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $row->code .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
+							</div>
+						</div>
+					</div>
+
+					<script type="text/javascript">
+
+						$(document).ready(function() {
+							$("#btn_'. $row->code .'").click(function() {
+								title_items['. $i .'] 		= "'. $row->title .'";
+								code_items['. $i .'] 		= "'. $row->code .'";
+								category_items['. $i .'] 	= "'. $row->category .'";
+								price_items['. $i .'] 		= "'. $row->price .'";
+								day_items['. $i .'] 		= "'. $row->day .'";
+								count_select++;
+								$("#badge_count").text(count_select);
+								$("#btn_'. $row->code .'").attr("disabled", true);
+							});
+						});
+
+					</script>
+				';
+
+				$i++;
+
+			}
+
+		}
+
+	}
+
 }
 
 ?>

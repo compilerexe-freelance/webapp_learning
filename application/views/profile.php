@@ -5,7 +5,7 @@
 	<div class="container" id="bg_content">
 		<div class="row" >
 
-			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4">
+			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="margin-top: 15px;">
 				<div class="form-group">
 					<span style="font-size: 30px;">ประวัติส่วนตัว</span>
 				</div>
@@ -29,9 +29,19 @@
 								echo base_url().$this->session->get_image;
 							}
 						?>"
-					class="img-responsive" style="width: 242px; height: 200px;">
+						class="img-responsive" 
+						style="width: 242px; height: 200px; border-radius: 10px; margin-bottom: 15px;"
+					>
 
-					<input type="file" name="pic" style="margin-top: 10px;" />
+					<input 
+						type="file" 
+						class="filestyle"
+						
+						data-buttonName="btn-success"
+						data-buttonText="เลือกไฟล์"
+						name="pic" 
+					/>
+
 				</div>
 
 				<div class="form-group">
@@ -110,7 +120,8 @@
 
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
-	
+	<script src="<?php echo base_url(); ?>template/js/bootstrap-filestyle.min.js"></script>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 
