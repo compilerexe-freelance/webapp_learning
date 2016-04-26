@@ -27,7 +27,7 @@
 				<li class="<?php echo $this->session->index_active; ?>">
 					<a href="<?php echo base_url(); ?>main/index">หน้าแรก</a>
 				</li>
-				<li><a href="index.php">วิธีการสั่งซื้อ/ชำระเงิน</a></li>
+				<li><a href="index.php">วิธีการเรียน/ชำระเงิน</a></li>
 
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">คอร์สเรียนทั้งหมด <span class="caret"></span></a>
@@ -53,9 +53,9 @@
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ประวัติ <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		          	<li><a href="#" style="font-size: 16px;">ชำระเงิน</a></li>
+		          	<li><a href="<?php echo base_url(); ?>main/profile" style="font-size: 16px;">ประวัติส่วนตัว</a></li>
+		          	<li><a href="<?php echo base_url(); ?>main/profile_payment" style="font-size: 16px;">ประวัติชำระเงิน</a></li>
 		            <li><a href="#" style="font-size: 16px;">คอร์สที่ลงเรียน</a></li>
-		            <li><a href="<?php echo base_url(); ?>main/profile" style="font-size: 16px;">ประวัติส่วนตัว</a></li>
 		          </ul>
 		        </li>
 

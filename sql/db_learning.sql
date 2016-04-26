@@ -1,21 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Apr 25, 2016 at 04:53 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.6.19
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `db_learning`
 --
@@ -100,23 +82,6 @@ CREATE TABLE `tb_course_regis` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_payment`
---
-
-CREATE TABLE `tb_payment` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `last` varchar(30) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `tel` varchar(10) NOT NULL,
-  `course_code` int(4) UNSIGNED NOT NULL,
-  `state_payment` tinyint(1) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_session`
 --
 
@@ -132,7 +97,7 @@ CREATE TABLE `tb_session` (
 --
 
 INSERT INTO `tb_session` (`id`, `username`, `state_session`, `lastupdate`) VALUES
-(1, 'admin', 1, '2016-04-25 21:52:27'),
+(1, 'admin', 1, '2016-04-26 20:51:23'),
 (2, 'admin1', 0, '2016-04-24 00:00:00');
 
 -- --------------------------------------------------------
@@ -190,12 +155,6 @@ ALTER TABLE `tb_course_regis`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_payment`
---
-ALTER TABLE `tb_payment`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `tb_session`
 --
 ALTER TABLE `tb_session`
@@ -230,11 +189,6 @@ ALTER TABLE `tb_course`
 -- AUTO_INCREMENT for table `tb_course_regis`
 --
 ALTER TABLE `tb_course_regis`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tb_payment`
---
-ALTER TABLE `tb_payment`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tb_session`

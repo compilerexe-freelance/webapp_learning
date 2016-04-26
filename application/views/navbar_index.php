@@ -21,7 +21,7 @@
 			
 			<ul class="nav navbar-nav navbar-left">
 				<li><a href="<?php echo base_url(); ?>main/index">หน้าแรก</a></li>
-				<li><a href="index.php">วิธีการสั่งซื้อ/ชำระเงิน</a></li>
+				<li><a href="index.php">วิธีการเรียน/ชำระเงิน</a></li>
 
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">คอร์สเรียนทั้งหมด <span class="caret"></span></a>

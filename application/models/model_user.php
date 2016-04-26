@@ -268,6 +268,34 @@ class Model_user extends CI_Model {
 
 	}
 
+	public function profile_payment() {
+		$user = $this->session->state_login;
+		$sql = "SELECT * FROM tb_order WHERE username='$user'";
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+
+			$msg_state;
+
+			if ($row->state == 0) {
+				$msg_state = "ยังไม่ได้ชำระ";
+			} else {
+				$msg_state = "ชำระแล้ว";
+			}
+
+			echo '
+				<tr>
+				 	<td>'.$row->category.'</td>
+				 	<td>'.$row->code.'</td>
+				 	<td>'.$row->title.'</td>
+				 	<td>'.$row->day.'</td>
+				 	<td>'.$row->price.'</td>
+				 	<td>'. $msg_state .'</td>
+				</tr>
+			';
+		}	
+	}
+
 	public function fetch_home() {
 		$sql = "SELECT category FROM tb_category";
 		$query = $this->db->query($sql);
@@ -332,15 +360,18 @@ class Model_user extends CI_Model {
 								<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
 							</div>
 							<div class="col-xs-10 col-sm-12 col-md-12">
-								<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $row->code .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
+								<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
 							</div>
 						</div>
 					</div>
 
 					<script type="text/javascript">
 
+						fetch_items++;
+
 						$(document).ready(function() {
-							$("#btn_'. $row->code .'").click(function() {
+
+							$("#btn_'. $i .'").click(function() {
 								title_items['. $i .'] 		= "'. $row->title .'";
 								code_items['. $i .'] 		= "'. $row->code .'";
 								category_items['. $i .'] 	= "'. $row->category .'";
@@ -348,8 +379,13 @@ class Model_user extends CI_Model {
 								day_items['. $i .'] 		= "'. $row->day .'";
 								count_select++;
 								$("#badge_count").text(count_select);
-								$("#btn_'. $row->code .'").attr("disabled", true);
+								$("#btn_'. $i .'").attr("disabled", true);
+								array_delete['. $i .'] = 1;
+								price_checkout = price_checkout + parseInt(' . $row->price . ');
 							});
+
+
+
 						});
 
 					</script>

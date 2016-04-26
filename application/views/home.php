@@ -5,13 +5,126 @@
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript">
+	<script type="text/javascript"> // Global Variable & Function
 		let title_items 	= [];
 		let code_items		= [];
 		let category_items	= [];
 		let price_items		= [];
 		let day_items 		= [];
+		let confirm_items	= [];
+
+		let array_delete 	= [];
+
 		let count_select 	= 0;
+		let price_checkout 	= 0; // total_price & delete price
+
+		let i; // loop code_items
+		let fetch_items = 0;
+
+		function formatNumber (num) {
+		    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+		}
+
+		$(document).ready(function() {
+
+			$('#btn_checkout').click(function() {
+
+				let code_counting  	= 0;
+				let items_checkout 	= "";
+				// let price_checkout 	= 0;
+
+				let code_delete 	= "";
+
+				for (i = 0; i < code_items.length; i++) {
+					if (code_items[i] != null) {
+
+						if (array_delete[i] != 0) {
+
+						items_checkout += "<tr id='item_" + i + "'>";
+						items_checkout += "<td>" + category_items[i] + "</td>";
+						items_checkout += "<td>" + code_items[i] + "</td>";
+						items_checkout += "<td>" + title_items[i] + "</td>";
+						items_checkout += "<td>" + day_items[i] + "</td>";
+						items_checkout += "<td>" + formatNumber(price_items[i]) + "</td>";
+
+						items_checkout += "<td><button class='btn btn-danger btn-flat' id='delete_" + i + "' style='width:100%;'><span class='glyphicon glyphicon-trash'></span> ลบ</button></td>";
+						items_checkout += "</tr>";
+
+						}
+
+						console.log(i);
+
+						code_delete += "<script type='text/javascript'>";
+						code_delete += 	"$(document).ready(function() {";
+						code_delete += 		"$('#delete_" + i + "').click(function() {"; 
+						code_delete += 			"$('#item_" + i + "').hide();";
+						code_delete += 			"array_delete[" + i + "]=0;";
+						code_delete += 			"price_checkout = parseInt(price_checkout) - parseInt(" + price_items[i] + ");";
+						code_delete	+= 			"$('#total_price').text(price_checkout);";
+						code_delete += 			"$('#btn_" + i + "').attr('disabled',false);";
+						code_delete += 			"count_select--;";
+						code_delete += 			"$('#badge_count').text(count_select);";
+						code_delete += 		"});";
+						code_delete += 	"});";
+						code_delete += "</" + "script>";
+
+					}
+				}
+
+				$('#modal_msg').html(
+					"<div class='table-responsive'>" +
+					"<table class='table table-bordered'>" + 
+						"<tr class='success'> <th>หมวดหมู่</th><th>รหัสคอร์ส</th><th>ชื่อคอร์ส</th><th>จำนวนวัน</th><th>ราคา</th><th></th> </tr>" +
+						items_checkout +
+						"<tr class='warning'> <td>รวมยอดเงิน (บาท)</td><td></td><td></td><td></td><td id='total_price'>" + formatNumber(price_checkout) + "</td><td></td></tr>" +
+					"</table>" +
+					"</div>" + code_delete
+				);
+
+				$('#modal_alert').modal();
+
+			});
+
+			$('#btn_confirm').click(function() {
+
+				for (let i = 0; i < code_items.length; i++) {
+					if (code_items[i] != null) {
+
+						$.ajax({
+							type: "post",
+							url: "<?php echo base_url(); ?>main/confirm_checkout",
+							data: {
+								category: category_items[i],
+								code: code_items[i],
+								title: title_items[i],
+								day: day_items[i],
+								price: formatNumber(price_items[i])
+							},
+							dataType: "text",
+							cache: false,
+							success: function (data) {
+								// alert(data);
+								if (data == "success") {
+									$('#btn_confirm').hide();
+									$('#modal_msg').html("<span style='color:green;'>บันทึกข้อมูลเรียบร้อยแล้วจ้า</span>");
+									$('#modal_alert').modal();
+									setInterval(function() {
+										window.location.href = "<?php echo base_url(); ?>main/home";
+									}, 3000);
+								}
+								
+							}
+						});
+
+					}
+				}
+
+			});
+
+			console.log(fetch_items);
+
+		});
+
 	</script>
 
 	<div class="container" id="bg_content">
@@ -79,79 +192,103 @@
 	</nav>
 	
 	<script type="text/javascript">
-		$(document).ready(function() {
+		// $(document).ready(function() {
 
-			$('#btn_checkout').click(function() {
+		// 	$('#btn_checkout').click(function() {
 
-				let code_counting  = 0;
-				let items_checkout = "";
-				let price_checkout = 0;
+		// 		let code_counting  	= 0;
+		// 		let items_checkout 	= "";
+		// 		// let price_checkout 	= 0;
 
-				for (let i = 0; i < code_items.length; i++) {
-					if (code_items[i] != null) {
-						items_checkout += "<tr>";
-						items_checkout += "<td>" + code_items[i] + "</td>";
-						items_checkout += "<td>" + category_items[i] + "</td>";
-						items_checkout += "<td>" + title_items[i] + "</td>";
-						items_checkout += "<td>" + day_items[i] + "</td>";
-						items_checkout += "<td>" + formatNumber(price_items[i]) + "</td>";
-						items_checkout += "</tr>";
-						price_checkout = price_checkout + parseInt(price_items[i]);
-					}
-				}
+		// 		let code_delete 	= "";
 
-				// alert(price_checkout);
+		// 		for (let i = 0; i < code_items.length; i++) {
+		// 			if (code_items[i] != null) {
+		// 				items_checkout += "<tr id='item_" + i + "'>";
+		// 				items_checkout += "<td>" + category_items[i] + "</td>";
+		// 				items_checkout += "<td>" + code_items[i] + "</td>";
+		// 				items_checkout += "<td>" + title_items[i] + "</td>";
+		// 				items_checkout += "<td>" + day_items[i] + "</td>";
+		// 				items_checkout += "<td>" + formatNumber(price_items[i]) + "</td>";
+		// 				items_checkout += "<td><button class='btn btn-danger btn-flat' id='delete_" + i + "' style='width:100%;'><span class='glyphicon glyphicon-trash'></span> ลบ</button></td>";
+		// 				items_checkout += "</tr>";
+		// 				price_checkout = price_checkout + parseInt(price_items[i]);
 
-				function formatNumber (num) {
-				    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-				}
+		// 				code_delete += "<script type='text/javascript'>";
+		// 				code_delete += 	"$(document).ready(function() {";
+		// 				code_delete += 		"$('#delete_" + i + "').click(function() {"; 
+		// 				code_delete += 			"$('#item_" + i + "').hide();";
+		// 				code_delete += 			"price_checkout = price_checkout - formatNumber(price_items[i]);";
+		// 				// code_delete	+= 			"alert(price_checkout);";
+		// 				code_delete += 			"$('#total_price').text(formatNumber(price_checkout));";
+		// 				code_delete += 		"});";
+		// 				code_delete += 	"});";
+		// 				code_delete += "</" + "script>";
 
-				$('#modal_msg').html(
-					"<div class='table-responsive'>" +
-					"<table class='table table-bordered'>" + 
-						"<tr class='success'> <th>รหัสคอร์ส</th><th>หมวดหมู่</th><th>ชื่อคอร์ส</th><th>จำนวนวัน</th><th>ราคา</th> </tr>" +
-						items_checkout +
-						"<tr class='warning'> <td>รวมยอดเงิน (บาท)</td><td></td><td></td><td></td><td>" + formatNumber(price_checkout) + "</td></tr>" +
-					"</table>" +
-					"</div>"
-				);
+		// 			}
+		// 		}
 
-				$('#modal_alert').modal();
+		// 		// alert(price_checkout);
 
-			});
+		// 		$('#modal_msg').html(
+		// 			"<div class='table-responsive'>" +
+		// 			"<table class='table table-bordered'>" + 
+		// 				"<tr class='success'> <th>หมวดหมู่</th><th>รหัสคอร์ส</th><th>ชื่อคอร์ส</th><th>จำนวนวัน</th><th>ราคา</th><th></th> </tr>" +
+		// 				items_checkout +
+		// 				"<tr class='warning'> <td>รวมยอดเงิน (บาท)</td><td></td><td></td><td></td><td id='total_price'>" + formatNumber(price_checkout) + "</td><td></td></tr>" +
+		// 			"</table>" +
+		// 			"</div>" + code_delete
+		// 		);
 
-			$('#btn_confirm').click(function() {
-				$.ajax({
-					type: "post",
-					url: "<?php echo base_url(); ?>main/confirm_checkout",
-					data: {
-						login_user: $('#login_user').val(),
-						login_pass: $('#login_pass').val()
-					},
-					dataType: "text",
-					cache: false,
-					success: function (data) {
-						// alert(data);
+		// 		$('#modal_alert').modal();
 
-						if (data == "i_success") {
-							window.location.href = "<?php echo base_url(); ?>main/home";
-						}
+		// 	});
 
-						if (data == "i_detect_active") {
-							$('#close_login').click();
-							$('#modal_msg').html("<span style='color:red;'>ชื่อผู้ใช้งานนี้ กำลังใช้งาน</span>");
-							$('#modal_alert').modal();
-						}
+		// 	$('#btn_confirm').click(function() {
 
-						if (data == "i_error") {
-							$('#alertlogin_user').html("<span style='color:red;'>กรุณาตรวจสอบชื่อผู้ใช้งาน</span>");
-							$('#alertlogin_pass').html("<span style='color:red;'>กรุณาตรวจสอบรหัสผ่าน</span>");
-						}
-					}
-				});
-			});
+		// 		for (let i = 0; i < code_items.length; i++) {
+		// 			if (code_items[i] != null) {
+		// 				// items_checkout += "<tr>";
+		// 				// items_checkout += "<td>" + code_items[i] + "</td>";
+		// 				// items_checkout += "<td>" + category_items[i] + "</td>";
+		// 				// items_checkout += "<td>" + title_items[i] + "</td>";
+		// 				// items_checkout += "<td>" + day_items[i] + "</td>";
+		// 				// items_checkout += "<td>" + formatNumber(price_items[i]) + "</td>";
+		// 				// items_checkout += "</tr>";
+		// 				// price_checkout = price_checkout + parseInt(price_items[i]);
 
-		});
+		// 				$.ajax({
+		// 					type: "post",
+		// 					url: "<?php echo base_url(); ?>main/confirm_checkout",
+		// 					data: {
+		// 						category: category_items[i],
+		// 						code: code_items[i],
+		// 						title: title_items[i],
+		// 						day: day_items[i],
+		// 						price: formatNumber(price_items[i])
+		// 					},
+		// 					dataType: "text",
+		// 					cache: false,
+		// 					success: function (data) {
+		// 						// alert(data);
+		// 						if (data == "success") {
+		// 							$('#btn_confirm').hide();
+		// 							$('#modal_msg').html("<span style='color:green;'>บันทึกข้อมูลเรียบร้อยแล้วจ้า</span>");
+		// 							$('#modal_alert').modal();
+		// 							setInterval(function() {
+		// 								window.location.href = "<?php echo base_url(); ?>main/home";
+		// 							}, 3000);
+		// 						}
+								
+		// 					}
+		// 				});
+
+		// 			}
+		// 		}
+
+		// 	});
+
+		// });
 	</script>
 
 	<?php $this->load->view('navbar_script'); ?>

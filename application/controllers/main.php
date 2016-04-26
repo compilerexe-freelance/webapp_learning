@@ -119,6 +119,52 @@ class Main extends CI_Controller {
 
 	public function confirm_checkout() {
 
+		$user = $this->session->state_login;
+		
+		$category 	= $this->input->post('category');
+		$code 		= $this->input->post('code');
+		$title 		= $this->input->post('title');
+		$day 		= $this->input->post('day');
+		$price 		= $this->input->post('price');
+
+		$sql = "INSERT INTO tb_order (date_order, username,category,code,title,day,price,state) VALUES
+				(NOW(),'$user','$category','$code','$title','$day','$price',0)";
+		$query = $this->db->query($sql);
+
+		echo "success";
+		
+	}
+
+	public function profile_payment() {
+
+		$state_login = $this->session->state_login;
+
+		if ($state_login == "") {
+			$this->index();
+		} else {
+
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('profile_payment');
+			$this->load->view('close_html');
+
+		}
+
+	}
+
+	public function payment() {
+		$state_login = $this->session->state_login;
+
+		if ($state_login == "") {
+			$this->index();
+		} else {
+
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('payment');
+			$this->load->view('close_html');
+
+		}
 	}
 
 }
