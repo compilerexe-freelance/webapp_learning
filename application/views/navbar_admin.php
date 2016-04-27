@@ -20,12 +20,12 @@
 			
 			<ul class="nav navbar-nav navbar-left navbar_admin">
 				<li class="<?php echo $this->session->index_active; ?>">
-					<a href="<?php echo base_url(); ?>main/index">เพิ่มหมวดสาระ</a>
+					<a href="#">เพิ่มหมวดสาระ</a>
 				</li>
-				<li><a href="index.php">สถานะแจ้งชำระเงิน</a></li>
+				<li><a href="<?php echo base_url(); ?>c_admin/state_payment">สถานะแจ้งชำระเงิน</a></li>
 
-				<li><a href="index.php">สืบค้นประวัติผู้ใช้งาน</a></li>
-				<li><a href="index.php">ตั้งค่าระบบ</a></li>
+				<li><a href="#">สืบค้นประวัติผู้ใช้งาน</a></li>
+				<li><a href="#">ตั้งค่าระบบ</a></li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -37,7 +37,7 @@
 		          </ul>
 		        </li>
 
-				<li style="//background-color: #ffcccc;"><a href="#link_logout" id="btn_logout">ออกจากระบบ</a></li>
+				<li style="//background-color: #ffcccc;"><a href="<?php echo base_url(); ?>c_admin/logout" id="btn_logout">ออกจากระบบ</a></li>
 			</ul>
 		</div>
 
