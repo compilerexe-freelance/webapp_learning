@@ -296,6 +296,36 @@ class Model_user extends CI_Model {
 		}	
 	}
 
+	public function confirm_payment() {
+
+		$user = $this->session->state_login;
+
+		$bank 		= $this->input->post('bank');
+		// $datepay 	= $this->input->post('datepay');
+		$datepay 	= date('Y-m-d', strtotime(str_replace('-', '/', $this->input->post('datepay'))));
+		$hour 		= $this->input->post('hour');
+		$minute 	= $this->input->post('minute');
+		$price 		= $this->input->post('price');
+		$code 		= $this->input->post('code');
+
+
+
+		$sql = "INSERT INTO tb_payment (username,bank,date_payment,hour,minute,price,code) VALUES
+				('$user','$bank','$datepay','$hour','$minute','$price','$code')";
+		$query = $this->db->query($sql);
+
+		if ($this->db->affected_rows() === 1) {
+
+			echo "success_confirm_payment"; // send to ajax 
+
+		} else {
+
+			echo "error_confirm_payment";
+
+		}
+
+	}
+
 	public function fetch_home() {
 		$sql = "SELECT category FROM tb_category";
 		$query = $this->db->query($sql);

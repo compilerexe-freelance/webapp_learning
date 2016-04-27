@@ -50,6 +50,10 @@
 		      	</div>
 		      	<div class="col-md-10">
 
+		      		<div class="form-group text-right">
+			      		<span style="font-size: 16px;"><a href="<?php echo base_url(); ?>c_admin/login">ผู้ดูแลระบบ >></a></span>
+					</div>
+
 		      		<div class="form-group">
 			      		<span id="alertlogin_user"></span>
 						<input type="text" id="login_user" name="txt_user" class="form-control input-lg" placeholder="ชื่อผู้ใช้งาน" maxlength="30" autofocus />
@@ -342,7 +346,7 @@
 
 					$.ajax({
 						type: "POST",
-						url: "<?php echo base_url(); ?>index.php/main/register",
+						url: "<?php echo base_url(); ?>main/register",
 						data: {
 							regis_firstname: get_firstname,
 							regis_lastname: get_lastname,

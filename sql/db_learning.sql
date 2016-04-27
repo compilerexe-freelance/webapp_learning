@@ -11,9 +11,15 @@
 CREATE TABLE `tb_admin` (
   `id` int(10) UNSIGNED NOT NULL,
   `username` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  `date` date NOT NULL
+  `password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'pass1234');
 
 -- --------------------------------------------------------
 
@@ -97,7 +103,7 @@ CREATE TABLE `tb_session` (
 --
 
 INSERT INTO `tb_session` (`id`, `username`, `state_session`, `lastupdate`) VALUES
-(1, 'admin', 1, '2016-04-26 20:51:23'),
+(1, 'admin', 0, '2016-04-27 20:40:12'),
 (2, 'admin1', 0, '2016-04-24 00:00:00');
 
 -- --------------------------------------------------------
@@ -174,7 +180,7 @@ ALTER TABLE `tb_users`
 -- AUTO_INCREMENT for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_category`
 --

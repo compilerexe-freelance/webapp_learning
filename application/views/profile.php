@@ -6,7 +6,7 @@
 		<div class="row" >
 
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="margin-top: 15px;">
-				<div class="form-group">
+				<div class="form-group text-center">
 					<span style="font-size: 30px;">ประวัติส่วนตัว</span>
 				</div>
 			</div>

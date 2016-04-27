@@ -152,7 +152,7 @@ class Main extends CI_Controller {
 
 	}
 
-	public function payment() {
+	public function payment() { // Page payment
 		$state_login = $this->session->state_login;
 
 		if ($state_login == "") {
@@ -165,6 +165,17 @@ class Main extends CI_Controller {
 			$this->load->view('close_html');
 
 		}
+	}
+
+	public function confirm_payment() {
+		$state_login = $this->session->state_login;
+
+		if ($state_login == "") {
+			$this->index();
+		} else {
+			$this->model_user->confirm_payment();
+		}
+
 	}
 
 }
