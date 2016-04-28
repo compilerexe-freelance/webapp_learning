@@ -52,7 +52,7 @@
 
 						}
 
-						console.log(i);
+						// console.log(i);
 
 						code_delete += "<script type='text/javascript'>";
 						code_delete += 	"$(document).ready(function() {";
@@ -83,38 +83,46 @@
 
 				$('#modal_alert').modal();
 
+				// console.log(code_items.length);
+
 			});
 
 			$('#btn_confirm').click(function() {
 
+				// console.log(count_select);
+
 				for (let i = 0; i < code_items.length; i++) {
 					if (code_items[i] != null) {
 
-						$.ajax({
-							type: "post",
-							url: "<?php echo base_url(); ?>main/confirm_checkout",
-							data: {
-								category: category_items[i],
-								code: code_items[i],
-								title: title_items[i],
-								day: day_items[i],
-								price: formatNumber(price_items[i])
-							},
-							dataType: "text",
-							cache: false,
-							success: function (data) {
-								// alert(data);
-								if (data == "success") {
-									$('#btn_confirm').hide();
-									$('#modal_msg').html("<span style='color:green;'>บันทึกข้อมูลเรียบร้อยแล้วจ้า</span>");
-									$('#modal_alert').modal();
-									setInterval(function() {
-										window.location.href = "<?php echo base_url(); ?>main/home";
-									}, 3000);
+						if (array_delete[i] != 0) {
+
+							$.ajax({
+								type: "post",
+								url: "<?php echo base_url(); ?>main/confirm_checkout",
+								data: {
+									category: category_items[i],
+									code: code_items[i],
+									title: title_items[i],
+									day: day_items[i],
+									price: formatNumber(price_items[i])
+								},
+								dataType: "text",
+								cache: false,
+								success: function (data) {
+									// alert(data);
+									if (data == "success") {
+										$('#btn_confirm').hide();
+										$('#modal_msg').html("<span style='color:green;'>บันทึกข้อมูลเรียบร้อยแล้วจ้า</span>");
+										$('#modal_alert').modal();
+										setInterval(function() {
+											window.location.href = "<?php echo base_url(); ?>main/home";
+										}, 3000);
+									}
+									
 								}
-								
-							}
-						});
+							});
+
+						}
 
 					}
 				}

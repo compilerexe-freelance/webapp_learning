@@ -107,12 +107,21 @@ class Model_admin extends CI_Model {
 		$date_payment 	= $this->input->post('date_payment');
 		$hour 			= $this->input->post('hour');
 		$minute 		= $this->input->post('minute');
-	
+
 		$sql 			= "UPDATE tb_payment SET state=1 WHERE username='$username' AND date_payment='$date_payment' AND
 							hour='$hour' AND minute='$minute'";
 		$query 			= $this->db->query($sql);
 
 		if ($this->db->affected_rows() === 1 ) {
+
+			$sql 		= "SELECT code FROM tb_payment WHERE state=1";
+			$query 		= $this->db->query($sql);
+
+			foreach ($query->result() as $row) {
+				$find_code = "UPDATE tb_order SET state=1 WHERE code='$row->code'";
+				$this->db->query($find_code);
+			}
+
 			echo "update_success";
 		} else {
 			echo "update_error";
