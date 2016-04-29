@@ -103,7 +103,7 @@ CREATE TABLE `tb_session` (
 --
 
 INSERT INTO `tb_session` (`id`, `username`, `state_session`, `lastupdate`) VALUES
-(1, 'admin', 1, '2016-04-28 19:44:53'),
+(1, 'admin', 1, '2016-04-30 00:20:22'),
 (2, 'admin1', 0, '2016-04-24 00:00:00'),
 (3, 'enjoy', 1, '2016-04-28 13:48:23');
 
@@ -130,7 +130,7 @@ CREATE TABLE `tb_users` (
 --
 
 INSERT INTO `tb_users` (`id`, `firstname`, `lastname`, `address`, `tel`, `email`, `image`, `username`, `password`) VALUES
-(34, 'Prawared', 'Bowonphattharawadi', 'Chiang Mai', '0979499062', 'compilerexe@gmail.com', 'uploads/image_users/13517571d9ef1429af.png', 'admin', 'wwwwww'),
+(34, 'Prawared', 'Bowonphattharawadi', 'Chiang Mai', '0979499062', 'compilerexe@gmail.com', 'uploads/image_users/1550357222acd49bdd.jpg', 'admin', 'wwwwww'),
 (35, 'compiler', 'exe', '1', '0979499062', 'compilerexe@gmail.com', 'compiler', 'admin1', '111111'),
 (36, 'นางสาว ปภิญญา', 'ต้นติสา', '35 ถนนเวียงบัว ต.ช้างเผือก อ.เมือง จ.เชียงใหม่', '0946428338', 'enjoyppy@icloud.com', NULL, 'enjoy', 'papinya_joy');
 

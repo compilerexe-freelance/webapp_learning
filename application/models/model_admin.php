@@ -128,6 +128,145 @@ class Model_admin extends CI_Model {
 		}
 	}
 
+	public function db_add_category() {
+		$name_category 	= $this->input->post('name_category');
+		$sql			= "INSERT INTO tb_category (category) VALUES('$name_category')";
+		$query 			= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			echo "add_success";
+		} else {
+			echo "add_error";
+		}
+	}
+
+	public function db_edit_category() {
+		$id			= $this->input->post('id');
+		$edit_name 	= $this->input->post('edit_name');
+		$sql 		= "UPDATE tb_category SET category='$edit_name' WHERE id='$id'";
+		$query 		= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			echo "edit_success";
+		} else {
+			echo "edit_error";
+		}
+	}
+
+	public function db_delete_category() {
+		$id 		= $this->input->post('id');
+		$sql 		= "DELETE FROM tb_category WHERE id='$id'";
+		$query 		= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			echo "delete_success";
+		} else {
+			echo "delete_error";
+		}
+	}
+
+	public function add_category_fetch() {
+		$sql 			= "SELECT * FROM tb_category";
+		$query			= $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo "
+				<tr>
+					<td>".$row->category."</td>
+				</tr>";
+		}
+	}
+
+	public function edit_category_fetch() {
+		$sql 			= "SELECT * FROM tb_category";
+		$query			= $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo "
+				<tr>
+					<td>".$row->category."</td>
+					<td><input id='txt_".$row->id."'class='form-control' style='font-size: 18px;' /></td>
+					<td><button id='btn_".$row->id."' class='btn btn-success btn-flat' style='width: 100%; font-size: 16px;'>ยืนยัน</button></td>
+				</tr>
+				<script type='text/javascript'>
+					$(document).ready(function() {
+						$('#btn_".$row->id."').click(function() {
+
+							let id = ".$row->id.";
+							let edit_name = $('#txt_".$row->id."').val();
+
+							if (edit_name == '') {
+								modal_show("."\""."<span style='color:red;'>กรุณากรอกชื่อที่ต้องการแก้ไข</span>"."\"".");
+							} else {
+								$.ajax({
+									type: 'POST',
+									url: '".base_url()."c_admin/db_edit_category',
+									data: {
+										id: id,
+										edit_name: edit_name
+									},
+									dataType: 'text',
+									cache: false,
+									success: function (data) {
+										// alert(data);
+										
+										if (data == 'edit_success') {
+											window.location.href = '".base_url()."c_admin/edit_category';
+										}
+
+										if (data == 'edit_error') {
+											modal_show("."\""."<span style='color:red;'>ไม่สามารถแก้ไขได้</span>"."\"".");
+										}
+										
+									}
+								});
+							}
+						});
+					});
+				</script>";
+		}
+	}
+
+	public function delete_category_fetch() {
+		$sql 			= "SELECT * FROM tb_category";
+		$query			= $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo "
+				<tr>
+					<td>".$row->category."</td>
+					<td><button id='btn_".$row->id."' class='btn btn-default btn-flat' style='width: 100%; font-size: 16px; background-color:#ffe6ff;'><span class='glyphicon glyphicon-trash'></span> ลบ</button></td>
+				</tr>
+				<script type='text/javascript'>
+					$(document).ready(function() {
+						$('#btn_".$row->id."').click(function() {
+
+							let id = ".$row->id.";
+							
+							$.ajax({
+								type: 'POST',
+								url: '".base_url()."c_admin/db_delete_category',
+								data: {
+									id: id
+								},
+								dataType: 'text',
+								cache: false,
+								success: function (data) {
+									// alert(data);
+									
+									if (data == 'delete_success') {
+										window.location.href = '".base_url()."c_admin/delete_category';
+									}
+
+									if (data == 'delete_error') {
+										modal_show("."\""."<span style='color:red;'>ไม่สามารถลบได้</span>"."\"".");
+									}
+									
+								}
+							});
+							
+						});
+					});
+				</script>";
+		}
+	}
+
+
+
 }
 
 ?>

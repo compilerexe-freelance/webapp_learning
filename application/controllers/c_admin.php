@@ -89,6 +89,81 @@ class C_admin extends Main {
 		$this->index();
 	}
 
+	public function add_category() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('add_category');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function edit_category() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('edit_category');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function delete_category() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('delete_category');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_add_category() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->db_add_category();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_edit_category() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->db_edit_category();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_delete_category() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->db_delete_category();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
 }
 
 ?>

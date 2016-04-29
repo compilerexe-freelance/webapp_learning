@@ -47,7 +47,7 @@
 						items_checkout += "<td>" + day_items[i] + "</td>";
 						items_checkout += "<td>" + formatNumber(price_items[i]) + "</td>";
 
-						items_checkout += "<td><button class='btn btn-danger btn-flat' id='delete_" + i + "' style='width:100%;'><span class='glyphicon glyphicon-trash'></span> ลบ</button></td>";
+						items_checkout += "<td><button class='btn btn-default btn-flat' id='delete_" + i + "' style='width:100%; background-color:#ffe6ff;'><span class='glyphicon glyphicon-trash'></span> ลบ</button></td>";
 						items_checkout += "</tr>";
 
 						}
