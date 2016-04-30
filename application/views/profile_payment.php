@@ -20,7 +20,7 @@
 							<th>ชื่อคอร์ส</th>
 							<th>จำนวนวัน</th>
 							<th>ราคา (บาท)</th>
-							<th>สถานะชำระเงิน
+							<th>สถานะชำระเงิน</th>
 						</tr>
 						<?php $this->model_user->profile_payment(); ?>
 					</table>

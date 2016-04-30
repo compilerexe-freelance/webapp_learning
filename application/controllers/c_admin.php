@@ -164,6 +164,138 @@ class C_admin extends Main {
 		}
 	}
 
+	public function find_profile() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('find_profile');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function search_username() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->search_username();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function history_course() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('history_course');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function search_history() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->search_history();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function add_course() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('add_course');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function delete_course() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('delete_course');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_add_course() {
+		if ($this->session->session_admin != "") {
+
+			if ($_FILES["pic"]["name"] != "") {
+				$url = $this->do_upload();
+				// $this->model_admin->course_image($url);
+				$this->model_admin->db_add_course($url);
+			}
+
+			
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	private function do_upload() {
+		$type = explode('.', $_FILES["pic"]["name"]);
+		$type = strtolower($type[count($type)-1]);
+		$url = "uploads/image_course/".uniqid(rand()).'.'.$type;
+		if(in_array($type, array("jpg", "jpeg", "gif", "png")))
+			if(is_uploaded_file($_FILES["pic"]["tmp_name"]))
+				if(move_uploaded_file($_FILES["pic"]["tmp_name"],$url))
+					return $url;
+		return "";
+	}
+
+	public function all_course() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('all_course');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_delete_course() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->db_delete_course();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
 }
 
 ?>

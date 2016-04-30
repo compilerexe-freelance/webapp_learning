@@ -29,9 +29,24 @@
 		          </ul>
 		        </li>
 
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">จัดการคอร์สเรียน <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="<?php echo base_url(); ?>c_admin/add_course" style="font-size: 16px;">เพิ่ม</a></li>
+		            <li><a href="<?php echo base_url(); ?>c_admin/delete_course" style="font-size: 16px;">ลบ</a></li>
+		          </ul>
+		        </li>
+
 				<li><a href="<?php echo base_url(); ?>c_admin/state_payment">สถานะแจ้งชำระเงิน</a></li>
 
-				<li><a href="#">สืบค้นประวัติผู้ใช้งาน</a></li>
+				<li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ดูประวัติผู้ใช้งาน <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="<?php echo base_url(); ?>c_admin/find_profile" style="font-size: 16px;">โปรไฟล์</a></li>
+		            <li><a href="<?php echo base_url(); ?>c_admin/history_course" style="font-size: 16px;">คอร์สเรียน</a></li>
+		          </ul>
+		        </li>
+
 				<li><a href="#">ตั้งค่าระบบ</a></li>
 
 			</ul>

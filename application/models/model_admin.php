@@ -265,7 +265,94 @@ class Model_admin extends CI_Model {
 		}
 	}
 
+	public function search_username() {
+		$search_username 	= $this->input->post('search_username');
+		$sql 				= "SELECT * FROM tb_users WHERE username='$search_username'";
+		$query 				= $this->db->query($sql);
 
+		foreach ($query->result() as $row) {
+
+			print json_encode(array(
+				"image" 	=> $row->image,
+				"firstname"	=> $row->firstname,
+				"lastname"	=> $row->lastname,
+				"address"	=> $row->address,
+				"tel"		=> $row->tel,
+				"email" 	=> $row->email
+			));
+
+		}
+
+	}
+
+	public function search_history() {
+		$search_username 	= $this->input->post('search_username');
+		$sql 				= "SELECT code FROM tb_payment WHERE username='$search_username' AND state=1";
+		$query 				= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+
+			echo $row->code . " , ";
+
+		}
+
+	}
+
+	public function fetch_category() {
+		$sql 				= "SELECT category FROM tb_category";
+		$query				= $this->db->query($sql);
+		
+		foreach ($query->result() as $row) {
+			echo "<option>".$row->category."</option>";
+		}
+	}
+
+	public function db_add_course($url) {
+		$category 	= $this->input->post('category');
+		$code 		= $this->input->post('code');
+		$title 		= $this->input->post('title');
+		$detail		= $this->input->post('detail');
+		$price 		= $this->input->post('price');
+		$day 		= $this->input->post('day');
+
+		$sql 		= "INSERT INTO tb_course (category,code,image,title,detail,price,day) VALUES
+					('$category','$code','$url','$title','$detail','$price','$day')";
+		$query 		= $this->db->query($sql);
+
+		if ($this->db->affected_rows() === 1) {
+			header("location: ".base_url()."c_admin/add_course");
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+
+	}
+
+	public function fetch_all_course() {
+		$sql 		= "SELECT category, code, title FROM tb_course";
+		$query 		= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo "
+			<tr>
+				<td>".$row->category."</td>
+				<td>".$row->code."</td>
+				<td>".$row->title."</td>
+			</tr>
+			";
+		}
+
+	}
+
+	public function db_delete_course() {
+		$delete_course 	= $this->input->post('delete_course');
+		$sql			= "DELETE FROM tb_course WHERE code='$delete_course'";
+		$query 			= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			echo "delete_success";
+		} else {
+			echo "delete_error";
+		}
+	}
 
 }
 
