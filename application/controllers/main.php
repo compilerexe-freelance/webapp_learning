@@ -178,4 +178,19 @@ class Main extends CI_Controller {
 
 	}
 
+	public function learn() {
+		$state_login = $this->session->state_login;
+		if ($state_login == "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('learn');
+			$this->load->view('close_html');
+		}
+	}
+
 }

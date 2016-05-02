@@ -429,6 +429,87 @@ class Model_user extends CI_Model {
 
 	}
 
+	public function fetch_learn() {
+
+		$user 	= $this->session->state_login;
+		$sql 	= "SELECT date_payment, code, exp FROM tb_payment WHERE username='$user' AND state=1";
+		$query 	= $this->db->query($sql);
+
+		$buff_code = [];
+		$i 		= 0;
+
+		foreach ($query->result() as $row) {
+
+			//check exp
+			$date_now 		= date("Y-m-d");
+    		$start 			= $row->date_payment;
+    		$expired 		= $row->exp;
+
+    		$exp 			= $this->DateDiff($start, $expired);
+    		$date_now 		= $this->DateDiff($start, $date_now);
+
+    		if ($date_now < $exp) {
+
+    			$buff_code[$i] 	= $row->code;
+				$i++;
+
+    		} else {
+
+    		}
+    		//end check
+
+
+		}
+
+		// echo count($buff_code);
+
+		for ($j = 0; $j < $i; $j++) {
+			$sql 	= "SELECT * FROM tb_clip WHERE code='$buff_code[$j]'";
+			$query 	= $this->db->query($sql);
+			foreach ($query->result() as $row) {
+
+				echo '
+					<hr size="1">
+					<div class="col-xs-12 col-sm-12 col-md-12">
+						<div class="form-group text-center">
+							<span style="font-size: 26px;">'.$row->title.'</span>
+						</div>
+
+						<div class="form-group">
+							<div class="easyhtml5video" style="position:relative;max-width:656px;">
+								<video controls="controls"  poster="" style="width:100%" title="Test">
+								<source src="'.base_url().$row->url.'" type="video/mp4" />
+							</video>
+						</div>
+					</div>
+				';
+			}
+		}
+
+		// $sql 	= "SELECT url FROM tb_clip WHERE code='$buff_code'";
+		// $query = $this->db->query($sql);
+
+		// foreach ($query->result() as $row) {
+
+		// 	echo '
+		// 		<div class="form-group">
+		// 			<div class="col-xs-5 col-sm-12 col-md-12">
+		// 				<!-- 16:9 aspect ratio -->
+		// 				<div class="embed-responsive embed-responsive-4by3">
+		// 				  <iframe class="embed-responsive-item" src="'.$row->url.'"></iframe>
+		// 				</div>
+		// 			</div>
+		// 		</div>
+		// 	';
+
+		// }
+
+	}
+
+	public function DateDiff($strDate1,$strDate2) {
+		return (strtotime($strDate2) - strtotime($strDate1)) /  ( 60 * 60 * 24 );  // 1 day = 60*60*24
+	}
+
 }
 
 ?>

@@ -74,20 +74,6 @@ INSERT INTO `tb_course` (`id`, `category`, `code`, `image`, `title`, `detail`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_course_regis`
---
-
-CREATE TABLE `tb_course_regis` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `course_code` int(4) UNSIGNED NOT NULL,
-  `username` varchar(4) NOT NULL,
-  `course_regis` date NOT NULL,
-  `exp` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_session`
 --
 
@@ -103,9 +89,9 @@ CREATE TABLE `tb_session` (
 --
 
 INSERT INTO `tb_session` (`id`, `username`, `state_session`, `lastupdate`) VALUES
-(1, 'admin', 1, '2016-04-30 00:20:22'),
-(2, 'admin1', 0, '2016-04-24 00:00:00'),
-(3, 'enjoy', 1, '2016-04-28 13:48:23');
+(1, 'user', 1, '2016-05-02 13:30:47'),
+(2, 'user1', 0, '2016-04-24 00:00:00'),
+(3, 'enjoy', 1, '2016-05-02 13:34:04');
 
 -- --------------------------------------------------------
 
@@ -130,8 +116,8 @@ CREATE TABLE `tb_users` (
 --
 
 INSERT INTO `tb_users` (`id`, `firstname`, `lastname`, `address`, `tel`, `email`, `image`, `username`, `password`) VALUES
-(34, 'Prawared', 'Bowonphattharawadi', 'Chiang Mai', '0979499062', 'compilerexe@gmail.com', 'uploads/image_users/1550357222acd49bdd.jpg', 'admin', 'wwwwww'),
-(35, 'compiler', 'exe', '1', '0979499062', 'compilerexe@gmail.com', 'compiler', 'admin1', '111111'),
+(34, 'Prawared', 'Bowonphattharawadi', 'Chiang Mai', '0979499062', 'compilerexe@gmail.com', 'uploads/image_users/1550357222acd49bdd.jpg', 'user', 'wwwwww'),
+(35, 'compiler', 'exe', '1', '0979499062', 'compilerexe@gmail.com', 'compiler', 'user1', 'wwwwww'),
 (36, 'นางสาว ปภิญญา', 'ต้นติสา', '35 ถนนเวียงบัว ต.ช้างเผือก อ.เมือง จ.เชียงใหม่', '0946428338', 'enjoyppy@icloud.com', NULL, 'enjoy', 'papinya_joy');
 
 --
@@ -154,12 +140,6 @@ ALTER TABLE `tb_category`
 -- Indexes for table `tb_course`
 --
 ALTER TABLE `tb_course`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_course_regis`
---
-ALTER TABLE `tb_course_regis`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -193,11 +173,6 @@ ALTER TABLE `tb_category`
 --
 ALTER TABLE `tb_course`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `tb_course_regis`
---
-ALTER TABLE `tb_course_regis`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tb_session`
 --

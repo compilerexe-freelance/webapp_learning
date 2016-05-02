@@ -52,6 +52,7 @@
 								<th>นาที</th>
 								<th>จำนวนเงิน</th>
 								<th>รหัสคอร์ส</th>
+								<th>วันหมดอายุ</th>
 								<th></th>
 							</tr>
 							<?php $this->model_admin->state_payment(); ?>

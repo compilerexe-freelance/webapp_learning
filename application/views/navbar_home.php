@@ -55,7 +55,7 @@
 		          <ul class="dropdown-menu">
 		          	<li><a href="<?php echo base_url(); ?>main/profile" style="font-size: 16px;">ประวัติส่วนตัว</a></li>
 		          	<li><a href="<?php echo base_url(); ?>main/profile_payment" style="font-size: 16px;">ประวัติชำระเงิน</a></li>
-		            <li><a href="#" style="font-size: 16px;">คอร์สที่ลงเรียน</a></li>
+		            <li><a href="<?php echo base_url(); ?>main/learn" style="font-size: 16px;">คอร์สที่ลงเรียน</a></li>
 		          </ul>
 		        </li>
 

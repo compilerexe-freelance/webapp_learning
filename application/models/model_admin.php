@@ -55,6 +55,7 @@ class Model_admin extends CI_Model {
 				 <td>".$row->minute."</td>
 				 <td>".$row->price."</td>
 				 <td>".$row->code."</td>
+				 <td><input id='exp_".$row->username."_".$row->date_payment."_".$row->hour."_".$row->minute."' class='form-control' placeholder='ตัวอย่าง 2016-01-30' /></td>
 				 <td><button id='".$row->username."_".$row->date_payment."_".$row->hour."_".$row->minute."' class='btn btn-success btn-flat' style='width:100%; font-size:16px;'>ยืนยัน</button></td>
 				</tr>
 
@@ -68,33 +69,44 @@ class Model_admin extends CI_Model {
 						}
 
 						$('#".$row->username."_".$row->date_payment."_".$row->hour."_".$row->minute."').click(function() {
-							$.ajax({
-								type: 'POST',
-								url: '".base_url()."c_admin/update_payment',
-								data: {
-									username: '".$row->username."',
-									date_payment: '".$row->date_payment."',
-									hour: '".$row->hour."',
-									minute: '".$row->minute."'
-								},
-								dataType: 'text',
-								cache: false,
-								success: function (data) {
-									// alert(data);
-									if (data == 'update_success') {
-										modal_show('<span>ยืนยันแจ้งชำระเงินให้ผู้ใช้งาน ".$row->username." สำเร็จ</span>');
-										setInterval(function() {
-											window.location.href = '".base_url()."c_admin/state_payment';
-										}, 2000);
-									}
 
-									if (data == 'update_error') {
-										modal_show('<span>ระบบไม่สามารถยืนยันชำระเงินได้</span>');
+							let exp = $('#exp_".$row->username."_".$row->date_payment."_".$row->hour."_".$row->minute."').val();
+
+							if (exp == '') {
+								modal_show('<span style=\"color:red;\">กรุณากรอกวันหมดอายุ</span>');
+							} else {
+
+								$.ajax({
+									type: 'POST',
+									url: '".base_url()."c_admin/update_payment',
+									data: {
+										username: '".$row->username."',
+										date_payment: '".$row->date_payment."',
+										hour: '".$row->hour."',
+										minute: '".$row->minute."',
+										exp: exp
+									},
+									dataType: 'text',
+									cache: false,
+									success: function (data) {
+										// alert(data);
+										if (data == 'update_success') {
+											modal_show('<span style=\"color:green;\">ยืนยันแจ้งชำระเงินให้ผู้ใช้งาน ".$row->username." สำเร็จ</span>');
+											setInterval(function() {
+												window.location.href = '".base_url()."c_admin/state_payment';
+											}, 2000);
+										}
+
+										if (data == 'update_error') {
+											modal_show('<span style=\"color:red;\">ระบบไม่สามารถยืนยันชำระเงินได้</span>');
+										}
+										
+										
 									}
-									
-									
-								}
-							});
+								});
+
+							}
+
 						});
 					});
 				</script>
@@ -107,8 +119,9 @@ class Model_admin extends CI_Model {
 		$date_payment 	= $this->input->post('date_payment');
 		$hour 			= $this->input->post('hour');
 		$minute 		= $this->input->post('minute');
+		$exp 			= $this->input->post('exp');
 
-		$sql 			= "UPDATE tb_payment SET state=1 WHERE username='$username' AND date_payment='$date_payment' AND
+		$sql 			= "UPDATE tb_payment SET state=1, exp='$exp' WHERE username='$username' AND date_payment='$date_payment' AND
 							hour='$hour' AND minute='$minute'";
 		$query 			= $this->db->query($sql);
 
@@ -352,6 +365,44 @@ class Model_admin extends CI_Model {
 		} else {
 			echo "delete_error";
 		}
+	}
+
+	public function clip_fetch_code() {
+		$sql 			= "SELECT code FROM tb_course";
+		$query 			= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo "<option>".$row->code."</option>";
+		}
+	}
+
+	public function clip_fetch_title() {
+		$sql 			= "SELECT title FROM tb_course";
+		$query 			= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo "<option>".$row->title."</option>";
+		}
+	}
+
+	public function db_clip_course($url) {
+		$title 			= $this->input->post('title');
+		$code 			= $this->input->post('code');
+		$day 			= $this->input->post('day');
+
+		$sql 			= "INSERT INTO tb_clip (title, code, url) VALUES('$title','$code','uploads/course/$url')";
+		$query			= $this->db->query($sql);
+
+		if ($this->db->affected_rows() === 1) {
+			// header("location: ".base_url()."c_admin/clip_course");
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('upload_success');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+
 	}
 
 }

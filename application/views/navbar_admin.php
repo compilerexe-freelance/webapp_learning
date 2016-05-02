@@ -32,6 +32,7 @@
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">จัดการคอร์สเรียน <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
+		          	<li><a href="<?php echo base_url(); ?>c_admin/clip_course" style="font-size: 16px;">คลิปคอร์ส</a></li>
 		            <li><a href="<?php echo base_url(); ?>c_admin/add_course" style="font-size: 16px;">เพิ่ม</a></li>
 		            <li><a href="<?php echo base_url(); ?>c_admin/delete_course" style="font-size: 16px;">ลบ</a></li>
 		          </ul>

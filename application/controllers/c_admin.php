@@ -246,7 +246,7 @@ class C_admin extends Main {
 		if ($this->session->session_admin != "") {
 
 			if ($_FILES["pic"]["name"] != "") {
-				$url = $this->do_upload();
+				$url = $this->upload_add_course();
 				// $this->model_admin->course_image($url);
 				$this->model_admin->db_add_course($url);
 			}
@@ -260,7 +260,7 @@ class C_admin extends Main {
 		}
 	}
 
-	private function do_upload() {
+	private function upload_add_course() {
 		$type = explode('.', $_FILES["pic"]["name"]);
 		$type = strtolower($type[count($type)-1]);
 		$url = "uploads/image_course/".uniqid(rand()).'.'.$type;
@@ -288,6 +288,58 @@ class C_admin extends Main {
 	public function db_delete_course() {
 		if ($this->session->session_admin != "") {
 			$this->model_admin->db_delete_course();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function clip_course() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('clip_course');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('admin');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_clip_course() {
+		if ($this->session->session_admin != "") {
+			
+			if (!$this->input->post('upload') === false)
+				return;
+
+			$config['upload_path'] = "./uploads/course/";
+			$config['allowed_types'] = "*";
+			
+			$this->upload->initialize($config);
+
+			if ($this->upload->do_upload('file')) {
+				// $data['success'] = $this->upload->data();
+				// print_r($this->upload->data());
+
+				$data = $this->upload->data();
+
+				foreach ($data as $key => $value)
+				{
+					if ($key == "file_name") {
+						$this->model_admin->db_clip_course($value);
+						// echo $key . " " . $value . "<br>";
+					}
+				}
+
+			} else {
+				$data['error'] = $this->upload->display_errors();
+				print_r($data);
+			}
+
 		} else {
 			$this->load->view('open_html');
 			$this->load->view('header');

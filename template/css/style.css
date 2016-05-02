@@ -44,3 +44,11 @@ table, th {
 #credit_footer {
     background-color: #ccefff;
 }
+
+.easyhtml5video {
+    margin: 0 auto;
+}
+
+.easyhtml5video .eh5v_script{
+    display:none
+}
