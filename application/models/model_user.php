@@ -486,28 +486,70 @@ class Model_user extends CI_Model {
 			}
 		}
 
-		// $sql 	= "SELECT url FROM tb_clip WHERE code='$buff_code'";
-		// $query = $this->db->query($sql);
-
-		// foreach ($query->result() as $row) {
-
-		// 	echo '
-		// 		<div class="form-group">
-		// 			<div class="col-xs-5 col-sm-12 col-md-12">
-		// 				<!-- 16:9 aspect ratio -->
-		// 				<div class="embed-responsive embed-responsive-4by3">
-		// 				  <iframe class="embed-responsive-item" src="'.$row->url.'"></iframe>
-		// 				</div>
-		// 			</div>
-		// 		</div>
-		// 	';
-
-		// }
-
 	}
 
 	public function DateDiff($strDate1,$strDate2) {
 		return (strtotime($strDate2) - strtotime($strDate1)) /  ( 60 * 60 * 24 );  // 1 day = 60*60*24
+	}
+
+	public function fetch_slide() {
+
+		$sql 	= "SELECT list FROM tb_slide WHERE state=1";
+		$query 	= $this->db->query($sql);
+
+		$list_active = 0;
+		echo "<ol class='carousel-indicators'>";
+
+		foreach ($query->result() as $row) {
+
+			if ($list_active == 0) {
+				echo "<li data-target='#carousel-example-generic' data-slide-to='".$row->list."' class='active'></li>";
+				$list_active++;
+			} else {
+				echo "<li data-target='#carousel-example-generic' data-slide-to='".$row->list."'></li>";
+			}			
+			
+		}
+
+		echo "</ol>"; 
+		$list_active = 0;
+
+		$sql 	= "SELECT url FROM tb_slide WHERE state=1";
+		$query  = $this->db->query($sql);
+
+		echo "<div class='carousel-inner' role='listbox'>";
+
+		foreach ($query->result() as $row) {
+			if ($list_active == 0) {
+				echo "
+					<div class='item active'>
+				      <img style='width: 100%' src='".base_url().$row->url."'>
+				    </div>
+				";
+				$list_active++;
+			} else {
+				echo "
+					<div class='item'>
+				      <img style='width: 100%' src='".base_url().$row->url."'>
+				    </div>
+				";
+			}
+		}
+
+		echo "</div>";
+
+
+		echo '
+			  <!-- Controls -->
+			  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+		';
 	}
 
 }

@@ -405,6 +405,171 @@ class Model_admin extends CI_Model {
 
 	}
 
+	// ========== Banner ==========
+
+	public function db_add_slide1($url) {
+		$check 	= $this->input->post('checkbox_1');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=1";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide2($url) {
+		$check 	= $this->input->post('checkbox_2');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=2";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide3($url) {
+		$check 	= $this->input->post('checkbox_3');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=3";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide4($url) {
+		$check 	= $this->input->post('checkbox_4');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=4";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide5($url) {
+		$check 	= $this->input->post('checkbox_5');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=5";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide6($url) {
+		$check 	= $this->input->post('checkbox_6');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=6";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide7($url) {
+		$check 	= $this->input->post('checkbox_7');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=7";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide8($url) {
+		$check 	= $this->input->post('checkbox_8');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=8";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide9($url) {
+		$check 	= $this->input->post('checkbox_9');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=9";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	public function db_add_slide10($url) {
+		$check 	= $this->input->post('checkbox_10');
+		$sql 	= "UPDATE tb_slide SET url='uploads/slide/$url', state=$check WHERE list=10";
+		$query	= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('banner');
+			$this->load->view('close_html');
+		} else {
+			echo "<script type='text/javascript'> alert('error'); </script>";
+		}
+	}
+
+	// ========== End banner ======
+
+	public function fetch_state_banner() {
+		$sql 	= "SELECT state FROM tb_slide";
+		$query 	= $this->db->query($sql);
+
+		$i = 1;
+
+		foreach ($query->result() as $row) {
+			if ($i == 6) {
+				echo "<br />";
+				echo "
+				$i : ".$row->state." / "."
+				";
+			} else {
+				echo "
+				$i : ".$row->state." / "."
+				";
+			}
+			$i++;
+		}
+	}
+
 }
 
 ?>
