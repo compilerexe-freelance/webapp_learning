@@ -188,7 +188,7 @@ class Main extends CI_Controller {
 		} else {
 			$this->load->view('open_html');
 			$this->load->view('header');
-			$this->load->view('howto');
+			$this->load->view('learn');
 			$this->load->view('close_html');
 		}
 	}

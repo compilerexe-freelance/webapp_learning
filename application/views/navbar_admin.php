@@ -38,10 +38,10 @@
 		          </ul>
 		        </li>
 
-				<li><a href="<?php echo base_url(); ?>c_admin/state_payment">สถานะแจ้งชำระเงิน</a></li>
+				<li><a href="<?php echo base_url(); ?>c_admin/state_payment">แจ้งชำระเงิน</a></li>
 
 				<li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ดูประวัติผู้ใช้งาน <span class="caret"></span></a>
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ประวัติผู้ใช้งาน <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <li><a href="<?php echo base_url(); ?>c_admin/find_profile" style="font-size: 16px;">โปรไฟล์</a></li>
 		            <li><a href="<?php echo base_url(); ?>c_admin/history_course" style="font-size: 16px;">คอร์สเรียน</a></li>
@@ -63,7 +63,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				
 				<li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ประวัติ <span class="caret"></span></a>
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ตั้งค่า <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		          	<li><a href="<?php echo base_url(); ?>c_admin/profile" style="font-size: 16px;">เปลี่ยนรหัสผ่าน</a></li>
 		          </ul>

@@ -52,3 +52,30 @@ table, th {
 .easyhtml5video .eh5v_script{
     display:none
 }
+
+/* Responsive iFrame */
+ 
+.responsive-iframe-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+ 
+.responsive-iframe-container iframe,   
+.vresponsive-iframe-container object,  
+.vresponsive-iframe-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Facebook page */
+.fb-page, 
+.fb-page span, 
+.fb-page span iframe[style] { 
+    width: 100% !important; 
+}

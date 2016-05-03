@@ -1,4 +1,4 @@
-<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
+	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 

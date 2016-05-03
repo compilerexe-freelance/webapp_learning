@@ -104,14 +104,19 @@
 					<span style="font-size: 20px;">รหัสคอร์สที่ต้องการชำระเงิน</span>
 				</div>
 				<div class="form-group">
-					<div class="form-inline">
+
+					<select class="form-control" id="code">
+						<?php $this->model_user->fetch_order_code(); ?>
+					</select>	
+
+					<!-- <div class="form-inline">
 						<div class="form-group">
 							<input class="form-control" id="code" />
 						</div>
 						<div class="form-group">
 							<span>ตัวอย่าง 1001,1002</span>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="form-group">
 					<button id="btn_payment" class="btn btn-success btn-flat" style="width: 100%; height: 40px; font-size: 18px;">แจ้งชำระเงิน</button>

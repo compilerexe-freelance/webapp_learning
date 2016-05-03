@@ -690,6 +690,15 @@ class Model_user extends CI_Model {
 		}
 	}
 
+	public function fetch_order_code() {
+		$sql = "SELECT code FROM tb_order WHERE state=0";
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo "<option>".$row->code."</option>";
+		}
+	}
+
 }
 
 ?>
