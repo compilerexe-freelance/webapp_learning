@@ -5,29 +5,11 @@
 	<div class="container" id="bg_content" style="margin-top: 25px;">
 		<div class="row">
 				
-			<!-- Modal Alert -->
-
-			<div id="modal_alert" class="modal fade modal-small" tabindex="-1" role="dialog">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <span class="modal-title" style="font-size: 20px;">ระบบแจ้งเตือน</span>
-			      </div>
-			      <div class="modal-body">
-			      	<div class="form-group">
-						<span id="modal_msg"></span>
-					</div>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">ปิดหน้าต่าง</button>
-			      </div>
-			    </div><!-- /.modal-content -->
-			  </div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
-
-			<!-- End Modal Alert -->
-
+			<div class="col-xs-12 col-sm-12 col-md-12 text-center" style="margin-top: 15px;">
+				<div class="form-group">
+					<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=compilerexe%40gmail.com&amp;color=%2329527A&amp;ctz=Asia%2FBangkok" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+				</div>
+			</div>
 			
 
 		</div>
