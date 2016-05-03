@@ -570,6 +570,58 @@ class Model_admin extends CI_Model {
 		}
 	}
 
+	public function save_howto() {
+		$data 	= $this->input->post('txt_howto');
+		$data_n = $this->db->escape($data);
+		$sql 	= "UPDATE tb_howto SET text_howto=$data_n WHERE id=1";
+		$query 	= $this->db->query($sql);
+
+		if ($this->db->affected_rows() === 1) {
+			header("location: ".base_url()."c_admin/edit_howto");
+		} else {
+			echo "error save";
+		}
+	}
+
+	public function save_promotion() {
+		$data 	= $this->input->post('txt_promotion');
+		$data_n = $this->db->escape($data);
+		$sql 	= "UPDATE tb_promotion SET text_promotion=$data_n WHERE id=1";
+		$query 	= $this->db->query($sql);
+
+		if ($this->db->affected_rows() === 1) {
+			header("location: ".base_url()."c_admin/edit_promotion");
+		} else {
+			echo "error save";
+		}
+	}
+
+	public function save_about() {
+		$data 	= $this->input->post('txt_about');
+		$data_n = $this->db->escape($data);
+		$sql 	= "UPDATE tb_about SET text_about=$data_n WHERE id=1";
+		$query 	= $this->db->query($sql);
+
+		if ($this->db->affected_rows() === 1) {
+			header("location: ".base_url()."c_admin/edit_about");
+		} else {
+			echo "error save";
+		}
+	}
+
+	public function save_contact() {
+		$data 	= $this->input->post('txt_contact');
+		$data_n = $this->db->escape($data);
+		$sql 	= "UPDATE tb_contact SET text_contact=$data_n WHERE id=1";
+		$query 	= $this->db->query($sql);
+
+		if ($this->db->affected_rows() === 1) {
+			header("location: ".base_url()."c_admin/edit_contact");
+		} else {
+			echo "error save";
+		}
+	}
+
 }
 
 ?>

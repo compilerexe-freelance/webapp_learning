@@ -326,6 +326,92 @@ class Model_user extends CI_Model {
 
 	}
 
+	public function fetch_index_course() {
+		$sql = "SELECT category FROM tb_category";
+		$query = $this->db->query($sql);
+
+		$count_category = 0;
+		$array_category;
+
+		$i = 0; // counting select items
+
+		foreach ($query->result() as $row) {
+			$array_category[$count_category] = $row->category;
+			$count_category++;
+		}
+
+		// Read array category
+		foreach ($array_category as $buff) { 
+			echo '
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<hr size="1" />
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<div class="form-group">
+								<span style="font-size: 30px;">'.$buff.'</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			';
+
+			// Read title from category
+			$sql = "SELECT image, code, category, title, detail, price, day FROM tb_course WHERE category='$buff'";
+			$query = $this->db->query($sql);
+
+			foreach ($query->result() as $row) {
+
+				$url = ''.base_url().$row->image;
+
+				echo '
+					<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
+						<div class="form-group">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
+							</div>
+							<div class="col-xs-10 col-sm-12 col-md-12">
+								<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
+							</div>
+						</div>
+					</div>
+
+					<script type="text/javascript">
+
+						fetch_items++;
+
+						$(document).ready(function() {
+
+							$("#btn_'. $i .'").click(function() {
+								modal_show("<span style=\"color:green;\">กรุณาเข้าสู่ระบบก่อนสมัครคอร์สเรียน</span>");
+							});
+
+						});
+
+					</script>
+				';
+
+				$i++;
+
+			}
+
+		}
+	}
+
 	public function fetch_home() {
 		$sql = "SELECT category FROM tb_category";
 		$query = $this->db->query($sql);
@@ -350,14 +436,9 @@ class Model_user extends CI_Model {
 
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="form-group">
-						<div class="col-xs-5 col-sm-12 col-md-6">
+						<div class="col-xs-12 col-sm-12 col-md-12">
 							<div class="form-group">
 								<span style="font-size: 30px;">'.$buff.'</span>
-							</div>
-						</div>
-						<div class="col-xs-7 col-sm-12 col-md-6 text-right">
-							<div class="form-group">
-								<a href="#"><span style="font-size: 20px;">'.$buff.'ทั้งหมด >></span></a>
 							</div>
 						</div>
 					</div>
@@ -550,6 +631,63 @@ class Model_user extends CI_Model {
 			    <span class="sr-only">Next</span>
 			  </a>
 		';
+	}
+
+	public function fetch_howto() {
+		$sql = "SELECT text_howto FROM tb_howto";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo $row->text_howto;
+		}
+	}
+
+	public function fetch_promotion() {
+		$sql = "SELECT text_promotion FROM tb_promotion";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo $row->text_promotion;
+		}
+	}
+
+	public function fetch_about() {
+		$sql = "SELECT text_about FROM tb_about";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo $row->text_about;
+		}
+	}
+
+	public function fetch_contact() {
+		$sql = "SELECT text_contact FROM tb_contact";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo $row->text_contact;
+		}
+	}
+
+	public function fetch_navbar_category() {
+		$user 	= $this->session->state_login;
+		$sql 	= "SELECT category, title FROM tb_course";
+		$query 	= $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			if ($user == "") {
+				echo "<li><a href='".base_url()."main/course' style='font-size: 16px;'>".$row->category." ".$row->title."</a></li>";
+			} else {
+				echo "<li><a href='".base_url()."main/home' style='font-size: 16px;'>".$row->category." ".$row->title."</a></li>";
+			}
+		}
+	}
+
+	public function fetch_index_btn() {
+		$sql = "SELECT category, title FROM tb_course";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			echo "
+				<div class='form-group col-md-3'>
+					<button class='btn btn-success btn-flat' style='width: 100%; height: 50px; font-size: 18px;'><a href='".base_url()."main/course' style='color: #FFF; text-decoration: none;'>".$row->category." ".$row->title."</a></button>
+				</div>
+			";
+		}
 	}
 
 }

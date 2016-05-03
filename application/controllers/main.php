@@ -188,9 +188,44 @@ class Main extends CI_Controller {
 		} else {
 			$this->load->view('open_html');
 			$this->load->view('header');
-			$this->load->view('learn');
+			$this->load->view('howto');
 			$this->load->view('close_html');
 		}
+	}
+
+	public function howto() {
+		$this->load->view('open_html');
+		$this->load->view('header');
+		$this->load->view('howto');
+		$this->load->view('close_html');
+	}
+
+	public function promotion() {
+		$this->load->view('open_html');
+		$this->load->view('header');
+		$this->load->view('promotion');
+		$this->load->view('close_html');
+	}
+
+	public function about() {
+		$this->load->view('open_html');
+		$this->load->view('header');
+		$this->load->view('about');
+		$this->load->view('close_html');
+	}
+
+	public function contact() {
+		$this->load->view('open_html');
+		$this->load->view('header');
+		$this->load->view('contact');
+		$this->load->view('close_html');
+	}
+
+	public function course() {
+		$this->load->view('open_html');
+		$this->load->view('header');
+		$this->load->view('course');
+		$this->load->view('close_html');
 	}
 
 }

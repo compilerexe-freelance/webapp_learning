@@ -759,6 +759,106 @@ class C_admin extends Main {
 
 	// ========== End banner ======
 
+	public function edit_howto() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('edit_howto');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function edit_promotion() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('edit_promotion');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function edit_about() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('edit_about');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function edit_contact() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('edit_contact');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function save_howto() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->save_howto();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function save_promotion() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->save_promotion();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function save_about() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->save_about();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function save_contact() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->save_contact();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
 }
 
 ?>

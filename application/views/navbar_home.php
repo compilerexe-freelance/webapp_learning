@@ -27,25 +27,18 @@
 				<li class="<?php echo $this->session->index_active; ?>">
 					<a href="<?php echo base_url(); ?>main/index">หน้าแรก</a>
 				</li>
-				<li><a href="index.php">วิธีการเรียน/ชำระเงิน</a></li>
+				<li><a href="<?php echo base_url(); ?>main/howto">วิธีการเรียน/ชำระเงิน</a></li>
 
 				<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">คอร์สเรียนทั้งหมด <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="#" style="font-size: 16px;">ฟิสิกส์ มัธยมศึกษาตอนต้น</a></li>
-		            <li><a href="#" style="font-size: 16px;">ฟิสิกส์ มัธยมศึกษาปีที่ 4</a></li>
-		            <li><a href="#" style="font-size: 16px;">ฟิสิกส์ มัธยมศึกษาปีที่ 5</a></li>
-		            <li><a href="#" style="font-size: 16px;">ฟิสิกส์ มัธยมศึกษาปีที่ 6</a></li>
-		            <li><a href="#" style="font-size: 16px;">ฟิสิกส์ มหาวิทยาลัย</a></li>
-		            <li><a href="#" style="font-size: 16px;">ฟิสิกส์ สามัญ 7 วิชา</a></li>
-		            <li><a href="#" style="font-size: 16px;">ฟิสิกส์ เตรียมทหาร</a></li>
-		            <li><a href="#" style="font-size: 16px;">พื้นฐานวิศวะ</a></li>
+		            <?php $this->model_user->fetch_navbar_category(); ?>
 		          </ul>
 		        </li>
 
-				<li><a href="index.php">โปรโมชั่น</a></li>
-				<li><a href="index.php">เกี่ยวกับเรา</a></li>
-				<li><a href="index.php">ติดต่อเรา</a></li>
+				<li><a href="<?php echo base_url(); ?>main/promotion">โปรโมชั่น</a></li>
+				<li><a href="<?php echo base_url(); ?>main/about">เกี่ยวกับเรา</a></li>
+				<li><a href="<?php echo base_url(); ?>main/contact">ติดต่อเรา</a></li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -59,7 +52,7 @@
 		          </ul>
 		        </li>
 
-				<li style="//background-color: #ffcccc;"><a href="#link_logout" id="btn_logout">ออกจากระบบ</a></li>
+				<li style="//background-color: #ffcccc;"><a href="<?php echo base_url(); ?>main/logout" id="btn_logout">ออกจากระบบ</a></li>
 			</ul>
 		</div>
 

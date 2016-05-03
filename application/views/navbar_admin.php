@@ -49,9 +49,12 @@
 		        </li>
 
 				<li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ตั้งค่าระบบ <span class="caret"></span></a>
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">แก้ไขข้อมูล <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		          	<li><a href="<?php echo base_url(); ?>c_admin/banner" style="font-size: 16px;">อัพโหลดแบนเนอร์</a></li>
+		          	<li><a href="<?php echo base_url(); ?>c_admin/edit_howto" style="font-size: 16px;">วิธีการเรียน/ชำระเงิน</a></li>
+		          	<li><a href="<?php echo base_url(); ?>c_admin/edit_promotion" style="font-size: 16px;">โปรโมชั่น</a></li>
+		          	<li><a href="<?php echo base_url(); ?>c_admin/edit_about" style="font-size: 16px;">เกี่ยวกับเรา</a></li>
+		          	<li><a href="<?php echo base_url(); ?>c_admin/edit_contact" style="font-size: 16px;">ติดต่อเรา</a></li>
 		            <li><a href="<?php echo base_url(); ?>c_admin/banner" style="font-size: 16px;">เปลี่ยนแบนเนอร์</a></li>
 		          </ul>
 		        </li>
