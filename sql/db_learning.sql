@@ -89,9 +89,9 @@ CREATE TABLE `tb_session` (
 --
 
 INSERT INTO `tb_session` (`id`, `username`, `state_session`, `lastupdate`) VALUES
-(1, 'user', 1, '2016-05-02 13:30:47'),
+(1, 'user', 0, '2016-05-04 00:27:43'),
 (2, 'user1', 0, '2016-04-24 00:00:00'),
-(3, 'enjoy', 1, '2016-05-02 13:34:04');
+(3, 'enjoy', 1, '2016-05-03 15:05:34');
 
 -- --------------------------------------------------------
 
@@ -118,7 +118,7 @@ CREATE TABLE `tb_users` (
 INSERT INTO `tb_users` (`id`, `firstname`, `lastname`, `address`, `tel`, `email`, `image`, `username`, `password`) VALUES
 (34, 'Prawared', 'Bowonphattharawadi', 'Chiang Mai', '0979499062', 'compilerexe@gmail.com', 'uploads/image_users/1550357222acd49bdd.jpg', 'user', 'wwwwww'),
 (35, 'compiler', 'exe', '1', '0979499062', 'compilerexe@gmail.com', 'compiler', 'user1', 'wwwwww'),
-(36, 'นางสาว ปภิญญา', 'ต้นติสา', '35 ถนนเวียงบัว ต.ช้างเผือก อ.เมือง จ.เชียงใหม่', '0946428338', 'enjoyppy@icloud.com', NULL, 'enjoy', 'papinya_joy');
+(36, 'นางสาว ปภิญญา', 'ต้นติสา', '35 ถนนเวียงบัว ต.ช้างเผือก อ.เมือง จ.เชียงใหม่', '0946428338', 'enjoyppy@icloud.com', 'uploads/image_users/13719572858186a9b0.jpg', 'enjoy', 'macrol');
 
 --
 -- Indexes for dumped tables
@@ -167,12 +167,12 @@ ALTER TABLE `tb_admin`
 -- AUTO_INCREMENT for table `tb_category`
 --
 ALTER TABLE `tb_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tb_course`
 --
 ALTER TABLE `tb_course`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tb_session`
 --

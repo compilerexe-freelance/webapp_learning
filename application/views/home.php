@@ -188,6 +188,53 @@
 
 			</div>
 
+			<div class="col-xs-12 col-sm-12 col-md-5 text-left" style="margin-top: 25px; background-color: #e6e6ff;">
+				<div class="form-inline">
+					
+					<div class="formgroup" style="margin-top: 15px;">
+						<label>
+							<img src="<?php echo base_url(); ?>template/images/icon/facebook.png"  style="width: 28px; height: 25px;" />
+						</label>
+						<span> 
+							Facebook : <a href="https://www.facebook.com/rightbrainphysics/">rightbrainphysics</a>
+						</span>
+					</div>
+					<div class="formgroup">
+						<label>
+							<img src="<?php echo base_url(); ?>template/images/icon/line.png"  style="width: 28px; height: 25px;" />
+						</label>
+						<span>ID Line : physicman</span>
+					</div>
+					<div class="form-group">
+						<label>
+							<img src="<?php echo base_url(); ?>template/images/icon/phone.png"  style="width: 28px; height: 25px;" />
+						</label>
+						<span>เบอร์ติดต่อ : 083-6260036</span>
+					</div>
+					<div class="form-group">
+						<label>
+							<img src="<?php echo base_url(); ?>template/images/icon/email.png"  style="width: 28px; height: 25px;" />
+						</label>
+						<span>Email : semiconductor@hotmail.com</span>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-7" style="margin-top: 25px;">
+				
+				<iframe style="width: 100% !important;" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frightbrainphysics%2F&tabs&width=350&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="350" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12 responsive-iframe-container" style="margin-top: 25px;">
+				<hr size="1">
+				<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=compilerexe%40gmail.com&amp;color=%2329527A&amp;ctz=Asia%2FBangkok" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+					
+			</div>
+
+			</div>
+
 		</div> <!-- end row -->
 	</div> <!-- end container -->
 	<br>

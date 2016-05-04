@@ -341,7 +341,7 @@ class Model_admin extends CI_Model {
 	}
 
 	public function fetch_all_course() {
-		$sql 		= "SELECT category, code, title FROM tb_course";
+		$sql 		= "SELECT category, code, title, day FROM tb_course";
 		$query 		= $this->db->query($sql);
 
 		foreach ($query->result() as $row) {
@@ -350,6 +350,7 @@ class Model_admin extends CI_Model {
 				<td>".$row->category."</td>
 				<td>".$row->code."</td>
 				<td>".$row->title."</td>
+				<td>".$row->day."</td>
 			</tr>
 			";
 		}

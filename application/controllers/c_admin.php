@@ -1,5 +1,5 @@
 <?php
-include_once (dirname(__FILE__) . "/main.php");
+include_once (dirname(__FILE__) . "/Main.php");
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 

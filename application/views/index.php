@@ -94,7 +94,7 @@
 
 		<div class="col-xs-12 col-sm-12 col-md-7" style="margin-top: 25px;">
 			
-			<iframe style="width: 100% !important;" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frightbrainphysics%2F&tabs&width=500&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+			<iframe style="width: 100% !important;" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frightbrainphysics%2F&tabs&width=350&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="350" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 
 		</div>
 

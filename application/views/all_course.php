@@ -10,7 +10,7 @@
 				</div>
 			</div>
 
-			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="//border: 1px solid red;">
+			<div class="col-xs-12 col-sm-12 col-md-12" style="//border: 1px solid red;">
 
 				<div class="form-group">
 					<div class="table-responsive">
@@ -19,6 +19,7 @@
 								<th>หมวดหมู่</th>
 								<th>รหัสคอร์ส</th>
 								<th>ชื่อคอร์ส</th>
+								<th>จำนวนวัน</th>
 							</tr>
 							<?php $this->model_admin->fetch_all_course(); ?>
 						</table>

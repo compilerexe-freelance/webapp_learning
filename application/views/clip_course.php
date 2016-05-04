@@ -61,7 +61,7 @@
 				</div>
 
 				<div class="form-group">
-					<span style="font-size: 20px;">คลิปคอร์สเรียน</span>
+					<span style="font-size: 20px;">คลิปคอร์สเรียน (นามสกุล .m4v)</span>
 				</div>
 
 				<div class="form-group">
