@@ -38,7 +38,7 @@
 
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="//border: 1px solid red;">
 
-				<?php echo form_open_multipart('c_admin/db_clip_course/'); ?>
+				<?php echo form_open_multipart('c_admin/db_clip_course'); ?>
 
 				<div class="form-group">
 					<span style="font-size: 20px;">ชื่อคอร์ส</span>
@@ -100,8 +100,8 @@
 		$(document).ready(function() {
 
 			$('#btn_submit').click(function() {
-				let state = 0;
-				let delete_course = $('#delete_course').val();
+				var state = 0;
+				var delete_course = $('#delete_course').val();
 
 				if (delete_course == "") {
 					modal_show("<span style='color:red;'>กรุณากรอกรหัสคอร์ส</span>");

@@ -127,12 +127,30 @@ class Model_admin extends CI_Model {
 
 		if ($this->db->affected_rows() === 1 ) {
 
-			$sql 		= "SELECT code FROM tb_payment WHERE state=1";
+			$sql 		= "SELECT code FROM tb_payment WHERE username='$username' AND date_payment='$date_payment' AND
+							hour='$hour' AND minute='$minute'";
 			$query 		= $this->db->query($sql);
 
+			$buff_code 	= ""; // use for count student regis
+
 			foreach ($query->result() as $row) {
-				$find_code = "UPDATE tb_order SET state=1 WHERE code='$row->code'";
+				$find_code = "UPDATE tb_order SET state=1 WHERE username='$username' AND code='$row->code'";
 				$this->db->query($find_code);
+
+				$buff_code = $row->code;
+			}
+
+			// count student regis
+			$sql 		= "SELECT student_regis FROM tb_course WHERE code='$buff_code'";
+			$query 		= $this->db->query($sql);
+
+			$buff_count = 0; 
+
+			foreach ($query->result() as $row) {
+				$buff_count = $row->student_regis;
+				$buff_count++;
+				$sql 	= "UPDATE tb_course SET student_regis='$buff_count' WHERE code='$buff_code'";
+				$this->db->query($sql);
 			}
 
 			echo "update_success";
@@ -286,6 +304,9 @@ class Model_admin extends CI_Model {
 		foreach ($query->result() as $row) {
 
 			print json_encode(array(
+				"id" 		=> $row->id,
+				"username"	=> $row->username,
+				"password" 	=> $row->password,
 				"image" 	=> $row->image,
 				"firstname"	=> $row->firstname,
 				"lastname"	=> $row->lastname,
@@ -620,6 +641,50 @@ class Model_admin extends CI_Model {
 			header("location: ".base_url()."c_admin/edit_contact");
 		} else {
 			echo "error save";
+		}
+	}
+
+	public function fetch_all_users() {
+		$sql 	= "SELECT * FROM tb_users";
+		$query 	= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo "<tr>
+			<td>".$row->username."</td>
+			<td>".$row->firstname."</td>
+			<td>".$row->lastname."</td>
+			<td>".$row->address."</td>
+			<td>".$row->tel."</td>
+			<td>".$row->email."</td>
+			</tr>
+			<script type='text/javascript'> count++; </script>
+			";
+		}
+	}
+
+	public function edit_user_pass() {
+		$buff_id 	= $this->input->post('id');
+		$username 	= $this->input->post('username');
+		$password 	= $this->input->post('password');
+		$sql  		= "UPDATE tb_users SET username='$username', password='$password' WHERE id='$buff_id'";
+		$query 		= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			echo "edit_success";
+		} else {
+			echo "edit_error";
+		}
+	}
+
+	public function fetch_student_regis() {
+		$sql 	= "SELECT * FROM tb_course";
+		$query 	= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo "<tr>
+			<td>".$row->category."</td>
+			<td>".$row->title."</td>
+			<td>".$row->student_regis."</td>
+			</tr>";
 		}
 	}
 

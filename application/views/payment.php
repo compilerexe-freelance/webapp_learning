@@ -135,7 +135,7 @@
 
 	<script type="text/javascript">
 
-		let msg = "";
+		var msg = "";
 
 		function formatNumber (num) {
 		    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -152,14 +152,14 @@
 
 			$('#btn_payment').click(function() {
 
-				let state_modal = 0;
+				var state_modal = 0;
 
-				let bank 	= $('#bank').val();
-				let datepay = $('#datepicker').val();
-				let hour 	= $('#hour').val();
-				let minute 	= $('#minute').val();
-				let price 	= $('#total_price').val();
-				let code 	= $('#code').val();
+				var bank 	= $('#bank').val();
+				var datepay = $('#datepicker').val();
+				var hour 	= $('#hour').val();
+				var minute 	= $('#minute').val();
+				var price 	= $('#total_price').val();
+				var code 	= $('#code').val();
 
 				// var date = Date.parse(datepay);
 				// console.log(date.toString('dd-mm-yyyy'));

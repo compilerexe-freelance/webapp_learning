@@ -24,26 +24,38 @@
 		<div class="collapse navbar-collapse" id="navbar-collapse-1">
 			
 			<ul class="nav navbar-nav navbar-left">
-				<li class="<?php echo $this->session->index_active; ?>">
+
+				<li <?php if ($this->session->navbar_active == "home") { echo "class='active'"; } ?> >
 					<a href="<?php echo base_url(); ?>main/index">หน้าแรก</a>
 				</li>
-				<li><a href="<?php echo base_url(); ?>main/howto">วิธีการเรียน/ชำระเงิน</a></li>
 
-				<li class="dropdown">
+				<li <?php if ($this->session->navbar_active == "howto") { echo "class='active'"; } ?> >
+					<a href="<?php echo base_url(); ?>main/howto">วิธีการเรียน/ชำระเงิน</a>
+				</li>
+
+				<li <?php if ($this->session->navbar_active == "course") { echo "class='dropdown active'"; } ?> >
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">คอร์สเรียนทั้งหมด <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <?php $this->model_user->fetch_navbar_category(); ?>
 		          </ul>
 		        </li>
 
-				<li><a href="<?php echo base_url(); ?>main/promotion">โปรโมชั่น</a></li>
-				<li><a href="<?php echo base_url(); ?>main/about">เกี่ยวกับเรา</a></li>
-				<li><a href="<?php echo base_url(); ?>main/contact">ติดต่อเรา</a></li>
+				<li <?php if ($this->session->navbar_active == "promotion") { echo "class='active'"; } ?> >
+					<a href="<?php echo base_url(); ?>main/promotion">โปรโมชั่น</a>
+				</li>
+
+				<li <?php if ($this->session->navbar_active == "about") { echo "class='active'"; } ?> >
+					<a href="<?php echo base_url(); ?>main/about">เกี่ยวกับเรา</a>
+				</li>
+
+				<li <?php if ($this->session->navbar_active == "contact") { echo "class='active'"; } ?> >
+					<a href="<?php echo base_url(); ?>main/contact">ติดต่อเรา</a>
+				</li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				
-				<li class="dropdown">
+				<li <?php if ($this->session->navbar_active == "myprofile") { echo "class='dropdown active'"; } ?> >
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ประวัติ <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		          	<li><a href="<?php echo base_url(); ?>main/profile" style="font-size: 16px;">ประวัติส่วนตัว</a></li>

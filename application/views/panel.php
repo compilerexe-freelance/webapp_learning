@@ -28,49 +28,4 @@
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript">
-
-		function modal_show(data) {
-			$('#modal_msg').html(data);
-			$('#modal_alert').modal();
-		}
-
-		$(document).ready(function() {
-
-
-			// $('#btn_submit').click(function() {
-
-			// 	let user = $('#txt_user').val();
-			// 	let pass = $('#txt_pass').val();
-
-			// 	if (user == "" || pass == "") {
-			// 		modal_show("<span style='color:red;'>กรุณาตรวจสอบชื่อผู้ใช้งานหรือรหัสผ่าน</span>");
-			// 	} else {
-			// 		$.ajax({
-			// 			type: "POST",
-			// 			url: "<?php echo base_url(); ?>admin/getLogin",
-			// 			data: {
-			// 				user: user,
-			// 				pass: pass
-			// 			},
-			// 			dataType: "text",
-			// 			cache: false,
-			// 			success: function (data) {
-			// 				// alert(data);
-			// 				if (data == "success_login") {
-			// 					window.location.href = "<?php echo base_url(); ?>admin/panel";
-			// 				} else if (data == "error_login") {
-			// 					modal_show("<span style='color:red;'>กรุณาตรวจสอบชื่อผู้ใช้งานหรือรหัสผ่าน</span>");
-			// 				}
-							
-			// 			}
-			// 		});
-			// 	}
-
-			// });
-
-		});
-
-	</script>
-
 </body>

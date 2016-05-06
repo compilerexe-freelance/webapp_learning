@@ -6,20 +6,20 @@
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript"> // Global Variable & Function
-		let title_items 	= [];
-		let code_items		= [];
-		let category_items	= [];
-		let price_items		= [];
-		let day_items 		= [];
-		let confirm_items	= [];
+		var title_items 	= [];
+		var code_items		= [];
+		var category_items	= [];
+		var price_items		= [];
+		var day_items 		= [];
+		var confirm_items	= [];
 
-		let array_delete 	= [];
+		var array_delete 	= [];
 
-		let count_select 	= 0;
-		let price_checkout 	= 0; // total_price & delete price
+		var count_select 	= 0;
+		var price_checkout 	= 0; // total_price & delete price
 
-		let i; // loop code_items
-		let fetch_items = 0;
+		var i; // loop code_items
+		var fetch_items = 0;
 
 		function formatNumber (num) {
 		    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -29,11 +29,11 @@
 
 			$('#btn_checkout').click(function() {
 
-				let code_counting  	= 0;
-				let items_checkout 	= "";
-				// let price_checkout 	= 0;
+				var code_counting  	= 0;
+				var items_checkout 	= "";
+				// var price_checkout 	= 0;
 
-				let code_delete 	= "";
+				var code_delete 	= "";
 
 				for (i = 0; i < code_items.length; i++) {
 					if (code_items[i] != null) {
@@ -91,7 +91,7 @@
 
 				// console.log(count_select);
 
-				for (let i = 0; i < code_items.length; i++) {
+				for (var i = 0; i < code_items.length; i++) {
 					if (code_items[i] != null) {
 
 						if (array_delete[i] != 0) {

@@ -54,22 +54,23 @@ CREATE TABLE `tb_course` (
   `title` varchar(50) NOT NULL,
   `detail` varchar(255) NOT NULL,
   `price` varchar(10) NOT NULL,
-  `day` int(3) NOT NULL
+  `day` int(3) NOT NULL,
+  `student_regis` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tb_course`
 --
 
-INSERT INTO `tb_course` (`id`, `category`, `code`, `image`, `title`, `detail`, `price`, `day`) VALUES
-(1, 'ฟิสิกส์', '1001', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาตอนต้น', 'เข้าใจง่ายรับประกัน ...', '1000', 30),
-(2, 'ฟิสิกส์', '1002', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาปีที่ 4', 'เข้าใจง่ายรับประกัน ...', '1500', 30),
-(3, 'ฟิสิกส์', '1003', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาปีที่ 5', 'เข้าใจง่ายรับประกัน ...', '2000', 30),
-(4, 'ฟิสิกส์', '1004', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาปีที่ 6', 'เข้าใจง่ายรับประกัน ...', '2500', 30),
-(5, 'ฟิสิกส์', '1005', 'uploads/image_users/13517571d9ef1429af.png', 'มหาวิทยาลัย', 'เข้าใจง่ายรับประกัน ...', '3000', 30),
-(6, 'ฟิสิกส์', '1006', 'uploads/image_users/13517571d9ef1429af.png', 'สามัญ 7 วิชา', 'เข้าใจง่ายรับประกัน ...', '3500', 30),
-(7, 'ฟิสิกส์', '1007', 'uploads/image_users/13517571d9ef1429af.png', 'เตรียมทหาร', 'เข้าใจง่ายรับประกัน ...', '4000', 30),
-(8, 'วิศวะ', '2001', 'uploads/image_users/13517571d9ef1429af.png', 'พื้นฐานวิศวะ', 'เข้าใจง่ายรับประกัน ...', '4500', 30);
+INSERT INTO `tb_course` (`id`, `category`, `code`, `image`, `title`, `detail`, `price`, `day`, `student_regis`) VALUES
+(1, 'ฟิสิกส์', '1001', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาตอนต้น', 'เข้าใจง่ายรับประกัน ...', '1000', 30, 2),
+(2, 'ฟิสิกส์', '1002', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาปีที่ 4', 'เข้าใจง่ายรับประกัน ...', '1500', 30, 0),
+(3, 'ฟิสิกส์', '1003', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาปีที่ 5', 'เข้าใจง่ายรับประกัน ...', '2000', 30, 0),
+(4, 'ฟิสิกส์', '1004', 'uploads/image_users/13517571d9ef1429af.png', 'มัธยมศึกษาปีที่ 6', 'เข้าใจง่ายรับประกัน ...', '2500', 30, 0),
+(5, 'ฟิสิกส์', '1005', 'uploads/image_users/13517571d9ef1429af.png', 'มหาวิทยาลัย', 'เข้าใจง่ายรับประกัน ...', '3000', 30, 0),
+(6, 'ฟิสิกส์', '1006', 'uploads/image_users/13517571d9ef1429af.png', 'สามัญ 7 วิชา', 'เข้าใจง่ายรับประกัน ...', '3500', 30, 0),
+(7, 'ฟิสิกส์', '1007', 'uploads/image_users/13517571d9ef1429af.png', 'เตรียมทหาร', 'เข้าใจง่ายรับประกัน ...', '4000', 30, 0),
+(8, 'วิศวะ', '2001', 'uploads/image_users/13517571d9ef1429af.png', 'พื้นฐานวิศวะ', 'เข้าใจง่ายรับประกัน ...', '4500', 30, 0);
 
 -- --------------------------------------------------------
 
@@ -89,8 +90,8 @@ CREATE TABLE `tb_session` (
 --
 
 INSERT INTO `tb_session` (`id`, `username`, `state_session`, `lastupdate`) VALUES
-(1, 'user', 0, '2016-05-04 00:27:43'),
-(2, 'user1', 0, '2016-04-24 00:00:00'),
+(1, 'user', 1, '2016-05-07 04:46:38'),
+(2, 'user1', 0, '2016-05-07 03:49:20'),
 (3, 'enjoy', 1, '2016-05-03 15:05:34');
 
 -- --------------------------------------------------------
@@ -117,8 +118,7 @@ CREATE TABLE `tb_users` (
 
 INSERT INTO `tb_users` (`id`, `firstname`, `lastname`, `address`, `tel`, `email`, `image`, `username`, `password`) VALUES
 (34, 'Prawared', 'Bowonphattharawadi', 'Chiang Mai', '0979499062', 'compilerexe@gmail.com', 'uploads/image_users/1550357222acd49bdd.jpg', 'user', 'wwwwww'),
-(35, 'compiler', 'exe', '1', '0979499062', 'compilerexe@gmail.com', 'compiler', 'user1', 'wwwwww'),
-(36, 'นางสาว ปภิญญา', 'ต้นติสา', '35 ถนนเวียงบัว ต.ช้างเผือก อ.เมือง จ.เชียงใหม่', '0946428338', 'enjoyppy@icloud.com', 'uploads/image_users/13719572858186a9b0.jpg', 'enjoy', 'macrol');
+(35, 'compiler', 'exe', '1', '0979499062', 'compilerexe@gmail.com', 'compiler', 'user1', 'wwwwww');
 
 --
 -- Indexes for dumped tables
@@ -167,12 +167,12 @@ ALTER TABLE `tb_admin`
 -- AUTO_INCREMENT for table `tb_category`
 --
 ALTER TABLE `tb_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tb_course`
 --
 ALTER TABLE `tb_course`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tb_session`
 --

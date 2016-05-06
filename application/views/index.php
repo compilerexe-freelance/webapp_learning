@@ -1,32 +1,9 @@
 <body>
 
-	<?php $this->load->view('navbar_index'); ?>
-
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript"> // Global Variable & Function
-		let title_items 	= [];
-		let code_items		= [];
-		let category_items	= [];
-		let price_items		= [];
-		let day_items 		= [];
-		let confirm_items	= [];
-
-		let array_delete 	= [];
-
-		let count_select 	= 0;
-		let price_checkout 	= 0; // total_price & delete price
-
-		let i; // loop code_items
-		let fetch_items = 0;
-
-		function modal_show(data) {
-			$('#modal_msg').html(data);
-			$('#modal_alert').modal();
-		}
-
-	</script>
+	<?php $this->load->view('navbar_index'); ?>
 
 	<div class="container" id="bg_content">
 
@@ -54,7 +31,7 @@
 						</div>
 					</div>
 				</div>
-			<!-- <?php $this->model_user->fetch_index_btn(); ?> -->
+			
 			<?php $this->model_user->fetch_index_course(); ?>
 
 		</div>
@@ -117,20 +94,14 @@
 	  </div>
 	</nav>
 
-
 	<script type="text/javascript">
 
-		$(document).ready(function(){
+		function modal_show(data) {
+			$('#modal_msg').html(data);
+			$('#modal_alert').modal();
+		}
 
-			let enter_form; // form login
-			let tmppath;
-
-			$('#regis_image').change( function(event) {
-			    tmppath = URL.createObjectURL(event.target.files[0]);
-			    $("#example_image").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
-			    // alert(tmppath);
-			    $("#debug_url").html(tmppath);
-			});
+		$(document).ready(function() {
 
 			$('#btn_regis').click(function(){
 				$('#modal_regis').modal();
@@ -139,7 +110,7 @@
 			$('#btn_login').click(function(){
 				$('#modal_login').modal();
 			});
-			
+
 			// ------- Modal setting show -------
 			$('#modal_login').on('shown.bs.modal', function () {
 		        $('#login_user').focus();
@@ -162,17 +133,17 @@
 
 			$('#submit_regis').click(function() {
 
-				let get_firstname = $('#regis_firstname').val();
-				let get_lastname = $('#regis_lastname').val();
-				let get_address = $('#regis_address').val();
-				let get_image = $('#regis_image').val();
-				let get_tel = $('#regis_tel').val();
-				let get_email = $('#regis_email').val();
-				let get_user = $('#regis_user').val();
-				let get_pass = $('#regis_pass').val();
-				let get_cf_pass = $('#regis_cf_pass').val();
+				var get_firstname = $('#regis_firstname').val();
+				var get_lastname = $('#regis_lastname').val();
+				var get_address = $('#regis_address').val();
+				var get_image = $('#regis_image').val();
+				var get_tel = $('#regis_tel').val();
+				var get_email = $('#regis_email').val();
+				var get_user = $('#regis_user').val();
+				var get_pass = $('#regis_pass').val();
+				var get_cf_pass = $('#regis_cf_pass').val();
 
-				let state = 0;
+				var state = 0;
 
 				if (get_firstname == "") {
 					$('#alert_firstname').html("<span style='color:red;'>กรุณาใส่ชื่อ</span>");
@@ -271,10 +242,10 @@
 
 			$('#submit_login').click(function() {
 
-				let getlogin_user = $('#login_user').val();
-				let getlogin_pass = $('#login_pass').val();
+				var getlogin_user = $('#login_user').val();
+				var getlogin_pass = $('#login_pass').val();
 
-				let state = 0;
+				var state = 0;
 
 				if (getlogin_user == "") {
 					$('#alertlogin_user').html("<span style='color:red;'>กรุณาใส่ชื่อผู้ใช้งาน</span>");
@@ -316,10 +287,10 @@
 				}
 
 			});
-			
 
 		});
 
 	</script>
+	
 
 </body>

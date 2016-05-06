@@ -472,9 +472,9 @@
 
 			$('#btn_submit').click(function() {
 
-				let state = 0;
-				let pass = $('#new_pass').val();
-				let cfpass = $('#new_cfpass').val();
+				var state = 0;
+				var pass = $('#new_pass').val();
+				var cfpass = $('#new_cfpass').val();
 
 				if (pass == "" || cfpass == "") {
 					modal_show("<span style='color:red;'>กรุณากรอกรหัสผ่าน</span>");

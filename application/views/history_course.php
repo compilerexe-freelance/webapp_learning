@@ -39,6 +39,14 @@
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="//border: 1px solid red;">
 
 				<div class="form-group">
+					<a href="<?php echo base_url(); ?>c_admin/all_users">ดูรายชื่อผู้ใช้งานทั้งหมด</a>
+				</div>
+
+				<div class="form-group">
+					<a href="<?php echo base_url(); ?>c_admin/student_regis">ดูจำนวนนักเรียนที่ลงแต่ละคอร์สเรียน</a>
+				</div>
+
+				<div class="form-group">
 					<span style="font-size: 20px;">ค้นหาจากชื่อผู้ใช้งาน (username)</span>
 				</div>
 
@@ -85,8 +93,8 @@
 		$(document).ready(function() {
 
 			$('#btn_submit').click(function() {
-				let state = 0;
-				let search_username = $('#search_username').val();
+				var state = 0;
+				var search_username = $('#search_username').val();
 
 				if (search_username == "") {
 					modal_show("<span style='color:red;'>กรุณากรอกชื่อผู้ใช้งาน</span>");
@@ -106,7 +114,7 @@
 							// alert(data);
 
 
-							// let obj = jQuery.parseJSON(data);
+							// var obj = jQuery.parseJSON(data);
 							// alert(obj.test_ + "0");
 
 							// $('#result_code').text(obj.code);

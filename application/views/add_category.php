@@ -88,9 +88,9 @@
 
 			$('#btn_submit').click(function() {
 
-				let state = 0;
+				var state = 0;
 				
-				let name_category = $('#name_category').val();
+				var name_category = $('#name_category').val();
 
 				if (name_category == "") {
 					modal_show("<span style='color:red;'>กรุณากรอกชื่อหมวดหมู่</span>");

@@ -313,12 +313,12 @@ class C_admin extends Main {
 	public function db_clip_course() {
 		if ($this->session->session_admin != "") {
 			
-			if (!$this->input->post('upload_1') === false)
+			if (!$this->input->post('upload') === false)
 				return;
 
 			$config['upload_path'] = "./uploads/course/";
 			$config['allowed_types'] = "*";
-			
+
 			$this->upload->initialize($config);
 
 			if ($this->upload->do_upload('file')) {
@@ -851,6 +851,45 @@ class C_admin extends Main {
 	public function save_contact() {
 		if ($this->session->session_admin != "") {
 			$this->model_admin->save_contact();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function all_users() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('all_users');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function edit_user_pass() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->edit_user_pass();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function student_regis() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('student_regis');
+			$this->load->view('close_html');
 		} else {
 			$this->load->view('open_html');
 			$this->load->view('header');

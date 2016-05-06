@@ -9,6 +9,8 @@ class Main extends CI_Controller {
 
 	public function index() {
 
+		$this->session->navbar_active = "index";
+
 		if ($this->session->state_login == "") {
 			$this->load->view('open_html');
 			$this->load->view('header');
@@ -71,6 +73,8 @@ class Main extends CI_Controller {
 
 	public function home() {
 
+		$this->session->navbar_active = "home";
+
 		$state_login = $this->session->state_login;
 
 		if ($state_login == "") {
@@ -87,6 +91,8 @@ class Main extends CI_Controller {
 	}
 
 	public function profile() {
+
+		$this->session->navbar_active = "myprofile";
 
 		$this->load->view('open_html');
 		$this->load->view('header');
@@ -137,6 +143,8 @@ class Main extends CI_Controller {
 
 	public function profile_payment() {
 
+		$this->session->navbar_active = "myprofile";
+
 		$state_login = $this->session->state_login;
 
 		if ($state_login == "") {
@@ -179,6 +187,9 @@ class Main extends CI_Controller {
 	}
 
 	public function learn() {
+
+		$this->session->navbar_active = "myprofile";
+
 		$state_login = $this->session->state_login;
 		if ($state_login == "") {
 			$this->load->view('open_html');
@@ -194,6 +205,9 @@ class Main extends CI_Controller {
 	}
 
 	public function howto() {
+
+		$this->session->navbar_active = "howto";
+
 		$this->load->view('open_html');
 		$this->load->view('header');
 		$this->load->view('howto');
@@ -201,6 +215,9 @@ class Main extends CI_Controller {
 	}
 
 	public function promotion() {
+
+		$this->session->navbar_active = "promotion";
+
 		$this->load->view('open_html');
 		$this->load->view('header');
 		$this->load->view('promotion');
@@ -208,6 +225,9 @@ class Main extends CI_Controller {
 	}
 
 	public function about() {
+
+		$this->session->navbar_active = "about";
+
 		$this->load->view('open_html');
 		$this->load->view('header');
 		$this->load->view('about');
@@ -215,6 +235,9 @@ class Main extends CI_Controller {
 	}
 
 	public function contact() {
+
+		$this->session->navbar_active = "contact";
+
 		$this->load->view('open_html');
 		$this->load->view('header');
 		$this->load->view('contact');
@@ -222,6 +245,9 @@ class Main extends CI_Controller {
 	}
 
 	public function course() {
+
+		$this->session->navbar_active = "course";
+
 		$this->load->view('open_html');
 		$this->load->view('header');
 		$this->load->view('course');

@@ -279,8 +279,14 @@ class Model_user extends CI_Model {
 
 			if ($row->state == 0) {
 				$msg_state = "ยังไม่ได้ชำระ";
-			} else {
+			}
+
+			if ($row->state == 1) {
 				$msg_state = "ชำระแล้ว";
+			}
+
+			if ($row->state == 2) {
+				$msg_state = "คอร์สหมดอายุ";
 			}
 
 			echo '
@@ -391,8 +397,6 @@ class Model_user extends CI_Model {
 					</div>
 
 					<script type="text/javascript">
-
-						fetch_items++;
 
 						$(document).ready(function() {
 
@@ -513,7 +517,7 @@ class Model_user extends CI_Model {
 	public function fetch_learn() {
 
 		$user 	= $this->session->state_login;
-		$sql 	= "SELECT date_payment, code, exp FROM tb_payment WHERE username='$user' AND state=1";
+		$sql 	= "SELECT id, date_payment, code, exp FROM tb_payment WHERE username='$user' AND state=1";
 		$query 	= $this->db->query($sql);
 
 		$buff_code = [];
@@ -535,7 +539,10 @@ class Model_user extends CI_Model {
 				$i++;
 
     		} else {
-
+    			$sql = "UPDATE tb_payment SET state=2 WHERE id='$row->id'";
+    			$this->db->query($sql);
+    			$sql = "UPDATE tb_order SET state=2 WHERE username='$user' AND code='$row->code'";
+    			$this->db->query($sql);
     		}
     		//end check
 
@@ -544,28 +551,49 @@ class Model_user extends CI_Model {
 
 		// echo count($buff_code);
 
-		for ($j = 0; $j < $i; $j++) {
-			$sql 	= "SELECT * FROM tb_clip WHERE code='$buff_code[$j]'";
-			$query 	= $this->db->query($sql);
-			foreach ($query->result() as $row) {
+		$sql = "SELECT title, code FROM tb_order WHERE username='$user' AND state=1";
+		$query = $this->db->query($sql);
 
-				echo '
-					<hr size="1">
-					<div class="col-xs-12 col-sm-12 col-md-12">
-						<div class="form-group text-center">
-							<span style="font-size: 26px;">'.$row->title.'</span>
-						</div>
-
-						<div class="form-group">
-							<div class="easyhtml5video" style="position:relative;max-width:656px;">
-								<video controls="controls"  poster="" style="width:100%" title="Test">
-								<source src="'.base_url().$row->url.'" type="video/mp4" />
-							</video>
-						</div>
+		foreach ($query->result() as $row) {
+			echo '
+				<hr size="1">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group text-center">
+						<span style="font-size: 26px;">'.$row->title.'</span>
 					</div>
-				';
-			}
+
+					<div class="form-group">
+						<div class="easyhtml5video" style="position:relative;max-width:656px;">
+							<video controls="controls"  poster="" style="width:100%" title="Test">
+							<source src="'.base_url()."uploads/course/".$row->code.'.m4v" type="video/mp4" />
+						</video>
+					</div>
+				</div>
+			';
 		}
+
+		// for ($j = 0; $j < $i; $j++) {
+		// 	$sql 	= "SELECT * FROM tb_clip WHERE code='$buff_code[$j]'";
+		// 	$query 	= $this->db->query($sql);
+		// 	foreach ($query->result() as $row) {
+
+		// 		echo '
+		// 			<hr size="1">
+		// 			<div class="col-xs-12 col-sm-12 col-md-12">
+		// 				<div class="form-group text-center">
+		// 					<span style="font-size: 26px;">'.$row->title.'</span>
+		// 				</div>
+
+		// 				<div class="form-group">
+		// 					<div class="easyhtml5video" style="position:relative;max-width:656px;">
+		// 						<video controls="controls"  poster="" style="width:100%" title="Test">
+		// 						<source src="'.base_url().$row->url.'" type="video/mp4" />
+		// 					</video>
+		// 				</div>
+		// 			</div>
+		// 		';
+		// 	}
+		// }
 
 	}
 

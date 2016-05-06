@@ -4,8 +4,8 @@
 
 		$(document).ready(function(){
 
-			let enter_form; // form login
-			let tmppath;
+			var enter_form; // form login
+			var tmppath;
 
 			$('#regis_image').change( function(event) {
 			    tmppath = URL.createObjectURL(event.target.files[0]);
@@ -44,17 +44,17 @@
 
 			$('#submit_regis').click(function() {
 
-				let get_firstname = $('#regis_firstname').val();
-				let get_lastname = $('#regis_lastname').val();
-				let get_address = $('#regis_address').val();
-				let get_image = $('#regis_image').val();
-				let get_tel = $('#regis_tel').val();
-				let get_email = $('#regis_email').val();
-				let get_user = $('#regis_user').val();
-				let get_pass = $('#regis_pass').val();
-				let get_cf_pass = $('#regis_cf_pass').val();
+				var get_firstname = $('#regis_firstname').val();
+				var get_lastname = $('#regis_lastname').val();
+				var get_address = $('#regis_address').val();
+				var get_image = $('#regis_image').val();
+				var get_tel = $('#regis_tel').val();
+				var get_email = $('#regis_email').val();
+				var get_user = $('#regis_user').val();
+				var get_pass = $('#regis_pass').val();
+				var get_cf_pass = $('#regis_cf_pass').val();
 
-				let state = 0;
+				var state = 0;
 
 				if (get_firstname == "") {
 					$('#alert_firstname').html("<span style='color:red;'>กรุณาใส่ชื่อ</span>");
@@ -153,10 +153,10 @@
 
 			$('#submit_login').click(function() {
 
-				let getlogin_user = $('#login_user').val();
-				let getlogin_pass = $('#login_pass').val();
+				var getlogin_user = $('#login_user').val();
+				var getlogin_pass = $('#login_pass').val();
 
-				let state = 0;
+				var state = 0;
 
 				if (getlogin_user == "") {
 					$('#alertlogin_user').html("<span style='color:red;'>กรุณาใส่ชื่อผู้ใช้งาน</span>");

@@ -39,7 +39,11 @@
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="//border: 1px solid red;">
 
 				<div class="form-group">
-					<span style="font-size: 20px;">ค้นหาจากชื่อผู้ใช้งาน (username)</span>
+					<a href="<?php echo base_url(); ?>c_admin/all_users">ดูรายชื่อผู้ใช้งานทั้งหมด</a>
+				</div>
+
+				<div class="form-group">
+					<span style="font-size: 20px;">แก้ไขข้อมูล ชื่อผู้ใช้งาน (username)</span>
 				</div>
 
 				<div class="form-group">
@@ -64,11 +68,27 @@
 				</div>
 
 				<div class="form-group">
+					<span style="font-size: 20px;">ชื่อผู้ใช้งาน</span>
+				</div>
+
+				<div class="form-group">
+					<input id="profile_username" name="profile_username" class="form-control input-lg" maxlength="30" />
+				</div>
+
+				<div class="form-group">
+					<span style="font-size: 20px;">รหัสผ่าน</span>
+				</div>
+
+				<div class="form-group">
+					<input id="profile_password" name="profile_username" class="form-control input-lg" maxlength="30" />
+				</div>
+
+				<div class="form-group">
 					<span style="font-size: 20px;">ชื่อ</span>
 				</div>
 
 				<div class="form-group">
-					<input id="profile_firstname" name="profile_firstname" class="form-control input-lg" value="<?php echo $this->session->get_firstname; ?>" maxlength="30" />
+					<input id="profile_firstname" name="profile_firstname" class="form-control input-lg" maxlength="30" />
 				</div>
 
 				<div class="form-group">
@@ -76,7 +96,7 @@
 				</div>
 
 				<div class="form-group">
-					<input id="profile_lastname" name="profile_lastname" class="form-control input-lg" value="<?php echo $this->session->get_lastname; ?>" maxlength="30" />
+					<input id="profile_lastname" name="profile_lastname" class="form-control input-lg" maxlength="30" />
 				</div>
 
 				<div class="form-group">
@@ -92,7 +112,7 @@
 				</div>
 
 				<div class="form-group">
-					<input id="profile_tel" name="profile_tel" class="form-control input-lg" value="<?php echo $this->session->get_tel; ?>" maxlength="10" />
+					<input id="profile_tel" name="profile_tel" class="form-control input-lg" maxlength="10" />
 				</div>
 
 				<div class="form-group">
@@ -100,7 +120,11 @@
 				</div>
 
 				<div class="form-group">
-					<input id="profile_email" name="profile_email" class="form-control input-lg" value="<?php echo $this->session->get_email; ?>" maxlength="30" />
+					<input id="profile_email" name="profile_email" class="form-control input-lg" maxlength="30" />
+				</div>
+
+				<div class="form-group">
+					<button type="submit" id="btn_save" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 18px;">บันทึกการแก้ไข</button>
 				</div>
 
 			</div>
@@ -122,6 +146,8 @@
 
 	<script type="text/javascript">
 
+		var buff_id; 
+
 		function modal_show(data) {
 			$('#modal_msg').html(data);
 			$('#modal_alert').modal();
@@ -129,9 +155,18 @@
 
 		$(document).ready(function() {
 
+			$('#profile_username').attr('disabled', true);
+			$('#profile_password').attr('disabled', true);
+			$('#profile_firstname').attr('disabled', true);
+			$('#profile_lastname').attr('disabled', true);
+			$('#profile_address').attr('disabled', true);
+			$('#profile_tel').attr('disabled', true);
+			$('#profile_email').attr('disabled', true);
+			$('#btn_save').attr('disabled', true);
+
 			$('#btn_submit').click(function() {
-				let state = 0;
-				let search_username = $('#search_username').val();
+				var state = 0;
+				var search_username = $('#search_username').val();
 
 				if (search_username == "") {
 					modal_show("<span style='color:red;'>กรุณากรอกชื่อผู้ใช้งาน</span>");
@@ -149,15 +184,23 @@
 						cache: false,
 						success: function (data) {
 							
-							let obj = jQuery.parseJSON(data);
+							var obj = jQuery.parseJSON(data);
 							
 							$('#profile_image').attr('src', "<?php echo base_url(); ?>" + obj.image);
-							$('#profile_firstname').val(obj.firstname);
+
+							buff_id = obj.id;
+
+							$('#profile_username').val(obj.username);
+							$('#profile_password').val(obj.password);
 							$('#profile_firstname').val(obj.firstname);
 							$('#profile_lastname').val(obj.lastname);
 							$('#profile_address').val(obj.address);
 							$('#profile_tel').val(obj.tel);
 							$('#profile_email').val(obj.email);
+
+							$('#profile_username').attr('disabled', false);
+							$('#profile_password').attr('disabled', false);
+							$('#btn_save').attr('disabled', false);
 							
 						}
 					});
@@ -167,6 +210,36 @@
 					state = 0;
 
 				} // end check state
+
+			});
+
+			$('#btn_save').click(function() {
+				var username = $('#profile_username').val();
+				var password = $('#profile_password').val();
+
+				$.ajax({
+					type: "POST",
+					url: "<?php echo base_url(); ?>c_admin/edit_user_pass",
+					data: {
+						id: buff_id,
+						username: username,
+						password: password
+					},
+					dataType: "text",
+					cache: false,
+					success: function (data) {
+						
+						// alert(data);
+						if (data == "edit_success") {
+							modal_show("<span style='color:green;'>แก้ไขข้อมูลสำเร็จ</span>");
+						}
+
+						if (data == "edit_error") {
+							modal_show("<span style='color:red;'>แก้ไขข้อมูลล้มเหลว</span>");
+						}
+						
+					}
+				});
 
 			});
 
