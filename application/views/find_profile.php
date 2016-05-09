@@ -127,19 +127,13 @@
 					<button type="submit" id="btn_save" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 18px;">บันทึกการแก้ไข</button>
 				</div>
 
+				<div class="form-group">
+					<button id="btn_delete" class="btn btn-danger btn-flat" style="width: 100%; height: 45px; font-size: 18px;">ลบสมาชิก</button>
+				</div>
+
 			</div>
 		</div>
 	</div>
-
-	<br>
-	<br>
-	<br>
-	
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container text-center" style="padding-top: 10px;">
-	  	Course Online &copy; 2016
-	  </div>
-	</nav>
 
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
@@ -163,6 +157,7 @@
 			$('#profile_tel').attr('disabled', true);
 			$('#profile_email').attr('disabled', true);
 			$('#btn_save').attr('disabled', true);
+			$('#btn_delete').attr('disabled', true);
 
 			$('#btn_submit').click(function() {
 				var state = 0;
@@ -201,6 +196,7 @@
 							$('#profile_username').attr('disabled', false);
 							$('#profile_password').attr('disabled', false);
 							$('#btn_save').attr('disabled', false);
+							$('#btn_delete').attr('disabled', false);
 							
 						}
 					});
@@ -240,7 +236,51 @@
 						
 					}
 				});
+			});
 
+			$('#btn_delete').click(function() {
+				var username = $('#profile_username').val();
+
+				$.ajax({
+					type: "POST",
+					url: "<?php echo base_url(); ?>c_admin/edit_delete_user",
+					data: {
+						username: username
+					},
+					dataType: "text",
+					cache: false,
+					success: function (data) {
+						
+						// alert(data);
+						if (data == "delete_success") {
+							modal_show("<span style='color:green;'>ลบผู้ใช้งานสำเร็จ</span>");
+							
+							$('#search_username').val("");
+							$('#profile_username').val("");
+							$('#profile_password').val("");
+							$('#profile_firstname').val("");
+							$('#profile_lastname').val("");
+							$('#profile_address').val("");
+							$('#profile_tel').val("");
+							$('#profile_email').val("");
+
+							$('#profile_username').attr('disabled', true);
+							$('#profile_password').attr('disabled', true);
+							$('#profile_firstname').attr('disabled', true);
+							$('#profile_lastname').attr('disabled', true);
+							$('#profile_address').attr('disabled', true);
+							$('#profile_tel').attr('disabled', true);
+							$('#profile_email').attr('disabled', true);
+							$('#btn_save').attr('disabled', true);
+							$('#btn_delete').attr('disabled', true);
+						}
+
+						if (data == "delete_error") {
+							modal_show("<span style='color:red;'>ลบผู้ใช้งานล้มเหลว</span>");
+						}
+						
+					}
+				});
 			});
 
 		});

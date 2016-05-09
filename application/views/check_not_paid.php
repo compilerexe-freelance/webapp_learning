@@ -32,85 +32,30 @@
 
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="margin-top: 15px;">
 				<div class="form-group text-center">
-					<span style="font-size: 30px;">เพิ่มคอร์สเรียน</span>
+					<span style="font-size: 30px;">ดูคอร์สที่นักเรียนค้างชำระ</span>
 				</div>
 			</div>
 
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="//border: 1px solid red;">
 
-				<?php echo form_open_multipart('c_admin/db_add_course/'); ?>
-
 				<div class="form-group">
-					<a href="<?php echo base_url(); ?>c_admin/all_course">ตารางคอร์สปัจจุบัน</a>
+					<span style="font-size: 20px;">ค้นหาจากชื่อผู้ใช้งาน (username)</span>
 				</div>
 
 				<div class="form-group">
-					<span style="font-size: 20px;">หมวดหมู่</span>
+					<input id="search_username" class="form-control input-lg" autofocus />
 				</div>
 
 				<div class="form-group">
-					<select name="category" class="form-control input-lg">
-						<?php $this->model_admin->fetch_category(); ?>
-					</select>
+					<button id="btn_submit" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 18px;">ค้นหา</button>
 				</div>
 
 				<div class="form-group">
-					<span style="font-size: 20px;">รหัสคอร์ส (ห้ามซ้ำกับคอร์สที่มีอยู่แล้ว)</span>
+					<span style="font-size: 20px;">รหัสคอร์สที่ค้างชำระ</span>
 				</div>
 
 				<div class="form-group">
-					<input name="code" class="form-control input-lg" placeholder="ตัวอย่าง 1001" />
-				</div>
-
-				<div class="form-group">
-					<span style="font-size: 20px;">รูปภาพคอร์ส <span style="color:blue;">(ขนาด 242x200)</span></span>
-				</div>
-
-				<div class="form-group">
-					<input 
-						type="file" 
-						class="filestyle"
-						
-						data-buttonName="btn-success"
-						data-buttonText="เลือกไฟล์"
-						name="pic" 
-					/>
-				</div>
-
-				<div class="form-group">
-					<span style="font-size: 20px;">ชื่อคอร์ส</span>
-				</div>
-
-				<div class="form-group">
-					<input name="title" class="form-control input-lg" />
-				</div>
-
-				<div class="form-group">
-					<span style="font-size: 20px;">รายละเอียดคอร์ส</span>
-				</div>
-
-				<div class="form-group">
-					<input name="detail" class="form-control input-lg" />
-				</div>
-
-				<div class="form-group">
-					<span style="font-size: 20px;">ราคา (ไม่ต้องใส่เครื่องหมายหลัก)</span>
-				</div>
-
-				<div class="form-group">
-					<input name="price" class="form-control input-lg" placeholder="ตัวอย่าง 1000" />
-				</div>
-
-				<div class="form-group">
-					<span style="font-size: 20px;">จำนวนวัน</span>
-				</div>
-
-				<div class="form-group">
-					<input name="day" class="form-control input-lg" />
-				</div>
-
-				<div class="form-group">
-					<button type="submit" id="btn_submit" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 18px;">บันทึกข้อมูล</button>
+					<span id="result_code" style="font-size: 20px;"></span>
 				</div>
 
 			</div>
@@ -119,7 +64,6 @@
 
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
-	<script src="<?php echo base_url(); ?>template/js/bootstrap-filestyle.min.js"></script>
 
 	<script type="text/javascript">
 
@@ -142,7 +86,7 @@
 
 					$.ajax({
 						type: "POST",
-						url: "<?php echo base_url(); ?>c_admin/search_history",
+						url: "<?php echo base_url(); ?>c_admin/db_not_paid",
 						data: {
 							search_username: search_username
 						},

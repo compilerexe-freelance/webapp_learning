@@ -41,14 +41,6 @@
 
 		</div> <!-- end row -->
 	</div> <!-- end container -->
-	<br>
-	<br>
-	<br>
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container text-center" style="padding-top: 10px;">
-	  	Course Online &copy; 2016
-	  </div>
-	</nav>
 
 	<?php $this->load->view('guest_modal_script'); ?>
 

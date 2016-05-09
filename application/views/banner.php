@@ -36,6 +36,12 @@
 
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4">
 				<div class="form-group">
+					<span style="font-size: 20px; color:blue;">ขนาดแบนเนอร์ที่แนะนำ 960 x 340 ใช้ขนาดเดียวกันทุกแบนเนอร์</span>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4">
+				<div class="form-group">
 					<?php $this->model_admin->fetch_state_banner(); ?>
 				</div>
 			</div>
@@ -438,16 +444,6 @@
 
 		</div>
 	</div>
-
-	<br>
-	<br>
-	<br>
-
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container text-center" style="padding-top: 10px;">
-	  	Course Online &copy; 2016
-	  </div>
-	</nav>
 
 	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>

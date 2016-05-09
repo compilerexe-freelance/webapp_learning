@@ -101,7 +101,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<span style="font-size: 20px;">รหัสคอร์สที่ต้องการชำระเงิน</span>
+					<span style="font-size: 20px;">เลือกคอร์สที่ต้องการชำระเงิน</span>
 				</div>
 				<div class="form-group">
 

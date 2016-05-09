@@ -86,7 +86,8 @@ class C_admin extends Main {
 
 	public function logout() {
 		$this->session->unset_userdata('session_admin');
-		$this->index();
+		header("location: ".base_url());
+		// $this->index();
 	}
 
 	public function add_category() {
@@ -884,12 +885,73 @@ class C_admin extends Main {
 		}
 	}
 
+	public function edit_delete_user() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->edit_delete_user();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
 	public function student_regis() {
 		if ($this->session->session_admin != "") {
 			$this->load->view('open_html');
 			$this->load->view('header');
 			$this->load->view('student_regis');
 			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function edit_exp() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('edit_exp');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_edit_exp() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->db_edit_exp();
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function check_not_paid() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('check_not_paid');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
+	public function db_not_paid() {
+		if ($this->session->session_admin != "") {
+			$this->model_admin->db_not_paid();
 		} else {
 			$this->load->view('open_html');
 			$this->load->view('header');

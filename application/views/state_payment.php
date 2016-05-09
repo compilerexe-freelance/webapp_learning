@@ -38,6 +38,13 @@
 				<div class="form-group text-center">
 					<span style="font-size: 20px; color: red;">(โปรดตรวจเช็คให้ดีก่อนยืนยัน)</span>
 				</div>
+				<div class="form-group text-right">
+					<a href="<?php echo base_url(); ?>c_admin/all_course">ตารางคอร์สปัจจุบัน</a>
+					<span>/</span>
+					<a href="<?php echo base_url(); ?>c_admin/check_not_paid">ดูคอร์สที่นักเรียนค้างชำระ</a>
+					<span>/</span>
+					<a href="<?php echo base_url(); ?>c_admin/edit_exp">แก้ไขวันหมดอายุ คอร์สเรียน</a>
+				</div>
 			</div>
 
 			<div class="col-xs-12 col-sm-12 col-md-12">
@@ -51,7 +58,7 @@
 								<th>ชั่วโมง</th>
 								<th>นาที</th>
 								<th>จำนวนเงิน</th>
-								<th>รหัสคอร์ส</th>
+								<th>ชื่อคอร์ส</th>
 								<th>วันหมดอายุ</th>
 								<th></th>
 							</tr>
@@ -64,86 +71,12 @@
 		</div>
 	</div>
 
-	<br>
-	<br>
-	<br>
-
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container text-center" style="padding-top: 10px;">
-	  	Course Online &copy; 2016
-	  </div>
-	</nav>
-
 	<script type="text/javascript">
 
 		function modal_show(data) {
 			$('#modal_msg').html(data);
 			$('#modal_alert').modal();
 		}
-		
-		$(document).ready(function() {
-
-			// ------- Enter form ---------------
-		    $('#new_cfpass').keypress(function(e) {
-		    	if (($('#new_pass').val() != "") && (e.keyCode == 13)) {
-		    		$('#btn_submit').click();
-		    	}
-		    	// console.log(e);
-		    });
-		    // ----------------------------------
-
-			$('#btn_submit').click(function() {
-
-				var state = 0;
-				var pass = $('#new_pass').val();
-				var cfpass = $('#new_cfpass').val();
-
-				if (pass == "" || cfpass == "") {
-					modal_show("<span style='color:red;'>กรุณากรอกรหัสผ่าน</span>");
-				} else { state = 1; }
-
-				if (pass.length < 6 || cfpass.length < 6) {
-					modal_show("<span style='color:red;'>กรุณาตั้งรหัสผ่าน 6 ตัวอักษรขึ้นไป</span>");
-				} else { state = 1; }
-
-				if (pass != cfpass) {
-					modal_show("<span style='color:red;'>รหัสผ่านทั้ง 2 ช่องไม่ตรงกัน</span>");
-				} else { state = 1; }
-
-				if (state == 1) {
-
-					$.ajax({
-						type: "POST",
-						url: "<?php echo base_url(); ?>c_admin/passChange",
-						data: {
-							pass: pass,
-							cfpass: cfpass
-						},
-						dataType: "text",
-						cache: false,
-						success: function (data) {
-							// alert(data);
-							
-							if (data == "update_success") {
-								modal_show("<span style='color:green;'>เปลี่ยนรหัสผ่านสำเร็จ</span>");
-							}
-
-							if (data == "update_error") {
-								modal_show("<span style='color:red;'>ระบบไม่สามารถเปลี่ยนรหัสผ่านได้</span>");
-							}
-							
-						}
-					});
-
-					$('#new_pass').val('');
-					$('#new_cfpass').val('');
-					state = 0;
-
-				} // end check state
-
-			});
-
-		});
 
 	</script>
 

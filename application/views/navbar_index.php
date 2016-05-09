@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="font-size: 16px;">
 	<div class="container">
 
 		<!-- div class="text-right" style="margin-top: 20px;">
@@ -40,13 +40,18 @@
 					<a href="<?php echo base_url(); ?>main/promotion">โปรโมชั่น</a>
 				</li>
 
-				<li <?php if ($this->session->navbar_active == "about") { echo "class='active'"; } ?> >
-					<a href="<?php echo base_url(); ?>main/about">เกี่ยวกับเรา</a>
-				</li>
+				<li <?php if ($this->session->navbar_active == "course") { echo "class='dropdown active'"; } ?> >
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ติดต่อเรา <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li <?php if ($this->session->navbar_active == "about") { echo "class='active'"; } ?> >
+						<a href="<?php echo base_url(); ?>main/about">เกี่ยวกับเรา</a>
+					</li>
 
-				<li <?php if ($this->session->navbar_active == "contact") { echo "class='active'"; } ?> >
-					<a href="<?php echo base_url(); ?>main/contact">ติดต่อเรา</a>
-				</li>
+					<li <?php if ($this->session->navbar_active == "contact") { echo "class='active'"; } ?> >
+						<a href="<?php echo base_url(); ?>main/contact">ติดต่อเรา</a>
+					</li>
+		          </ul>
+		        </li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

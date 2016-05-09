@@ -62,6 +62,8 @@
 						code_delete += 			"price_checkout = parseInt(price_checkout) - parseInt(" + price_items[i] + ");";
 						code_delete	+= 			"$('#total_price').text(price_checkout);";
 						code_delete += 			"$('#btn_" + i + "').attr('disabled',false);";
+						code_delete += 			"$('#btn_" + i + "').attr('class','btn btn-success');";
+						code_delete += 			"$('#btn_" + i + "').text('ลงเรียน');";
 						code_delete += 			"count_select--;";
 						code_delete += 			"$('#badge_count').text(count_select);";
 						code_delete += 		"});";
@@ -155,7 +157,15 @@
 			      
 			      </div>
 			      <div class="modal-footer">
+
+			      	<div class="col-md-6">
+		      			<div class="form-group text-center">
+			      			<a href="#" id="continue_select">เลือกคอร์สเพิ่มเติม</a>
+			      		</div>
+			      	</div>
+
 			      	<div class="col-md-12">
+
 			      		<div class="col-md-6">
 			      			<div class="form-group">
 				      			<button type="button" class="btn btn-success btn-flat" id="btn_confirm" style="width: 100%; height: 40px; font-size: 16px;">ยืนยัน</button>
@@ -163,9 +173,10 @@
 				      	</div>
 				      	<div class="col-md-6">
 				      		<div class="form-group">
-				        		<button type="button" class="btn btn-warning btn-flat" style="width: 100%; height: 40px; font-size: 16px;" data-dismiss="modal">ปิดหน้าต่าง</button>
+				        		<button type="button" class="btn btn-warning btn-flat" id="close_modal" style="width: 100%; height: 40px; font-size: 16px;" data-dismiss="modal">ปิดหน้าต่าง</button>
 				        	</div>
 				        </div>
+				        
 			        </div>
 			      </div>
 			    </div><!-- /.modal-content -->
@@ -237,15 +248,15 @@
 
 		</div> <!-- end row -->
 	</div> <!-- end container -->
-	<br>
-	<br>
-	<br>
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container text-center" style="padding-top: 10px;">
-	  	Course Online &copy; 2016
-	  </div>
-	</nav>
 
 	<?php $this->load->view('navbar_script'); ?>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#continue_select').click(function() {
+				$('#close_modal').click();
+			});
+		});
+	</script>
 
 </body>

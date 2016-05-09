@@ -314,8 +314,6 @@ class Model_user extends CI_Model {
 		$price 		= $this->input->post('price');
 		$code 		= $this->input->post('code');
 
-
-
 		$sql = "INSERT INTO tb_payment (username,bank,date_payment,hour,minute,price,code) VALUES
 				('$user','$bank','$datepay','$hour','$minute','$price','$code')";
 		$query = $this->db->query($sql);
@@ -417,6 +415,7 @@ class Model_user extends CI_Model {
 	}
 
 	public function fetch_home() {
+		$user = $this->session->state_login;
 		$sql = "SELECT category FROM tb_category";
 		$query = $this->db->query($sql);
 
@@ -424,6 +423,11 @@ class Model_user extends CI_Model {
 		$array_category;
 
 		$i = 0; // counting select items
+		$buff_regis = [];
+		$counting_buff_regis = 0;
+		$read_buff_regis = 0;
+
+		$onetimecheck = 0;
 
 		foreach ($query->result() as $row) {
 			$array_category[$count_category] = $row->category;
@@ -449,6 +453,23 @@ class Model_user extends CI_Model {
 				</div>
 			';
 
+			// check code regis
+			$sql = "SELECT code FROM tb_order WHERE username='$user' AND state=1";
+			$query = $this->db->query($sql);
+			
+			foreach ($query->result() as $row) {
+				$buff_regis[$counting_buff_regis] = $row->code;
+				$counting_buff_regis++;
+			}
+			
+			if ($onetimecheck == 0) {
+				// echo $counting_buff_regis;
+				$counting_buff_regis--;
+				$onetimecheck = 1;
+				// echo $counting_buff_regis;
+			}
+			
+
 			// Read title from category
 			$sql = "SELECT image, code, category, title, detail, price, day FROM tb_course WHERE category='$buff'";
 			$query = $this->db->query($sql);
@@ -456,63 +477,151 @@ class Model_user extends CI_Model {
 			foreach ($query->result() as $row) {
 
 				$url = ''.base_url().$row->image;
+				
+				//-------------test---------
+				
+				if ($read_buff_regis <= $counting_buff_regis) {
+					
+					if ($buff_regis[$read_buff_regis] == $row->code) {
+						echo '
+							<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
+									</div>
+									<div class="col-xs-10 col-sm-12 col-md-12">
+										<div class="form-group"><button class="btn btn-danger btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;" disabled>ลงเรียนแล้ว</button></div>
+									</div>
+								</div>
+							</div>
+						';
+						$read_buff_regis++;
+					} else {
+						echo '
+							<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
+									</div>
+									<div class="col-xs-10 col-sm-12 col-md-12">
+										<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
+									</div>
+								</div>
+							</div>
 
-				echo '
-					<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
-						<div class="form-group">
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
+							<script type="text/javascript">
+
+								fetch_items++;
+
+								$(document).ready(function() {
+
+									$("#btn_'. $i .'").click(function() {
+										title_items['. $i .'] 		= "'. $row->title .'";
+										code_items['. $i .'] 		= "'. $row->code .'";
+										category_items['. $i .'] 	= "'. $row->category .'";
+										price_items['. $i .'] 		= "'. $row->price .'";
+										day_items['. $i .'] 		= "'. $row->day .'";
+										count_select++;
+										$("#badge_count").text(count_select);
+										$("#btn_'. $i .'").attr("disabled", true);
+										$("#btn_'. $i .'").attr("class", "btn btn-warning");
+										$("#btn_'. $i .'").text("รอการยืนยัน");
+										array_delete['. $i .'] = 1;
+										price_checkout = price_checkout + parseInt(' . $row->price . ');
+									});
+
+
+
+								});
+
+							</script>
+						';
+					}
+					
+				} else {
+					echo '
+						<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
+								</div>
+								<div class="col-xs-10 col-sm-12 col-md-12">
+									<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
+								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
-							</div>
-							<div class="col-xs-10 col-sm-12 col-md-12">
-								<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
-							</div>
-						</div>
-					</div>
 
-					<script type="text/javascript">
+						<script type="text/javascript">
 
-						fetch_items++;
+							fetch_items++;
 
-						$(document).ready(function() {
+							$(document).ready(function() {
 
-							$("#btn_'. $i .'").click(function() {
-								title_items['. $i .'] 		= "'. $row->title .'";
-								code_items['. $i .'] 		= "'. $row->code .'";
-								category_items['. $i .'] 	= "'. $row->category .'";
-								price_items['. $i .'] 		= "'. $row->price .'";
-								day_items['. $i .'] 		= "'. $row->day .'";
-								count_select++;
-								$("#badge_count").text(count_select);
-								$("#btn_'. $i .'").attr("disabled", true);
-								array_delete['. $i .'] = 1;
-								price_checkout = price_checkout + parseInt(' . $row->price . ');
+								$("#btn_'. $i .'").click(function() {
+									title_items['. $i .'] 		= "'. $row->title .'";
+									code_items['. $i .'] 		= "'. $row->code .'";
+									category_items['. $i .'] 	= "'. $row->category .'";
+									price_items['. $i .'] 		= "'. $row->price .'";
+									day_items['. $i .'] 		= "'. $row->day .'";
+									count_select++;
+									$("#badge_count").text(count_select);
+									$("#btn_'. $i .'").attr("disabled", true);
+									$("#btn_'. $i .'").attr("class", "btn btn-warning");
+									$("#btn_'. $i .'").text("รอการยืนยัน");
+									array_delete['. $i .'] = 1;
+									price_checkout = price_checkout + parseInt(' . $row->price . ');
+								});
+
+
+
 							});
 
-
-
-						});
-
-					</script>
-				';
+						</script>
+					';
+				}
 
 				$i++;
+				//--------------------------
 
 			}
 
 		}
 
 	}
+
 
 	public function fetch_learn() {
 
@@ -555,6 +664,7 @@ class Model_user extends CI_Model {
 		$query = $this->db->query($sql);
 
 		foreach ($query->result() as $row) {
+			
 			echo '
 				<hr size="1">
 				<div class="col-xs-12 col-sm-12 col-md-12">
@@ -570,6 +680,7 @@ class Model_user extends CI_Model {
 					</div>
 				</div>
 			';
+			
 		}
 
 		// for ($j = 0; $j < $i; $j++) {
@@ -719,11 +830,13 @@ class Model_user extends CI_Model {
 	}
 
 	public function fetch_order_code() {
-		$sql = "SELECT code FROM tb_order WHERE state=0";
+		$sql = "SELECT title FROM tb_order WHERE state=0";
 		$query = $this->db->query($sql);
 
+		echo "<option>ชำระเงินคอร์สทั้งหมด</option>";
+
 		foreach ($query->result() as $row) {
-			echo "<option>".$row->code."</option>";
+			echo "<option>".$row->title."</option>";
 		}
 	}
 

@@ -2,7 +2,7 @@
 
 	<?php $this->load->view('navbar_admin'); ?>
 
-	<div class="container" id="bg_content">
+	<div class="container" id="bg_content" style="margin-top: 15px;">
 		<div class="row" >
 			<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4" style="margin-top: 15px;">
 				<div class="form-group text-center">
@@ -19,6 +19,7 @@
 								<th>หมวดหมู่</th>
 								<th>รหัสคอร์ส</th>
 								<th>ชื่อคอร์ส</th>
+								<th>ราคา</th>
 								<th>จำนวนวัน</th>
 							</tr>
 							<?php $this->model_admin->fetch_all_course(); ?>
@@ -30,4 +31,7 @@
 		</div>
 	</div>
 
+	<script src="<?php echo base_url(); ?>template/js/jquery-1.12.3.min.js"></script>
+	<script src="<?php echo base_url(); ?>template/js/bootstrap.min.js"></script>
+	
 </body>

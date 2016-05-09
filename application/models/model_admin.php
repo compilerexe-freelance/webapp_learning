@@ -42,6 +42,7 @@ class Model_admin extends CI_Model {
 	}
 
 	public function state_payment() {
+
 		$sql = "SELECT * FROM tb_payment WHERE state=0";
 		$query = $this->db->query($sql);
 
@@ -70,7 +71,7 @@ class Model_admin extends CI_Model {
 
 						$('#".$row->username."_".$row->date_payment."_".$row->hour."_".$row->minute."').click(function() {
 
-							let exp = $('#exp_".$row->username."_".$row->date_payment."_".$row->hour."_".$row->minute."').val();
+							var exp = $('#exp_".$row->username."_".$row->date_payment."_".$row->hour."_".$row->minute."').val();
 
 							if (exp == '') {
 								modal_show('<span style=\"color:red;\">กรุณากรอกวันหมดอายุ</span>');
@@ -81,9 +82,12 @@ class Model_admin extends CI_Model {
 									url: '".base_url()."c_admin/update_payment',
 									data: {
 										username: '".$row->username."',
+										bank: '".$row->bank."',
 										date_payment: '".$row->date_payment."',
 										hour: '".$row->hour."',
 										minute: '".$row->minute."',
+										price: '".$row->price."',
+										code: '".$row->code."',
 										exp: exp
 									},
 									dataType: 'text',
@@ -116,47 +120,74 @@ class Model_admin extends CI_Model {
 
 	public function update_payment() {
 		$username 		= $this->input->post('username');
+		$bank 			= $this->input->post('bank');
 		$date_payment 	= $this->input->post('date_payment');
 		$hour 			= $this->input->post('hour');
 		$minute 		= $this->input->post('minute');
+		$price 			= $this->input->post('price');
+		$title 			= $this->input->post('code');
 		$exp 			= $this->input->post('exp');
 
-		$sql 			= "UPDATE tb_payment SET state=1, exp='$exp' WHERE username='$username' AND date_payment='$date_payment' AND
-							hour='$hour' AND minute='$minute'";
-		$query 			= $this->db->query($sql);
+		if ($title == "ชำระเงินคอร์สทั้งหมด") {
 
-		if ($this->db->affected_rows() === 1 ) {
-
-			$sql 		= "SELECT code FROM tb_payment WHERE username='$username' AND date_payment='$date_payment' AND
-							hour='$hour' AND minute='$minute'";
-			$query 		= $this->db->query($sql);
-
-			$buff_code 	= ""; // use for count student regis
+			$sql 			= "SELECT title, price FROM tb_order WHERE username='$username' AND state=0";
+			$query 			= $this->db->query($sql);
 
 			foreach ($query->result() as $row) {
-				$find_code = "UPDATE tb_order SET state=1 WHERE username='$username' AND code='$row->code'";
-				$this->db->query($find_code);
-
-				$buff_code = $row->code;
+				
+				$sql2 		= "INSERT INTO tb_payment (username,bank,date_payment,hour,minute,price,code,exp,state) VALUES ('$username','$bank','$date_payment','$hour','$minute','$row->price','$row->title','$exp','1')";
+				$this->db->query($sql2);
+				// echo $sql2;
 			}
 
-			// count student regis
-			$sql 		= "SELECT student_regis FROM tb_course WHERE code='$buff_code'";
-			$query 		= $this->db->query($sql);
+			$sql 			= "UPDATE tb_order SET state=1 WHERE username='$username' AND state=0";
+			$this->db->query($sql);
 
-			$buff_count = 0; 
-
-			foreach ($query->result() as $row) {
-				$buff_count = $row->student_regis;
-				$buff_count++;
-				$sql 	= "UPDATE tb_course SET student_regis='$buff_count' WHERE code='$buff_code'";
-				$this->db->query($sql);
-			}
+			$sql 			= "UPDATE tb_payment SET state=1 WHERE username='$username' AND date_payment='$date_payment' AND
+							hour='$hour' AND minute='$minute' AND code='ชำระเงินคอร์สทั้งหมด'";
+			$this->db->query($sql);
 
 			echo "update_success";
+
 		} else {
-			echo "update_error";
+			$sql 			= "UPDATE tb_payment SET state=1, exp='$exp' WHERE username='$username' AND date_payment='$date_payment' AND
+							hour='$hour' AND minute='$minute'";
+			$query 			= $this->db->query($sql);
+
+			if ($this->db->affected_rows() === 1 ) {
+
+				$sql 		= "SELECT code FROM tb_payment WHERE username='$username' AND date_payment='$date_payment' AND
+								hour='$hour' AND minute='$minute'";
+				$query 		= $this->db->query($sql);
+
+				$buff_code 	= ""; // use for count student regis
+
+				foreach ($query->result() as $row) {
+					$find_code = "UPDATE tb_order SET state=1 WHERE username='$username' AND title='$row->code'";
+					$this->db->query($find_code);
+
+					$buff_code = $row->code;
+				}
+
+				// count student regis
+				$sql 		= "SELECT student_regis FROM tb_course WHERE code='$buff_code'";
+				$query 		= $this->db->query($sql);
+
+				$buff_count = 0; 
+
+				foreach ($query->result() as $row) {
+					$buff_count = $row->student_regis;
+					$buff_count++;
+					$sql 	= "UPDATE tb_course SET student_regis='$buff_count' WHERE code='$buff_code'";
+					$this->db->query($sql);
+				}
+
+				echo "update_success";
+			} else {
+				echo "update_error";
+			}
 		}
+
 	}
 
 	public function db_add_category() {
@@ -362,7 +393,7 @@ class Model_admin extends CI_Model {
 	}
 
 	public function fetch_all_course() {
-		$sql 		= "SELECT category, code, title, day FROM tb_course";
+		$sql 		= "SELECT category, code, title, price, day FROM tb_course";
 		$query 		= $this->db->query($sql);
 
 		foreach ($query->result() as $row) {
@@ -371,6 +402,7 @@ class Model_admin extends CI_Model {
 				<td>".$row->category."</td>
 				<td>".$row->code."</td>
 				<td>".$row->title."</td>
+				<td>".$row->price."</td>
 				<td>".$row->day."</td>
 			</tr>
 			";
@@ -675,6 +707,17 @@ class Model_admin extends CI_Model {
 		}
 	}
 
+	public function edit_delete_user() {
+		$username 	= $this->input->post('username');
+		$sql  		= "DELETE FROM tb_users WHERE username='$username'";
+		$query 		= $this->db->query($sql);
+		if ($this->db->affected_rows() === 1) {
+			echo "delete_success";
+		} else {
+			echo "delete_error";
+		}
+	}
+
 	public function fetch_student_regis() {
 		$sql 	= "SELECT * FROM tb_course";
 		$query 	= $this->db->query($sql);
@@ -685,6 +728,37 @@ class Model_admin extends CI_Model {
 			<td>".$row->title."</td>
 			<td>".$row->student_regis."</td>
 			</tr>";
+		}
+	}
+
+	public function db_edit_exp() {
+		$username 	= $this->input->post('username');
+		$code 		= $this->input->post('code');
+		$exp 		= $this->input->post('exp');
+
+		$sql 		= "SELECT title FROM tb_order WHERE username='$username' AND code='$code'";
+		$query 		= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			$sql 	= "UPDATE tb_payment SET exp='$exp' WHERE username='$username' AND code='$row->title'";
+			$query2 = $this->db->query($sql);
+
+			if ($this->db->affected_rows() === 1) {
+				echo "edit_exp_success";
+			} else {
+				echo "edit_exp_error";
+			}
+		}
+	}
+
+	public function db_not_paid() {
+		$username 	= $this->input->post('search_username');
+
+		$sql 		= "SELECT code FROM tb_order WHERE username='$username' AND state=0";
+		$query 		= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo $row->code . " , ";
 		}
 	}
 

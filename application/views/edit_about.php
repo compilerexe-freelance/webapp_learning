@@ -11,7 +11,7 @@
 				</div>
 			</div>
 
-			<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 15px;">
+			<div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-md-offset-1" style="margin-top: 15px;">
 				<div class="form-group">
 					<?php echo form_open('c_admin/save_about'); ?>
 					<textarea name="txt_about" class="form-control" rows="50" style="font-size: 18px; resize: none;">
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 
-			<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 15px;">
+			<div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-md-offset-1" style="margin-top: 15px;">
 				<div class="form-group">
 					<button type="submit" class="btn btn-success btn-flat" style="width: 100%; height: 45px; font-size: 18px;">บันทึกการแก้ไข</button>
 					<?php echo form_close(); ?>
