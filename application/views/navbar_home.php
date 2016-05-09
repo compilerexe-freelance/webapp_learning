@@ -35,7 +35,7 @@
 		            <li <?php if ($this->session->navbar_active == "howto") { echo "class='active'"; } ?> >
 						<a href="<?php echo base_url(); ?>main/howto">วิธีการเรียน/ชำระเงิน</a>
 					</li>
-					<li <?php if ($this->session->navbar_active == "promotion") { echo "class='active'"; } ?> >
+					<li <?php if ($this->session->navbar_active == "payment") { echo "class='active'"; } ?> >
 						<a href="<?php echo base_url(); ?>main/payment">แจ้งชำระเงิน</a>
 					</li>
 		          </ul>
@@ -50,7 +50,7 @@
 
 		        
 
-				<li <?php if ($this->session->navbar_active == "promotion") { echo "class='active'"; } ?> >
+				<li <?php if ($this->session->navbar_active == "learn") { echo "class='active'"; } ?> >
 					<a href="<?php echo base_url(); ?>main/learn">คอร์สที่ลงเรียน</a>
 				</li>
 

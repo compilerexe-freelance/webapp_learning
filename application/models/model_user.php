@@ -81,25 +81,23 @@ class Model_user extends CI_Model {
 		foreach ($query->result() as $row) {
 			if ($row->username == $user && $row->password == $pass) {
 
-				$state_session = $this->session_check($user);
+				// $state_session = $this->session_check($user);
 
-				if ($state_session) {
+				// if ($state_session) {
 
-					$sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
-					$query = $this->db->query($sql);
+					// $sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
+					// $query = $this->db->query($sql);
 
 					$this->session->state_login = $user; // session $user login
-
-					// session profile
-					$this->session_profile($user);
+					$this->session_profile($user); // session profile
 
 					return "c_login_success";
 
-				} else {
+				// } else {
 
-					return "c_detect_active";
+				// 	return "c_detect_active";
 					
-				}
+				// }
 
 				
 			}
@@ -625,12 +623,14 @@ class Model_user extends CI_Model {
 
 	public function fetch_learn() {
 
-		$user 	= $this->session->state_login;
-		$sql 	= "SELECT id, date_payment, code, exp FROM tb_payment WHERE username='$user' AND state=1";
-		$query 	= $this->db->query($sql);
+		$user 				= $this->session->state_login;
+		$sql 				= "SELECT id, date_payment, code, exp FROM tb_payment WHERE username='$user' AND state=1";
+		$query 				= $this->db->query($sql);
 
-		$buff_code = [];
-		$i 		= 0;
+		$day 				= [];
+		$array_day 			= 0;
+		$buff_day			= 0;
+		$state 				= 0;
 
 		foreach ($query->result() as $row) {
 
@@ -643,10 +643,9 @@ class Model_user extends CI_Model {
     		$date_now 		= $this->DateDiff($start, $date_now);
 
     		if ($date_now < $exp) {
-
-    			$buff_code[$i] 	= $row->code;
-				$i++;
-
+    			$day[$array_day] 	= --$exp;
+    			$state 				= 1;
+    			$array_day++;
     		} else {
     			$sql = "UPDATE tb_payment SET state=2 WHERE id='$row->id'";
     			$this->db->query($sql);
@@ -657,54 +656,61 @@ class Model_user extends CI_Model {
 
 
 		}
+		
+		// echo count($day);
+		
+		$remaining 		= [];
+		$buff_remaining = 0;
 
-		// echo count($buff_code);
+		if ($state == 1) {
+			$sql = "SELECT title, code FROM tb_order WHERE username='$user' AND state=1";
+			$query = $this->db->query($sql);
 
-		$sql = "SELECT title, code FROM tb_order WHERE username='$user' AND state=1";
-		$query = $this->db->query($sql);
+			foreach ($query->result() as $row) {
+				
+				if ($buff_day <= count($day)) {
 
-		foreach ($query->result() as $row) {
-			
-			echo '
-				<hr size="1">
-				<div class="col-xs-12 col-sm-12 col-md-12">
-					<div class="form-group text-center">
-						<span style="font-size: 26px;">'.$row->title.'</span>
-					</div>
+					if ($day[$buff_day] <= 3) {
+						$remaining[$buff_remaining] = $row->title;
+						$buff_remaining++;
+					}
 
-					<div class="form-group">
-						<div class="easyhtml5video" style="position:relative;max-width:656px;">
-							<video controls="controls"  poster="" style="width:100%" title="Test">
-							<source src="'.base_url()."uploads/course/".$row->code.'.m4v" type="video/mp4" />
-						</video>
-					</div>
-				</div>
-			';
-			
+					include ($_SERVER["DOCUMENT_ROOT"]."protect_video/includetop.php");
+
+					echo '
+						<hr size="1">
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<div class="form-group text-center">
+								<span style="font-size: 26px; color:green;">'.$row->title.' (เหลือเวลา '.$day[$buff_day].' วัน)</span>
+							</div>
+
+							<div class="form-group">
+								<div class="easyhtml5video" style="position:relative;max-width:656px;">
+
+									<video controls="controls"  poster="" style="width:100%" title="Test">
+									<source src="'.base_url()."uploads/course/".$row->code.'.m4v" type="video/mp4" />
+
+								</video>
+							</div>
+						</div>
+					';
+
+					include ($_SERVER["DOCUMENT_ROOT"]."protect_video/includebottom.php");
+					$buff_day++;
+				}
+			}
+
+				echo "<script type='text/javascript'> var msg_remaining = ''; </script>";
+			for ($i = 0; $i < count($remaining); $i++) {
+				echo "<script type='text/javascript'> msg_remaining += ' (".$remaining[$i].") '; </script>";
+			}
+
+			echo "<script type='text/javascript'>
+				
+					modal_show('<span style=\'color:blue;\'>เวลาคอร์สเรียน ' + msg_remaining + ' ใกล้หมดแล้วจ้า</span>');
+				
+				</script>";
 		}
-
-		// for ($j = 0; $j < $i; $j++) {
-		// 	$sql 	= "SELECT * FROM tb_clip WHERE code='$buff_code[$j]'";
-		// 	$query 	= $this->db->query($sql);
-		// 	foreach ($query->result() as $row) {
-
-		// 		echo '
-		// 			<hr size="1">
-		// 			<div class="col-xs-12 col-sm-12 col-md-12">
-		// 				<div class="form-group text-center">
-		// 					<span style="font-size: 26px;">'.$row->title.'</span>
-		// 				</div>
-
-		// 				<div class="form-group">
-		// 					<div class="easyhtml5video" style="position:relative;max-width:656px;">
-		// 						<video controls="controls"  poster="" style="width:100%" title="Test">
-		// 						<source src="'.base_url().$row->url.'" type="video/mp4" />
-		// 					</video>
-		// 				</div>
-		// 			</div>
-		// 		';
-		// 	}
-		// }
 
 	}
 

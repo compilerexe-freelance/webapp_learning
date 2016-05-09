@@ -161,6 +161,9 @@ class Main extends CI_Controller {
 	}
 
 	public function payment() { // Page payment
+
+		$this->session->navbar_active = "payment";
+
 		$state_login = $this->session->state_login;
 
 		if ($state_login == "") {
@@ -188,7 +191,7 @@ class Main extends CI_Controller {
 
 	public function learn() {
 
-		$this->session->navbar_active = "myprofile";
+		$this->session->navbar_active = "learn";
 
 		$state_login = $this->session->state_login;
 		if ($state_login == "") {
