@@ -762,6 +762,18 @@ class Model_admin extends CI_Model {
 		}
 	}
 
+	public function db_device_login() {
+		$sql 		= "SELECT username, state_session FROM tb_session WHERE state_session=2";
+		$query 		= $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			echo "<tr>
+			<td>".$row->username."</td>
+			<td><span class='glyphicon glyphicon-ok'></span></td>
+			</tr>";
+		}
+	}
+
 }
 
 ?>

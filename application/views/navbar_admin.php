@@ -45,6 +45,7 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="<?php echo base_url(); ?>c_admin/find_profile" style="font-size: 16px;">โปรไฟล์</a></li>
 		            <li><a href="<?php echo base_url(); ?>c_admin/history_course" style="font-size: 16px;">คอร์สเรียน</a></li>
+		            <li><a href="<?php echo base_url(); ?>c_admin/device_login" style="font-size: 16px;">สถานะล็อกอิน</a></li>
 		          </ul>
 		        </li>
 

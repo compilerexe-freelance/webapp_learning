@@ -960,6 +960,20 @@ class C_admin extends Main {
 		}
 	}
 
+	public function device_login() {
+		if ($this->session->session_admin != "") {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('device_login');
+			$this->load->view('close_html');
+		} else {
+			$this->load->view('open_html');
+			$this->load->view('header');
+			$this->load->view('index');
+			$this->load->view('close_html');
+		}
+	}
+
 }
 
 ?>

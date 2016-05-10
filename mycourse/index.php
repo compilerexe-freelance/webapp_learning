@@ -208,7 +208,7 @@
 		    		}
 				}
 
-				echo count($day);
+				// echo count($day);
 
 				$remaining 			= [];
 				$buff_remaining 	= 0;

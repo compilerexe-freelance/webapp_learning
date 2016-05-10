@@ -5,7 +5,6 @@ class Model_user extends CI_Model {
 	
 	function __construct() {
 		parent::__construct();
-		session_start();
 	}
 
 	function insert_user() {
@@ -82,13 +81,13 @@ class Model_user extends CI_Model {
 		foreach ($query->result() as $row) {
 			if ($row->username == $user && $row->password == $pass) {
 
-				// $state_session = $this->session_check($user);
+				$state_session = $this->session_check($user);
 
 				// if ($state_session) {
 
 					// $sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
 					// $query = $this->db->query($sql);
-					$_SESSION['state_login'] = $user;
+
 					$this->session->state_login = $user; // session $user login
 					$this->session_profile($user); // session profile
 
@@ -115,10 +114,16 @@ class Model_user extends CI_Model {
 			if ($row->username == $data) {
 				if ($row->state_session == "0") {
 					// update session to 1
-					$sql 	= "UPDATE tb_session SET state_session='1' WHERE username='$data'";
+					$sql 	= "UPDATE tb_session SET state_session=1 WHERE username='$data'";
 					$query 	= $this->db->query($sql);
 					// end update session
 					return true;
+				} else if ($row->state_session == "1") {
+
+					$sql = "UPDATE tb_session SET state_session=2 WHERE username='$data'";
+					$this->db->query($sql);
+					return true;
+
 				} else {
 
 					// if lastupdate over 20 minute access to login
@@ -186,7 +191,7 @@ class Model_user extends CI_Model {
 	public function session_logout() {
 
 		$user = $this->session->state_login;
-		$sql 	= "UPDATE tb_session SET state_session='0' WHERE username='$user'";
+		$sql 	= "UPDATE tb_session SET state_session=0 WHERE username='$user'";
 		$query 	= $this->db->query($sql);
 
 		$session_items = array(
