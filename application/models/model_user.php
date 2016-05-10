@@ -1,10 +1,11 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_user extends CI_Model {
 	
 	function __construct() {
 		parent::__construct();
+		session_start();
 	}
 
 	function insert_user() {
@@ -87,7 +88,7 @@ class Model_user extends CI_Model {
 
 					// $sql = "UPDATE tb_session SET lastupdate=NOW() WHERE username='$user'";
 					// $query = $this->db->query($sql);
-
+					$_SESSION['state_login'] = $user;
 					$this->session->state_login = $user; // session $user login
 					$this->session_profile($user); // session profile
 
@@ -413,29 +414,30 @@ class Model_user extends CI_Model {
 	}
 
 	public function fetch_home() {
+
 		$user = $this->session->state_login;
+	
+		$i = 0; // counting select items
+
+		$code_order = [];
+		$array_order = 0;
+
+		$array_read = 0;
+
+		$sql = "SELECT code FROM tb_order WHERE username='$user' AND state=1 ORDER BY code ASC";
+		$query = $this->db->query($sql);
+
+		foreach ($query->result() as $row) {
+			$code_order[$array_order] = $row->code;
+			$array_order++;
+		}
+
 		$sql = "SELECT category FROM tb_category";
 		$query = $this->db->query($sql);
 
-		$count_category = 0;
-		$array_category;
-
-		$i = 0; // counting select items
-		$buff_regis = [];
-		$counting_buff_regis = 0;
-		$read_buff_regis = 0;
-
-		$onetimecheck = 0;
-
 		foreach ($query->result() as $row) {
-			$array_category[$count_category] = $row->category;
-			$count_category++;
-		}
 
-		// Read array category
-		foreach ($array_category as $buff) { 
 			echo '
-
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<hr size="1" />
 				</div>
@@ -444,121 +446,47 @@ class Model_user extends CI_Model {
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-12 col-md-12">
 							<div class="form-group">
-								<span style="font-size: 30px;">'.$buff.'</span>
+								<span style="font-size: 30px;">'.$row->category.'</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			';
 
-			// check code regis
-			$sql = "SELECT code FROM tb_order WHERE username='$user' AND state=1";
-			$query = $this->db->query($sql);
-			
-			foreach ($query->result() as $row) {
-				$buff_regis[$counting_buff_regis] = $row->code;
-				$counting_buff_regis++;
-			}
-			
-			if ($onetimecheck == 0) {
-				// echo $counting_buff_regis;
-				$counting_buff_regis--;
-				$onetimecheck = 1;
-				// echo $counting_buff_regis;
-			}
-			
+			// echo count($code_order);
 
-			// Read title from category
-			$sql = "SELECT image, code, category, title, detail, price, day FROM tb_course WHERE category='$buff'";
-			$query = $this->db->query($sql);
+			$sql = "SELECT image, code, category, title, detail, price, day FROM tb_course WHERE category='$row->category'";
+			$query3 = $this->db->query($sql);
 
-			foreach ($query->result() as $row) {
-
+			foreach ($query3->result() as $row) {
 				$url = ''.base_url().$row->image;
-				
-				//-------------test---------
-				
-				if ($read_buff_regis <= $counting_buff_regis) {
-					
-					if ($buff_regis[$read_buff_regis] == $row->code) {
-						echo '
-							<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
-								<div class="form-group">
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
-									</div>
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
-									</div>
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
-									</div>
-									<div class="col-xs-10 col-sm-12 col-md-12">
-										<div class="form-group"><button class="btn btn-danger btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;" disabled>ลงเรียนแล้ว</button></div>
-									</div>
+				if ($code_order[$array_read] == $row->code) {
+					// echo $code_order[$array_read] . "\n";
+					echo '
+						<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
 								</div>
 							</div>
-						';
-						$read_buff_regis++;
-					} else {
-						echo '
-							<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
-								<div class="form-group">
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><img src="'.$url.'" class="img-responsive"></div>
-									</div>
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
 								</div>
-								<div class="form-group">
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><span style="color:#ff8080; text-decoration: underline;">'. $row->title .'</span></div>
-									</div>
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
-									</div>
-									<div class="col-xs-12 col-sm-12 col-md-12">
-										<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
-									</div>
-									<div class="col-xs-10 col-sm-12 col-md-12">
-										<div class="form-group"><button class="btn btn-success btn-flat" id="btn_'. $i .'" style="font-size: 16px; width: 100%; height: 40px;">ลงเรียน</button></div>
-									</div>
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><span style="//color:#ff9999;">'. $row->detail .'</span></div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<div class="form-group"><span style="color: blue;">ราคา '. number_format($row->price) .' บาท</span></div>
+								</div>
+								<div class="col-xs-10 col-sm-12 col-md-12">
+									<div class="form-group"><button class="btn btn-danger btn-flat" style="font-size: 16px; width: 100%; height: 40px;" disabled>ลงเรียนแล้ว</button></div>
 								</div>
 							</div>
-
-							<script type="text/javascript">
-
-								fetch_items++;
-
-								$(document).ready(function() {
-
-									$("#btn_'. $i .'").click(function() {
-										title_items['. $i .'] 		= "'. $row->title .'";
-										code_items['. $i .'] 		= "'. $row->code .'";
-										category_items['. $i .'] 	= "'. $row->category .'";
-										price_items['. $i .'] 		= "'. $row->price .'";
-										day_items['. $i .'] 		= "'. $row->day .'";
-										count_select++;
-										$("#badge_count").text(count_select);
-										$("#btn_'. $i .'").attr("disabled", true);
-										$("#btn_'. $i .'").attr("class", "btn btn-warning");
-										$("#btn_'. $i .'").text("รอการยืนยัน");
-										array_delete['. $i .'] = 1;
-										price_checkout = price_checkout + parseInt(' . $row->price . ');
-									});
-
-
-
-								});
-
-							</script>
-						';
-					}
-					
-				} else {
+						</div>
+					';
+					$array_read++;
+				} else { // not regis 
 					echo '
 						<div class="col-xs-12 col-sm-3 col-md-3" style="//border: 1px solid #abc;">
 							<div class="form-group">
@@ -603,21 +531,15 @@ class Model_user extends CI_Model {
 									price_checkout = price_checkout + parseInt(' . $row->price . ');
 								});
 
-
-
 							});
 
 						</script>
 					';
+					$i++;
 				}
-
-				$i++;
-				//--------------------------
-
 			}
 
 		}
-
 	}
 
 
@@ -643,13 +565,13 @@ class Model_user extends CI_Model {
     		$date_now 		= $this->DateDiff($start, $date_now);
 
     		if ($date_now < $exp) {
-    			$day[$array_day] 	= --$exp;
+    			$day[$array_day] 	= $exp - 1;
     			$state 				= 1;
     			$array_day++;
     		} else {
     			$sql = "UPDATE tb_payment SET state=2 WHERE id='$row->id'";
     			$this->db->query($sql);
-    			$sql = "UPDATE tb_order SET state=2 WHERE username='$user' AND code='$row->code'";
+    			$sql = "UPDATE tb_order SET state=2 WHERE username='$user' AND title='$row->code'";
     			$this->db->query($sql);
     		}
     		//end check
@@ -659,8 +581,9 @@ class Model_user extends CI_Model {
 		
 		// echo count($day);
 		
-		$remaining 		= [];
-		$buff_remaining = 0;
+		$remaining 			= [];
+		$buff_remaining 	= 0;
+		$state_remaining 	= 0;
 
 		if ($state == 1) {
 			$sql = "SELECT title, code FROM tb_order WHERE username='$user' AND state=1";
@@ -673,9 +596,8 @@ class Model_user extends CI_Model {
 					if ($day[$buff_day] <= 3) {
 						$remaining[$buff_remaining] = $row->title;
 						$buff_remaining++;
+						$state_remaining = 1;
 					}
-
-					include ($_SERVER["DOCUMENT_ROOT"]."protect_video/includetop.php");
 
 					echo '
 						<hr size="1">
@@ -695,21 +617,24 @@ class Model_user extends CI_Model {
 						</div>
 					';
 
-					include ($_SERVER["DOCUMENT_ROOT"]."protect_video/includebottom.php");
 					$buff_day++;
 				}
 			}
 
+			if ($state_remaining == 1) {
 				echo "<script type='text/javascript'> var msg_remaining = ''; </script>";
-			for ($i = 0; $i < count($remaining); $i++) {
-				echo "<script type='text/javascript'> msg_remaining += ' (".$remaining[$i].") '; </script>";
+				for ($i = 0; $i < count($remaining); $i++) {
+					echo "<script type='text/javascript'> msg_remaining += ' (".$remaining[$i].") '; </script>";
+				}
+
+				echo "<script type='text/javascript'>
+						
+						modal_show('<span style=\'color:blue;\'>เวลาคอร์สเรียน ' + msg_remaining + ' ใกล้หมดแล้วจ้า</span>');
+					
+					</script>";
 			}
 
-			echo "<script type='text/javascript'>
 				
-					modal_show('<span style=\'color:blue;\'>เวลาคอร์สเรียน ' + msg_remaining + ' ใกล้หมดแล้วจ้า</span>');
-				
-				</script>";
 		}
 
 	}

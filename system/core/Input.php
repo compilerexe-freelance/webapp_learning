@@ -432,7 +432,7 @@ class CI_Input {
 			$proxy_ips = explode(',', str_replace(' ', '', $proxy_ips));
 		}
 
-		$this->ip_address = $this->server('REMOTE_ADDR');
+		$this->ip_address = $this->server('remote_addr');
 
 		if ($proxy_ips)
 		{

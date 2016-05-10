@@ -1,15 +1,10 @@
 <?php
 
-	$this->model_user->time_update();
+	// $this->model_user->time_update();
 
 ?>
 <nav class="navbar navbar-default" style="font-size: 16px;">
 	<div class="container">
-
-		<!-- div class="text-right" style="margin-top: 20px;">
-			<a href="#link_regis" id="btn_regis"><span class="glyphicon glyphicon-user"></span> สมัครสมาชิก</a>
-			<a href="#link_login" id="btn_login"><span class="glyphicon glyphicon-user"></span> เข้าสู่ระบบ</a>
-		</div> -->
 
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
@@ -51,7 +46,8 @@
 		        
 
 				<li <?php if ($this->session->navbar_active == "learn") { echo "class='active'"; } ?> >
-					<a href="<?php echo base_url(); ?>main/learn">คอร์สที่ลงเรียน</a>
+					<!-- <a href="<?php echo base_url(); ?>main/learn">คอร์สที่ลงเรียน</a> -->
+					<a href="<?php echo base_url().'mycourse/index.php?user='.$this->session->state_login; ?>">คอร์สที่ลงเรียน</a>
 				</li>
 
 				<li <?php if ($this->session->navbar_active == "promotion") { echo "class='active'"; } ?> >
