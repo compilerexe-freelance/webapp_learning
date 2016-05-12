@@ -29,6 +29,7 @@
 			$('#modal_msg').html(msg);
 			$('#modal_alert').modal();
 		}
+		alert("ตามพ.ร.บ.ลิขสิทธิ์ (ฉบับที่ 2) พ.ศ.2558 ไม่อนุญาติให้ดาวโหลด จำหน่าย จ่ายแจก วิดีโอ หากมีการละเมิดลิขสิทธิ์ใดๆ ทางเว็ปขอสงวนสิทธิ์ในการดำเนินคดีกฎหมาย โดยไม่ต้องแจ้งเตือนล่วงหน้า");
 	</script>
 
 	<nav class="navbar navbar-default" style="font-size: 16px;">
@@ -162,6 +163,8 @@
 
 			<!-- End Modal Alert -->
 
+			
+
 			<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 15px;">
 
 				<?php
@@ -219,7 +222,7 @@
 					$result = $conn->query($sql);
 
 					if ($result->num_rows > 0) {
-						include ('includetop.php');
+						// include ('includetop.php');
 						while($row = $result->fetch_assoc()) {
 						
 							if ($buff_day <= count($day)) {
@@ -251,7 +254,7 @@
 								$buff_day++;
 							}
 						}
-						include ('includebottom.php');
+						// include ('includebottom.php');
 					}
 
 					if ($state_remaining == 1) {
