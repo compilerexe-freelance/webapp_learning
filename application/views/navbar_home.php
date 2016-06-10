@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="collapse navbar-collapse" id="navbar-collapse-1">
-			
+
 			<ul class="nav navbar-nav navbar-left">
 
 				<li <?php if ($this->session->navbar_active == "home") { echo "class='active'"; } ?> >
@@ -43,11 +43,10 @@
 		          </ul>
 		        </li>
 
-		        
+
 
 				<li <?php if ($this->session->navbar_active == "learn") { echo "class='active'"; } ?> >
-					<!-- <a href="<?php echo base_url(); ?>main/learn">คอร์สที่ลงเรียน</a> -->
-					<a href="<?php echo base_url().'mycourse/index.php?user='.$this->session->state_login; ?>">คอร์สที่ลงเรียน</a>
+					<a href="<?php echo base_url(); ?>main/learn">คอร์สที่ลงเรียน</a>
 				</li>
 
 				<li <?php if ($this->session->navbar_active == "promotion") { echo "class='active'"; } ?> >
@@ -67,11 +66,11 @@
 		          </ul>
 		        </li>
 
-				
+
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				
+
 				<li <?php if ($this->session->navbar_active == "myprofile") { echo "class='dropdown active'"; } ?> >
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ประวัติ <span class="caret"></span></a>
 		          <ul class="dropdown-menu">

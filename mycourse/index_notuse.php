@@ -3,7 +3,10 @@
 	session_start();
 	$localhost = "http://localhost/";
 	$url = "http://localhost/index.php/";
-	$user = $_GET['user'];
+	$user = $_post['user'];
+	if ($user == "") {
+		exit(0);
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +49,7 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
-				
+
 				<ul class="nav navbar-nav navbar-left">
 
 					<li>
@@ -75,7 +78,7 @@
 						// Check connection
 						if ($conn->connect_error) {
 						    die("Connection failed: " . $conn->connect_error);
-						} 
+						}
 
 						$conn->query("set names 'utf8'");
 
@@ -94,7 +97,7 @@
 			          </ul>
 			        </li>
 
-			        
+
 
 					<li class="active">
 						<a href="<?php echo $localhost.'mycourse/index.php?user='.$user; ?>">คอร์สที่ลงเรียน</a>
@@ -119,7 +122,7 @@
 
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					
+
 					<li>
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ประวัติ <span class="caret"></span></a>
 			          <ul class="dropdown-menu">
@@ -152,7 +155,7 @@
 			      	<div class="form-group">
 						<span id="modal_msg"></span>
 					</div>
-			      
+
 			      </div>
 			      <div class="modal-footer">
 				  	<button type="button" class="btn btn-default" data-dismiss="modal">ปิดหน้าต่าง</button>
@@ -163,7 +166,7 @@
 
 			<!-- End Modal Alert -->
 
-			
+
 
 			<div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 15px;">
 
@@ -177,9 +180,9 @@
 				$array_day 			= 0;
 				$buff_day			= 0;
 				$state 				= 0;
-				
+
 				$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-				if ($conn->connect_error) {die("Connection failed: " . $conn->connect_error);} 
+				if ($conn->connect_error) {die("Connection failed: " . $conn->connect_error);}
 				$conn->query("set names 'utf8'");
 
 				$sql 				= "SELECT id, date_payment, code, exp FROM tb_payment WHERE username='$user' AND state=1";
@@ -224,7 +227,7 @@
 					if ($result->num_rows > 0) {
 						// include ('includetop.php');
 						while($row = $result->fetch_assoc()) {
-						
+
 							if ($buff_day <= count($day)) {
 
 								if ($day[$buff_day] <= 3) {
@@ -264,19 +267,19 @@
 						}
 
 						echo "<script type='text/javascript'>
-								
+
 								modal_show('<span style=\'color:blue;\'>เวลาคอร์สเรียน ' + msg_remaining + ' ใกล้หมดแล้วจ้า</span>');
-							
+
 							</script>";
 					}
 
-						
+
 				}
 
 				$conn->close();
 
 				?>
-				
+
 			</div>
 		</div>
 	</div>
